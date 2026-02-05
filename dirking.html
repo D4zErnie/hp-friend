@@ -45,7 +45,7 @@
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
-                            <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
+                    <button className="flex items-center cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg transition-opacity hover:opacity-80 appearance-none bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
                                 <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
                                     <Icon name="shield" className="w-8 h-8" />
                                 </div>
@@ -53,7 +53,7 @@
                                     <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
                                     <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
                                 </div>
-                            </div>
+                    </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
                                 <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
