@@ -41,49 +41,7 @@
             { label: "Transparent", sub: "Keine versteckten Kosten" }
         ];
 
-        const App = () => {
-            const [currentPage, setCurrentPage] = useState('home');
-            const [legalSubTab, setLegalSubTab] = useState('impressum');
-            const [isMenuOpen, setIsMenuOpen] = useState(false);
-            
-            // Formular-Status
-            const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
-            const [formSubmitted, setFormSubmitted] = useState(false);
-            const [isSubmitting, setIsSubmitting] = useState(false);
-
-            useEffect(() => {
-                window.scrollTo(0, 0);
-                if (window.lucide) window.lucide.createIcons();
-            }, [currentPage, legalSubTab]);
-
-            const navigateTo = (page) => {
-                setCurrentPage(page);
-                setIsMenuOpen(false);
-            };
-
-            const navigateToLegal = (tab) => {
-                setLegalSubTab(tab);
-                setCurrentPage('legal');
-                setIsMenuOpen(false);
-            };
-
-            const handleInputChange = (e) => {
-                const { name, value } = e.target;
-                setContactData(prev => ({ ...prev, [name]: value }));
-            };
-
-            const handleFormSubmit = (e) => {
-                e.preventDefault();
-                setIsSubmitting(true);
-                // Simulierte Netzwerkverzögerung für besseres UX-Feedback
-                setTimeout(() => {
-                    console.log("Formular abgesendet:", contactData);
-                    setIsSubmitting(false);
-                    setFormSubmitted(true);
-                }, 1500);
-            };
-
-            const Navigation = () => (
+        const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen }) => (
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
@@ -96,23 +54,18 @@
                                     <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
                                 </div>
                             </div>
-                            <div>
-                                <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
-                                <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
+                            <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
+                                <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
+                                <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
+                                <button onClick={() => navigateTo('commercial')} className={currentPage === 'commercial' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Gewerbe</button>
+                                <button onClick={() => navigateTo('contact')} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md">Kontakt</button>
                             </div>
+                            <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                <Icon name={isMenuOpen ? "x" : "menu"} />
+                            </button>
                         </div>
-                        <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
-                            <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
-                            <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
-                            <button onClick={() => navigateTo('commercial')} className={currentPage === 'commercial' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Gewerbe</button>
-                            <button onClick={() => navigateTo('contact')} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md">Kontakt</button>
-                        </div>
-                        <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            <Icon name={isMenuOpen ? "x" : "menu"} />
-                        </button>
                     </div>
-                </div>
-                {isMenuOpen && (
+                    {isMenuOpen && (
                     <div className="md:hidden bg-white border-t p-4 space-y-4 shadow-xl">
                         <button onClick={() => navigateTo('home')} className="block w-full text-left text-slate-600 py-2">Startseite</button>
                         <button onClick={() => navigateTo('private')} className="block w-full text-left text-slate-600 py-2">Privat</button>
