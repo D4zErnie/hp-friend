@@ -34,6 +34,13 @@
             return <i data-lucide={name} className={className}></i>;
         };
 
+        const FEATURES = [
+            { label: "Unabhängig", sub: "Freie Tarifwahl" },
+            { label: "Erfahren", sub: "Über 15 Jahre" },
+            { label: "Persönlich", sub: "Fester Ansprechpartner" },
+            { label: "Transparent", sub: "Keine versteckten Kosten" }
+        ];
+
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
@@ -179,13 +186,8 @@
 
                     <section className="py-12 bg-white border-b border-slate-100">
                         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-                            {[
-                                { label: "Unabhängig", sub: "Freie Tarifwahl" },
-                                { label: "Erfahren", sub: "Über 15 Jahre" },
-                                { label: "Persönlich", sub: "Fester Ansprechpartner" },
-                                { label: "Transparent", sub: "Keine versteckten Kosten" }
-                            ].map((item, i) => (
-                                <div key={i} className="text-center group cursor-default">
+                            {FEATURES.map((item) => (
+                                <div key={item.label} className="text-center group cursor-default">
                                     <p className="text-blue-600 font-bold text-xl group-hover:scale-110 transition-transform">{item.label}</p>
                                     <p className="text-slate-400 text-sm mt-1">{item.sub}</p>
                                 </div>
