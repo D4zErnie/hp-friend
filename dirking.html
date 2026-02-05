@@ -34,13 +34,67 @@
             return <i data-lucide={name} className={className}></i>;
         };
 
-        const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen }) => (
-            <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-20 items-center">
-                        <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
-                            <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
-                                <Icon name="shield" className="w-8 h-8" />
+        const FEATURES = [
+            { label: "Unabhängig", sub: "Freie Tarifwahl" },
+            { label: "Erfahren", sub: "Über 15 Jahre" },
+            { label: "Persönlich", sub: "Fester Ansprechpartner" },
+            { label: "Transparent", sub: "Keine versteckten Kosten" }
+        ];
+
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [legalSubTab, setLegalSubTab] = useState('impressum');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            
+            // Formular-Status
+            const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
+            const [formSubmitted, setFormSubmitted] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+
+            useEffect(() => {
+                window.scrollTo(0, 0);
+                if (window.lucide) window.lucide.createIcons();
+            }, [currentPage, legalSubTab]);
+
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+                setIsMenuOpen(false);
+            };
+
+            const navigateToLegal = (tab) => {
+                setLegalSubTab(tab);
+                setCurrentPage('legal');
+                setIsMenuOpen(false);
+            };
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setContactData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                // Simulierte Netzwerkverzögerung für besseres UX-Feedback
+                setTimeout(() => {
+                    console.log("Formular abgesendet:", contactData);
+                    setIsSubmitting(false);
+                    setFormSubmitted(true);
+                }, 1500);
+            };
+
+            const Navigation = () => (
+                <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between h-20 items-center">
+                            <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
+                                <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
+                                    <Icon name="shield" className="w-8 h-8" />
+                                </div>
+                                <div>
+                                    <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
+                                    <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
+                                </div>
                             </div>
                             <div>
                                 <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
@@ -135,21 +189,16 @@
                     </div>
                 </header>
 
-                <section className="py-12 bg-white border-b border-slate-100">
-                    <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {[
-                            { label: "Unabhängig", sub: "Freie Tarifwahl" },
-                            { label: "Erfahren", sub: "Über 15 Jahre" },
-                            { label: "Persönlich", sub: "Fester Ansprechpartner" },
-                            { label: "Transparent", sub: "Keine versteckten Kosten" }
-                        ].map((item, i) => (
-                            <div key={i} className="text-center group cursor-default">
-                                <p className="text-blue-600 font-bold text-xl group-hover:scale-110 transition-transform">{item.label}</p>
-                                <p className="text-slate-400 text-sm mt-1">{item.sub}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                    <section className="py-12 bg-white border-b border-slate-100">
+                        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+                            {FEATURES.map((item) => (
+                                <div key={item.label} className="text-center group cursor-default">
+                                    <p className="text-blue-600 font-bold text-xl group-hover:scale-110 transition-transform">{item.label}</p>
+                                    <p className="text-slate-400 text-sm mt-1">{item.sub}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
 
                 <section id="leistungen-auswahl" className="py-24 bg-slate-50">
                     <div className="max-w-7xl mx-auto px-4 text-center mb-16">
