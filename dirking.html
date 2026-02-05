@@ -157,9 +157,14 @@
                 <div className="animate-fade-in">
                     <header className="relative min-h-[75vh] flex items-center text-white overflow-hidden bg-slate-900">
                         <img 
-                            src="https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=2000&auto=format&fit=crop" 
+                            src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2000&auto=format&fit=crop"
+                            srcSet="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=640&auto=format&fit=crop 640w,
+                                    https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1200&auto=format&fit=crop 1200w,
+                                    https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2000&auto=format&fit=crop 2000w"
+                            sizes="100vw"
+                            fetchPriority="high"
                             className="absolute inset-0 w-full h-full object-cover opacity-50"
-                            alt="[Leuchtturm bei Nacht]"
+                            alt="[Landschaft]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-900/80 to-transparent"></div>
                         <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
