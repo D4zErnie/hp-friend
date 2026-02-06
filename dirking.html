@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -19,7 +20,7 @@
 <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
 
-    <script>
+    <script type="text/babel">
 const {
   useState,
   useEffect,
@@ -48,7 +49,7 @@ const {
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
-                            <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
+                            <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
                                 <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
                                     <Icon name="shield" className="w-8 h-8" />
                                 </div>
@@ -56,7 +57,7 @@ const {
                                     <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
                                     <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
                                 </div>
-                            </div>
+                            </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
                                 <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
@@ -92,8 +93,8 @@ const {
                                 Ihr unabhängiger Partner für Absicherung und Vorsorge. Seit über 15 Jahren beraten wir ehrlich, kompetent und auf Augenhöhe.
                             </p>
                             <div className="flex space-x-4 text-white">
-                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer"><Icon name="phone" className="w-5 h-5" /></div>
-                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer"><Icon name="message-circle" className="w-5 h-5" /></div>
+                                <a href="tel:+49123456789" aria-label="Anrufen" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer"><Icon name="phone" className="w-5 h-5" /></a>
+                                <a href="mailto:beratung@dirking.de" aria-label="E-Mail senden" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer"><Icon name="message-circle" className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div>
