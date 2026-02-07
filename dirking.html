@@ -25,7 +25,6 @@
 
     <script type="text/babel">
 const {
-    <script type="text/javascript">const {
   useState,
   useEffect,
   useRef
@@ -361,18 +360,18 @@ const {
                             <div className="absolute top-0 right-0 p-8 opacity-10"><Icon name="clock" className="w-32 h-32" /></div>
                             <h3 className="text-3xl font-bold mb-10 flex items-center"><Icon name="phone-call" className="mr-4 text-blue-400" /> Direkter Kontakt</h3>
                             <div className="space-y-10">
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                <a href="tel:+49123456789" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-blue-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="phone" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Zentrale</p><p className="text-2xl font-bold">+49 123 456789</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="mailto:beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold italic">Direkt-Chat</p></div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div className="p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm">
@@ -492,796 +491,93 @@ const {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
             const [isMenuOpen, setIsMenuOpen] = useState(false);
-// Hilfskomponente für Icons
-const Icon = ({
-  name,
-  className = "w-6 h-6"
-}) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
-  }, [name]);
-  return /*#__PURE__*/React.createElement("i", {
-    "data-lucide": name,
-    className: className
-  });
-};
-const FEATURES = [{
-  label: "Unabhängig",
-  sub: "Freie Tarifwahl"
-}, {
-  label: "Erfahren",
-  sub: "Über 15 Jahre"
-}, {
-  label: "Persönlich",
-  sub: "Fester Ansprechpartner"
-}, {
-  label: "Transparent",
-  sub: "Keine versteckten Kosten"
-}];
-const Navigation = ({
-  currentPage,
-  navigateTo,
-  isMenuOpen,
-  setIsMenuOpen
-}) => /*#__PURE__*/React.createElement("nav", {
-  className: "bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex justify-between h-20 items-center"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center cursor-pointer",
-  onClick: () => navigateTo('home')
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "shield",
-  className: "w-8 h-8"
-})), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-  className: "text-2xl font-bold text-slate-800 tracking-tight"
-}, "DIRKING"), /*#__PURE__*/React.createElement("p", {
-  className: "text-xs text-blue-600 font-semibold uppercase tracking-widest"
-}, "Versicherungsmakler"))), /*#__PURE__*/React.createElement("div", {
-  className: "hidden md:flex space-x-8 items-center font-medium text-slate-600"
-}, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('home'),
-  className: currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'
-}, "Startseite"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('private'),
-  className: currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'
-}, "Privat"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('commercial'),
-  className: currentPage === 'commercial' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'
-}, "Gewerbe"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('contact'),
-  className: "bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md"
-}, "Kontakt")), /*#__PURE__*/React.createElement("button", {
-  className: "md:hidden p-2 text-slate-600",
-  onClick: () => setIsMenuOpen(!isMenuOpen)
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: isMenuOpen ? "x" : "menu"
-})))), isMenuOpen && /*#__PURE__*/React.createElement("div", {
-  className: "md:hidden bg-white border-t p-4 space-y-4 shadow-xl"
-}, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('home'),
-  className: "block w-full text-left text-slate-600 py-2"
-}, "Startseite"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('private'),
-  className: "block w-full text-left text-slate-600 py-2"
-}, "Privat"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('commercial'),
-  className: "block w-full text-left text-slate-600 py-2"
-}, "Gewerbe"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('contact'),
-  className: "block w-full bg-blue-600 text-white p-3 rounded-lg text-center font-bold"
-}, "Kontakt")));
-const Footer = ({
-  navigateTo,
-  navigateToLegal
-}) => /*#__PURE__*/React.createElement("footer", {
-  className: "bg-slate-900 text-slate-400 py-16 mt-auto"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "grid grid-cols-1 md:grid-cols-4 gap-12 mb-12"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "col-span-1 md:col-span-2"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center text-white mb-6"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "shield",
-  className: "w-8 h-8 mr-3 text-blue-500"
-}), /*#__PURE__*/React.createElement("span", {
-  className: "text-2xl font-bold tracking-tight"
-}, "DIRKING")), /*#__PURE__*/React.createElement("p", {
-  className: "max-w-sm mb-6 leading-relaxed"
-}, "Ihr unabh\xE4ngiger Partner f\xFCr Absicherung und Vorsorge. Seit \xFCber 15 Jahren beraten wir ehrlich, kompetent und auf Augenh\xF6he."), /*#__PURE__*/React.createElement("div", {
-  className: "flex space-x-4 text-white"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "phone",
-  className: "w-5 h-5"
-})), /*#__PURE__*/React.createElement("div", {
-  className: "w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "message-circle",
-  className: "w-5 h-5"
-})))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
-  className: "text-white font-bold mb-6 underline decoration-blue-600 underline-offset-8"
-}, "Navigation"), /*#__PURE__*/React.createElement("ul", {
-  className: "space-y-4 text-sm"
-}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('private'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Privatkunden")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('commercial'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Gewerbekunden")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('contact'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Termin vereinbaren")))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
-  className: "text-white font-bold mb-6 underline decoration-blue-600 underline-offset-8"
-}, "Rechtliches"), /*#__PURE__*/React.createElement("ul", {
-  className: "space-y-4 text-sm font-medium"
-}, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateToLegal('impressum'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Impressum")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateToLegal('datenschutz'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Datenschutz")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateToLegal('erstinfo'),
-  className: "hover:text-blue-400 transition-colors text-left"
-}, "Erstinformation"))))), /*#__PURE__*/React.createElement("div", {
-  className: "pt-8 border-t border-slate-800 text-xs flex flex-col md:flex-row justify-between items-center gap-4"
-}, /*#__PURE__*/React.createElement("p", null, "\xA9 2024 Dirking Versicherungsmakler. Alle Rechte vorbehalten."), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "map-pin",
-  className: "w-3 h-3 mr-1 text-blue-500"
-}), " Hauptstra\xDFe 123, 48465 Sch\xFCttorf"))));
-const HomePage = ({
-  navigateTo
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "animate-fade-in"
-}, /*#__PURE__*/React.createElement("header", {
-  className: "relative min-h-[75vh] flex items-center text-white overflow-hidden bg-slate-900"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=2000&auto=format&fit=crop",
-  className: "absolute inset-0 w-full h-full object-cover opacity-50",
-  alt: "[Leuchtturm bei Nacht]"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-900/80 to-transparent"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 relative z-10 w-full"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-3xl"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "inline-flex items-center bg-blue-600/20 border border-blue-400/30 px-4 py-2 rounded-full text-blue-300 text-sm font-bold mb-6 backdrop-blur-md"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "shield",
-  className: "w-4 h-4 mr-2"
-}), " Ihr Makler vor Ort & Digital"), /*#__PURE__*/React.createElement("h1", {
-  className: "text-5xl md:text-7xl font-extrabold mb-8 leading-tight"
-}, "Sicherheit f\xFCr ", /*#__PURE__*/React.createElement("span", {
-  className: "text-blue-400 italic"
-}, "Ihr Leben"), "."), /*#__PURE__*/React.createElement("p", {
-  className: "text-xl text-blue-100 mb-10 max-w-2xl leading-relaxed"
-}, "Unabh\xE4ngig. Fair. Regional. Wir vergleichen hunderte Tarife objektiv f\xFCr Sie und finden den Schutz, der wirklich passt."), /*#__PURE__*/React.createElement("div", {
-  className: "flex flex-wrap gap-4"
-}, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('contact'),
-  className: "bg-blue-600 text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95"
-}, "Termin vereinbaren"), /*#__PURE__*/React.createElement("button", {
-  onClick: () => {
-    document.getElementById('leistungen-auswahl').scrollIntoView({
-      behavior: 'smooth'
-    });
-  },
-  className: "bg-white/10 backdrop-blur border border-white/20 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
-}, "Leistungen ansehen"))))), /*#__PURE__*/React.createElement("section", {
-  className: "py-12 bg-white border-b border-slate-100"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8"
-}, FEATURES.map(item => /*#__PURE__*/React.createElement("div", {
-  key: item.label,
-  className: "text-center group cursor-default"
-}, /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-600 font-bold text-xl group-hover:scale-110 transition-transform"
-}, item.label), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-400 text-sm mt-1"
-}, item.sub))))), /*#__PURE__*/React.createElement("section", {
-  id: "leistungen-auswahl",
-  className: "py-24 bg-slate-50"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 text-center mb-16"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "text-4xl font-bold mb-4"
-}, "Individuelle Konzepte"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 max-w-2xl mx-auto text-lg"
-}, "W\xE4hlen Sie Ihren Bereich f\xFCr ma\xDFgeschneiderte L\xF6sungen und Expertenberatung.")), /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "group relative bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all cursor-pointer border border-slate-100",
-  onClick: () => navigateTo('private')
-}, /*#__PURE__*/React.createElement("div", {
-  className: "h-72 overflow-hidden relative"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=1000&auto=format&fit=crop",
-  className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000",
-  alt: "[Deutsches Wohnhaus]",
-  loading: "lazy",
-  decoding: "async"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 bg-blue-900/10"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute top-8 left-8 bg-white/95 backdrop-blur px-5 py-2 rounded-full font-bold text-blue-600 text-sm flex items-center shadow-lg"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "users",
-  className: "w-4 h-4 mr-2"
-}), " Privatkunden")), /*#__PURE__*/React.createElement("div", {
-  className: "p-12"
-}, /*#__PURE__*/React.createElement("h3", {
-  className: "text-3xl font-bold mb-4"
-}, "Privater Schutz"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 mb-8 leading-relaxed"
-}, "Sch\xFCtzen Sie Ihr Heim und Ihre Liebsten mit den besten Tarifen am Markt. Von Haftpflicht bis Vorsorge."), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center text-blue-600 font-bold text-lg group-hover:translate-x-2 transition-transform"
-}, "Mehr erfahren ", /*#__PURE__*/React.createElement(Icon, {
-  name: "chevron-right",
-  className: "ml-2 w-5 h-5"
-})))), /*#__PURE__*/React.createElement("div", {
-  className: "group relative bg-slate-900 text-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all cursor-pointer",
-  onClick: () => navigateTo('commercial')
-}, /*#__PURE__*/React.createElement("div", {
-  className: "h-72 overflow-hidden relative"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
-  className: "w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000",
-  alt: "[Modernes B\xFCrogeb\xE4ude]",
-  loading: "lazy",
-  decoding: "async"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 bg-blue-900/30"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute top-8 left-8 bg-blue-600 px-5 py-2 rounded-full font-bold text-white text-sm flex items-center shadow-lg"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "building-2",
-  className: "w-4 h-4 mr-2"
-}), " Gewerbe")), /*#__PURE__*/React.createElement("div", {
-  className: "p-12"
-}, /*#__PURE__*/React.createElement("h3", {
-  className: "text-3xl font-bold mb-4"
-}, "Gewerbliche L\xF6sungen"), /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-100 mb-8 leading-relaxed"
-}, "Risikomanagement f\xFCr Unternehmen. Wir sichern Ihre betriebliche Existenz ab, damit Sie wachsen k\xF6nnen."), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center text-blue-400 font-bold text-lg group-hover:translate-x-2 transition-transform"
-}, "Mehr erfahren ", /*#__PURE__*/React.createElement(Icon, {
-  name: "chevron-right",
-  className: "ml-2 w-5 h-5"
-})))))), /*#__PURE__*/React.createElement("section", {
-  className: "py-24 bg-white overflow-hidden"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-16"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "lg:w-1/2 relative"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop",
-  className: "rounded-[3rem] shadow-2xl w-full h-[550px] object-cover",
-  alt: "[Makler bei der Arbeit]",
-  loading: "lazy",
-  decoding: "async"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute bottom-10 right-10 bg-blue-600 text-white p-8 rounded-2xl shadow-2xl hidden md:block max-w-[300px]"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "layers",
-  className: "w-12 h-12 mb-4"
-}), /*#__PURE__*/React.createElement("p", {
-  className: "font-bold text-2xl leading-tight"
-}, "Hunderte Tarife im Markt-Vergleich"))), /*#__PURE__*/React.createElement("div", {
-  className: "lg:w-1/2"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "text-4xl font-bold mb-8 text-slate-900"
-}, "Unabh\xE4ngigkeit ist unser h\xF6chstes Gut."), /*#__PURE__*/React.createElement("p", {
-  className: "text-lg text-slate-600 mb-10 leading-relaxed"
-}, "Als Versicherungsmakler bin ich gesetzlich dazu verpflichtet, in Ihrem Interesse zu handeln. Ich vergleiche hunderte Angebote neutral und transparent."), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-6"
-}, ["Neutraler Marktvergleich ohne Konzernbindung", "Volle Unterstützung im Schadensfall", "Individuelle Risiko- und Bedarfsanalyse", "Kostenloser Service für alle Kunden"].map((text, i) => /*#__PURE__*/React.createElement("div", {
-  key: i,
-  className: "flex items-start font-semibold text-slate-800"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-green-50 p-1 rounded-full mr-4"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "check-circle-2",
-  className: "text-green-500 w-6 h-6"
-})), /*#__PURE__*/React.createElement("span", {
-  className: "mt-1"
-}, text))))))));
-const PrivatePage = ({
-  navigateTo
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "animate-fade-in"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "relative h-[450px] bg-blue-900 overflow-hidden"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop",
-  className: "w-full h-full object-cover opacity-50",
-  alt: "[Familie vor deutschem Haus]"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 flex flex-col items-center justify-center text-center px-4"
-}, /*#__PURE__*/React.createElement("h1", {
-  className: "text-5xl md:text-6xl font-bold text-white drop-shadow-2xl"
-}, "Schutz f\xFCr Privatkunden"), /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-100 text-xl mt-4 max-w-2xl"
-}, "Sicher in jeder Lebenslage \u2013 f\xFCr Sie und Ihre Familie."))), /*#__PURE__*/React.createElement("div", {
-  className: "py-16 px-4 max-w-7xl mx-auto"
-}, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('home'),
-  className: "flex items-center text-slate-500 mb-12 hover:text-blue-600 transition-colors font-semibold group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "arrow-left",
-  className: "w-5 h-5"
-})), " Zur\xFCck zur Startseite"), /*#__PURE__*/React.createElement("div", {
-  className: "grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
-}, [{
-  title: "Hausrat & Gebäude",
-  icon: "home",
-  desc: "Schutz für Ihr Eigentum gegen Elementarschäden, Leitungswasser und Einbruch."
-}, {
-  title: "Haftpflicht & Recht",
-  icon: "shield",
-  desc: "Wichtige Absicherung gegen Personen- und Sachschäden sowie Rechtshilfe."
-}, {
-  title: "Gesundheit & Pflege",
-  icon: "heart-pulse",
-  desc: "Ergänzen oder optimieren Sie Ihren Schutz bei Krankheit und im Pflegefall."
-}, {
-  title: "Altersvorsorge",
-  icon: "clock",
-  desc: "Sichern Sie Ihren Lebensstandard im Ruhestand mit individuellen Konzepten."
-}, {
-  title: "Unfallversicherung",
-  icon: "activity",
-  desc: "Finanzielle Unabhängigkeit nach schweren Unfällen – weltweit und 24/7."
-}, {
-  title: "Schwere Krankheiten Vorsorge",
-  icon: "heart-pulse",
-  desc: "Dread Disease: Finanzielle Soforthilfe bei Diagnosen wie Krebs oder Herzinfarkt."
-}].map((item, i) => /*#__PURE__*/React.createElement("div", {
-  key: i,
-  className: "bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: item.icon,
-  className: "w-7 h-7"
-})), /*#__PURE__*/React.createElement("h3", {
-  className: "text-2xl font-bold mb-4 text-slate-800"
-}, item.title), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 text-sm leading-relaxed"
-}, item.desc)))), /*#__PURE__*/React.createElement("div", {
-  className: "bg-blue-600 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "absolute top-0 right-0 p-12 opacity-10"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "shield",
-  className: "w-64 h-64"
-})), /*#__PURE__*/React.createElement("h3", {
-  className: "text-3xl font-bold mb-4 relative z-10"
-}, "Zeit f\xFCr einen Check-up?"), /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-100 mb-8 text-lg max-w-2xl mx-auto relative z-10"
-}, "Versicherungen sollten sich Ihrem Leben anpassen, nicht umgekehrt. Lassen Sie uns gemeinsam pr\xFCfen, wo Sie sparen k\xF6nnen."), /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('contact'),
-  className: "bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-50 transition-all relative z-10"
-}, "Kostenlose Erstberatung"))));
-const CommercialPage = ({
-  navigateTo
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "animate-fade-in"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "relative h-[450px] bg-slate-900 overflow-hidden"
-}, /*#__PURE__*/React.createElement("img", {
-  src: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop",
-  className: "w-full h-full object-cover opacity-40",
-  alt: "[B\xFCrogeb\xE4ude]"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"
-}), /*#__PURE__*/React.createElement("div", {
-  className: "absolute inset-0 flex flex-col items-center justify-center text-center px-4"
-}, /*#__PURE__*/React.createElement("h1", {
-  className: "text-5xl md:text-6xl font-bold text-white drop-shadow-2xl"
-}, "Gewerbliche Absicherung"), /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-200 text-xl mt-4 max-w-2xl"
-}, "Ma\xDFgeschneidertes Risikomanagement f\xFCr Ihren Erfolg."))), /*#__PURE__*/React.createElement("div", {
-  className: "py-16 px-4 max-w-7xl mx-auto"
-}, /*#__PURE__*/React.createElement("button", {
-  onClick: () => navigateTo('home'),
-  className: "flex items-center text-slate-500 mb-12 hover:text-blue-600 transition-colors font-semibold group"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "arrow-left",
-  className: "w-5 h-5"
-})), " Zur\xFCck zur Startseite"), /*#__PURE__*/React.createElement("div", {
-  className: "grid grid-cols-1 md:grid-cols-3 gap-8"
-}, [{
-  title: "Betriebshaftpflicht",
-  desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten."
-}, {
-  title: "Inhaltsversicherung",
-  desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden."
-}, {
-  title: "Cyber-Versicherung",
-  desc: "Professionelle Hilfe und Kostenerstattung bei Hackerangriffen und Datenverlust."
-}, {
-  title: "D&O Versicherung",
-  desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen."
-}, {
-  title: "Gewerbegebäude",
-  desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten."
-}, {
-  title: "Fuhrpark-Management",
-  desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten."
-}].map((item, i) => /*#__PURE__*/React.createElement("div", {
-  key: i,
-  className: "bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "w-14 h-14 bg-slate-100 text-slate-700 rounded-2xl flex items-center justify-center mb-8"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "briefcase",
-  className: "w-7 h-7"
-})), /*#__PURE__*/React.createElement("h3", {
-  className: "text-2xl font-bold mb-4"
-}, item.title), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 text-sm leading-relaxed"
-}, item.desc))))));
-const ContactPage = ({
-  contactData,
-  handleInputChange,
-  handleFormSubmit,
-  formSubmitted,
-  setFormSubmitted,
-  isSubmitting
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "animate-fade-in py-24 px-4 max-w-7xl mx-auto"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "text-center mb-16"
-}, /*#__PURE__*/React.createElement("h1", {
-  className: "text-4xl md:text-6xl font-bold mb-6 text-slate-900"
-}, "Lernen wir uns kennen"), /*#__PURE__*/React.createElement("p", {
-  className: "text-xl text-slate-600 max-w-2xl mx-auto"
-}, "Egal ob pers\xF6nlich im B\xFCro, per Telefon oder Video-Call \u2013 wir freuen uns auf den Austausch.")), /*#__PURE__*/React.createElement("div", {
-  className: "grid grid-cols-1 lg:grid-cols-2 gap-16"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-white p-12 rounded-[3rem] shadow-2xl border border-slate-100 relative"
-}, formSubmitted ? /*#__PURE__*/React.createElement("div", {
-  className: "text-center py-20 animate-fade-in"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 text-green-600"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "check-circle-2",
-  className: "w-12 h-12"
-})), /*#__PURE__*/React.createElement("h3", {
-  className: "text-4xl font-bold text-slate-900 mb-4"
-}, "Vielen Dank!"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 text-lg"
-}, "Ihre Nachricht wurde versendet. Wir melden uns umgehend bei Ihnen zur\xFCck."), /*#__PURE__*/React.createElement("button", {
-  onClick: () => setFormSubmitted(false),
-  className: "mt-10 text-blue-600 font-bold hover:underline"
-}, "Neue Nachricht schreiben")) : /*#__PURE__*/React.createElement("form", {
-  onSubmit: handleFormSubmit,
-  className: "space-y-8"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "grid grid-cols-1 md:grid-cols-2 gap-8"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "space-y-2"
-}, /*#__PURE__*/React.createElement("label", {
-  htmlFor: "name",
-  className: "text-sm font-bold text-slate-700 ml-2"
-}, "Name"), /*#__PURE__*/React.createElement("input", {
-  id: "name",
-  name: "name",
-  value: contactData.name,
-  onChange: handleInputChange,
-  placeholder: "Max Mustermann",
-  className: "w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all",
-  required: true
-})), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-2"
-}, /*#__PURE__*/React.createElement("label", {
-  htmlFor: "email",
-  className: "text-sm font-bold text-slate-700 ml-2"
-}, "E-Mail"), /*#__PURE__*/React.createElement("input", {
-  id: "email",
-  name: "email",
-  type: "email",
-  value: contactData.email,
-  onChange: handleInputChange,
-  placeholder: "name@beispiel.de",
-  className: "w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all",
-  required: true
-}))), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-2"
-}, /*#__PURE__*/React.createElement("label", {
-  htmlFor: "message",
-  className: "text-sm font-bold text-slate-700 ml-2"
-}, "Ihre Nachricht"), /*#__PURE__*/React.createElement("textarea", {
-  id: "message",
-  name: "message",
-  value: contactData.message,
-  onChange: handleInputChange,
-  placeholder: "Wobei k\xF6nnen wir Ihnen helfen?",
-  rows: "5",
-  className: "w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"
-})), /*#__PURE__*/React.createElement("button", {
-  type: "submit",
-  disabled: isSubmitting,
-  className: "w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 disabled:bg-slate-700 disabled:cursor-not-allowed transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center"
-}, isSubmitting ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
-  name: "loader-2",
-  className: "animate-spin mr-3"
-}), " Wird gesendet...") : "Nachricht jetzt senden"))), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-8"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-slate-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden h-fit"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "absolute top-0 right-0 p-8 opacity-10"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "clock",
-  className: "w-32 h-32"
-})), /*#__PURE__*/React.createElement("h3", {
-  className: "text-3xl font-bold mb-10 flex items-center"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "phone-call",
-  className: "mr-4 text-blue-400"
-}), " Direkter Kontakt"), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-10"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center gap-6 group cursor-pointer"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-blue-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "phone",
-  className: "text-white w-7 h-7"
-})), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1"
-}, "Zentrale"), /*#__PURE__*/React.createElement("p", {
-  className: "text-2xl font-bold"
-}, "+49 123 456789"))), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center gap-6 group cursor-pointer"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "mail",
-  className: "text-white w-7 h-7"
-})), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
-  className: "text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1"
-}, "Anfragen"), /*#__PURE__*/React.createElement("p", {
-  className: "text-2xl font-bold"
-}, "beratung@dirking.de"))), /*#__PURE__*/React.createElement("div", {
-  className: "flex items-center gap-6 group cursor-pointer"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "message-circle",
-  className: "text-white w-7 h-7"
-})), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
-  className: "text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1"
-}, "WhatsApp"), /*#__PURE__*/React.createElement("p", {
-  className: "text-2xl font-bold italic"
-}, "Direkt-Chat"))))), /*#__PURE__*/React.createElement("div", {
-  className: "p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm"
-}, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-xl mb-4 flex items-center text-slate-800"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "info",
-  className: "mr-3 text-blue-600"
-}), " B\xFCrozeiten"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-600 leading-relaxed font-medium"
-}, "Mo - Do: 09:00 - 17:00 Uhr", /*#__PURE__*/React.createElement("br", null), "Fr: 09:00 - 14:00 Uhr", /*#__PURE__*/React.createElement("br", null), "Sowie Termine nach individueller Vereinbarung.")))));
-const LegalPage = ({
-  legalSubTab,
-  setLegalSubTab,
-  navigateToLegal
-}) => /*#__PURE__*/React.createElement("div", {
-  className: "animate-fade-in py-16 px-4 max-w-5xl mx-auto"
-}, /*#__PURE__*/React.createElement("h1", {
-  className: "text-4xl md:text-5xl font-extrabold mb-12 text-center text-slate-900"
-}, "Rechtliches & Information"), /*#__PURE__*/React.createElement("div", {
-  className: "flex justify-center mb-16 gap-3 overflow-x-auto pb-4 no-scrollbar"
-}, [{
-  id: 'impressum',
-  label: 'Impressum',
-  icon: 'info'
-}, {
-  id: 'datenschutz',
-  label: 'Datenschutz',
-  icon: 'lock'
-}, {
-  id: 'erstinfo',
-  label: 'Erstinformation',
-  icon: 'file-text'
-}].map(tab => /*#__PURE__*/React.createElement("button", {
-  key: tab.id,
-  onClick: () => setLegalSubTab(tab.id),
-  className: `flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-bold transition-all shadow-sm ${legalSubTab === tab.id ? 'bg-blue-600 text-white shadow-blue-200 shadow-xl scale-105' : 'text-slate-600 bg-white border border-slate-100 hover:bg-slate-50'}`
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: tab.icon,
-  className: "w-5 h-5"
-}), " ", tab.label))), /*#__PURE__*/React.createElement("div", {
-  className: "bg-white p-10 md:p-20 rounded-[3rem] shadow-sm border border-slate-100 leading-relaxed animate-fade-in"
-}, legalSubTab === 'impressum' && /*#__PURE__*/React.createElement("div", {
-  className: "prose prose-blue max-w-none"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "text-4xl font-bold mb-10 border-b-4 border-blue-600 w-fit pb-4 text-slate-900"
-}, "Impressum"), /*#__PURE__*/React.createElement("div", {
-  className: "grid md:grid-cols-2 gap-16 text-lg"
-}, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-blue-600 uppercase text-sm tracking-widest mb-4"
-}, "Anbieter & Inhaber"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-700 leading-loose"
-}, /*#__PURE__*/React.createElement("strong", {
-  className: "text-slate-900"
-}, "Maklerb\xFCro Dirking"), /*#__PURE__*/React.createElement("br", null), "Inhaber: Max Dirking", /*#__PURE__*/React.createElement("br", null), "Hauptstra\xDFe 123", /*#__PURE__*/React.createElement("br", null), "48465 Sch\xFCttorf")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-blue-600 uppercase text-sm tracking-widest mb-4"
-}, "Direkter Kontakt"), /*#__PURE__*/React.createElement("p", {
-  className: "text-slate-700 leading-loose"
-}, "Tel: ", /*#__PURE__*/React.createElement("strong", {
-  className: "text-slate-900"
-}, "+49 (0) 123 456789"), /*#__PURE__*/React.createElement("br", null), "E-Mail: ", /*#__PURE__*/React.createElement("strong", {
-  className: "text-slate-900"
-}, "info@dirking.de"), /*#__PURE__*/React.createElement("br", null), "USt-ID: DE123456789")))), legalSubTab === 'datenschutz' && /*#__PURE__*/React.createElement("div", {
-  className: "prose prose-blue max-w-none"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "text-4xl font-bold mb-10 border-b-4 border-blue-600 w-fit pb-4 text-slate-900"
-}, "Datenschutzerkl\xE4rung"), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-12 text-slate-700 text-lg"
-}, /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-slate-900 text-xl mb-4"
-}, "1. Datenschutz auf einen Blick"), /*#__PURE__*/React.createElement("p", null, "Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften (DSGVO). Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten m\xF6glich.")), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-slate-900 text-xl mb-4"
-}, "2. Datenerfassung auf dieser Website"), /*#__PURE__*/React.createElement("p", null, "Daten, die Sie uns per Kontaktformular \xFCbermitteln, werden zwecks Bearbeitung der Anfrage und f\xFCr den Fall von Anschlussfragen bei uns verschl\xFCsselt gespeichert. Diese Daten geben wir nicht ohne Ihre ausdr\xFCckliche Einwilligung weiter.")), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-slate-900 text-xl mb-4"
-}, "3. Ihre Rechte (Auskunft & L\xF6schung)"), /*#__PURE__*/React.createElement("p", null, "Sie haben jederzeit das Recht auf unentgeltliche Auskunft \xFCber Herkunft, Empf\xE4nger und Zweck Ihrer gespeicherten personenbezogenen Daten. Sie haben au\xDFerdem ein Recht, die Berichtigung oder L\xF6schung dieser Daten zu verlangen. Kontaktieren Sie uns hierzu einfach \xFCber die im Impressum angegebenen Wege.")))), legalSubTab === 'erstinfo' && /*#__PURE__*/React.createElement("div", {
-  className: "prose prose-blue max-w-none"
-}, /*#__PURE__*/React.createElement("h2", {
-  className: "text-4xl font-bold mb-10 border-b-4 border-blue-600 w-fit pb-4 text-slate-900"
-}, "Erstinformation"), /*#__PURE__*/React.createElement("div", {
-  className: "space-y-12 text-slate-700 text-lg"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "bg-blue-50 p-10 rounded-[2rem] border border-blue-100 shadow-sm"
-}, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-blue-900 text-2xl mb-6 flex items-center"
-}, /*#__PURE__*/React.createElement(Icon, {
-  name: "shield",
-  className: "mr-3 w-8 h-8"
-}), " Status des Vermittlers"), /*#__PURE__*/React.createElement("p", {
-  className: "text-xl leading-relaxed text-blue-900"
-}, "Max Dirking ist als ", /*#__PURE__*/React.createElement("strong", {
-  className: "underline decoration-blue-500"
-}, "Versicherungsmakler"), " mit einer Erlaubnis nach \xA7 34d Abs. 1 der Gewerbeordnung t\xE4tig. Im Gegensatz zum Vertreter arbeiten wir im Auftrag des Kunden und sind an keine Gesellschaft gebunden.")), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-slate-900 text-xl mb-4 italic"
-}, "Zust\xE4ndige Registerstelle"), /*#__PURE__*/React.createElement("p", null, "Deutscher Industrie- und Handelskammertag (DIHK) e.V., Berlin. ", /*#__PURE__*/React.createElement("br", null), "Einsehbar unter: ", /*#__PURE__*/React.createElement("strong", {
-  className: "text-blue-600"
-}, "www.vermittlerregister.info")), /*#__PURE__*/React.createElement("div", {
-  className: "bg-slate-100 px-6 py-4 rounded-xl font-mono text-blue-700 font-bold inline-block mt-4 border border-slate-200"
-}, "Registernummer: D-W-123-4567-89")), /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("h4", {
-  className: "font-bold text-slate-900 text-xl mb-6"
-}, "Schlichtungsstellen f\xFCr au\xDFergerichtliche Beilegung"), /*#__PURE__*/React.createElement("ul", {
-  className: "space-y-6 list-none p-0"
-}, /*#__PURE__*/React.createElement("li", {
-  className: "flex gap-6 items-start"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "w-3 h-3 bg-blue-600 rounded-full mt-2.5 flex-shrink-0"
-}), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", {
-  className: "text-slate-900"
-}, "Versicherungsombudsmann e.V."), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
-  className: "text-slate-500"
-}, "Postfach 08 06 32, 10006 Berlin"))), /*#__PURE__*/React.createElement("li", {
-  className: "flex gap-6 items-start"
-}, /*#__PURE__*/React.createElement("div", {
-  className: "w-3 h-3 bg-blue-600 rounded-full mt-2.5 flex-shrink-0"
-}), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", {
-  className: "text-slate-900"
-}, "Ombudsmann PKV"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
-  className: "text-slate-500"
-}, "Postfach 06 02 22, 10052 Berlin")))))))));
-const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [legalSubTab, setLegalSubTab] = useState('impressum');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Formular-Status
-  const [contactData, setContactData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (window.lucide) window.lucide.createIcons();
-  }, [currentPage, legalSubTab]);
-  const navigateTo = page => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-  };
-  const navigateToLegal = tab => {
-    setLegalSubTab(tab);
-    setCurrentPage('legal');
-    setIsMenuOpen(false);
-  };
-  const handleInputChange = e => {
-    const {
-      name,
-      value
-    } = e.target;
-    setContactData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulierte Netzwerkverzögerung für besseres UX-Feedback
-    setTimeout(() => {
-      console.log("Formular abgesendet:", contactData);
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-    }, 1500);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "min-h-screen flex flex-col font-sans"
-  }, /*#__PURE__*/React.createElement(Navigation, {
-    currentPage: currentPage,
-    navigateTo: navigateTo,
-    isMenuOpen: isMenuOpen,
-    setIsMenuOpen: setIsMenuOpen
-  }), /*#__PURE__*/React.createElement("main", {
-    className: "flex-grow"
-  }, currentPage === 'home' && /*#__PURE__*/React.createElement(HomePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'private' && /*#__PURE__*/React.createElement(PrivatePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'commercial' && /*#__PURE__*/React.createElement(CommercialPage, {
-    navigateTo: navigateTo
-  }), currentPage === 'contact' && /*#__PURE__*/React.createElement(ContactPage, {
-    contactData: contactData,
-    handleInputChange: handleInputChange,
-    handleFormSubmit: handleFormSubmit,
-    formSubmitted: formSubmitted,
-    setFormSubmitted: setFormSubmitted,
-    isSubmitting: isSubmitting
-  }), currentPage === 'legal' && /*#__PURE__*/React.createElement(LegalPage, {
-    legalSubTab: legalSubTab,
-    setLegalSubTab: setLegalSubTab,
-    navigateToLegal: navigateToLegal
-  })), /*#__PURE__*/React.createElement(Footer, {
-    navigateTo: navigateTo,
-    navigateToLegal: navigateToLegal
-  }), /*#__PURE__*/React.createElement("button", {
-    onClick: () => navigateTo('contact'),
-    className: "fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group",
-    title: "Nachricht senden"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "message-circle",
-    className: "w-8 h-8"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap"
-  }, "Frage stellen?")));
-};
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(/*#__PURE__*/React.createElement(App, null));
-</script>
+            // Formular-Status
+            const [contactData, setContactData] = useState({
+                name: '',
+                email: '',
+                message: ''
+            });
+            const [formSubmitted, setFormSubmitted] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+
+            useEffect(() => {
+                window.scrollTo(0, 0);
+                if (window.lucide) window.lucide.createIcons();
+            }, [currentPage, legalSubTab]);
+
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+                setIsMenuOpen(false);
+            };
+
+            const navigateToLegal = (tab) => {
+                setLegalSubTab(tab);
+                setCurrentPage('legal');
+                setIsMenuOpen(false);
+            };
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setContactData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                // Simulierte Netzwerkverzögerung für besseres UX-Feedback
+                setTimeout(() => {
+                    console.log("Formular abgesendet:", contactData);
+                    setIsSubmitting(false);
+                    setFormSubmitted(true);
+                }, 1500);
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col font-sans">
+                    <Navigation
+                        currentPage={currentPage}
+                        navigateTo={navigateTo}
+                        isMenuOpen={isMenuOpen}
+                        setIsMenuOpen={setIsMenuOpen}
+                    />
+                    <main className="flex-grow">
+                        {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
+                        {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
+                        {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}
+                        {currentPage === 'contact' && (
+                            <ContactPage
+                                contactData={contactData}
+                                handleInputChange={handleInputChange}
+                                handleFormSubmit={handleFormSubmit}
+                                formSubmitted={formSubmitted}
+                                setFormSubmitted={setFormSubmitted}
+                                isSubmitting={isSubmitting}
+                            />
+                        )}
+                        {currentPage === 'legal' && (
+                            <LegalPage
+                                legalSubTab={legalSubTab}
+                                setLegalSubTab={setLegalSubTab}
+                                navigateToLegal={navigateToLegal}
+                            />
+                        )}
+                    </main>
+                    <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
+                    <button
+                        onClick={() => navigateTo('contact')}
+                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group"
+                        title="Nachricht senden"
+                    >
+                        <Icon name="message-circle" className="w-8 h-8" />
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
+                    </button>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
