@@ -7,3 +7,8 @@
 **Vulnerability:** Inability to secure Tailwind CDN resource with SRI.
 **Learning:** The Tailwind Play CDN (`cdn.tailwindcss.com`) does not provide `Access-Control-Allow-Origin` headers compatible with `crossorigin="anonymous"`. This prevents the use of Subresource Integrity (SRI) hashes, as the integrity check requires CORS to be enabled.
 **Prevention:** For production security requiring SRI, avoid `cdn.tailwindcss.com`. Use the Tailwind CLI to generate static CSS and serve it from the same origin or a CORS-compliant CDN.
+
+## 2026-02-08 - Duplicate Script Tags Defeating SRI
+**Vulnerability:** A script library was included twice: once without SRI (top) and once with SRI (bottom). The browser executes the first occurrence, rendering the SRI protection useless.
+**Learning:** Simply adding a secured script tag is insufficient if an insecure version remains in the document. Browsers process scripts sequentially.
+**Prevention:** Audit HTML for duplicate script inclusions and ensure only the secured, pinned version is present.
