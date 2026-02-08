@@ -40,6 +40,20 @@ const {
             return <i data-lucide={name} className={className}></i>;
         };
 
+        // Hilfskomponente für das neue Logo (nach Vorlage)
+        const LogoIcon = ({ className = "w-10 h-10" }) => (
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+                <circle cx="50" cy="50" r="48" fill="url(#logoGradient)" />
+                <path d="M25 50C35 35 45 65 50 65C55 65 65 35 75 50C85 65 95 65 95 65H85C85 65 75 60 65 45C55 30 50 55 45 55C40 55 35 30 25 45C15 60 5 60 5 60H15C15 60 20 60 25 50Z" fill="white" />
+                <defs>
+                    <linearGradient id="logoGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#2563EB" />
+                        <stop offset="1" stopColor="#1E3A8A" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        );
+
         const FEATURES = [
             { label: "Unabhängig", sub: "Freie Tarifwahl" },
             { label: "Erfahren", sub: "Über 15 Jahre" },
@@ -52,8 +66,8 @@ const {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
                             <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
-                                <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
-                                    <Icon name="shield" className="w-8 h-8" />
+                                <div className="mr-3">
+                                    <LogoIcon className="w-10 h-10" />
                                 </div>
                                 <div>
                                     <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
@@ -88,7 +102,7 @@ const {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                         <div className="col-span-1 md:col-span-2">
                             <div className="flex items-center text-white mb-6">
-                                <Icon name="shield" className="w-8 h-8 mr-3 text-blue-500" />
+                                <LogoIcon className="w-8 h-8 mr-3" />
                                 <span className="text-2xl font-bold tracking-tight">DIRKING</span>
                             </div>
                             <p className="max-w-sm mb-6 leading-relaxed">
