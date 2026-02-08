@@ -12,7 +12,10 @@
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<<<<<<< HEAD
+=======
     <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js" integrity="sha384-aRB6X3zBuyu5EQF6GZFp0RCYdOwxYAOdFk4nViPfqSXYxc+MrZlqbM+nUYRwDQn1" crossorigin="anonymous"></script>
+>>>>>>> a6603edaedeee7a18aa9c093ff6eb0e3eca2d092
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -24,11 +27,19 @@
     <div id="root"></div>
 
     <script type="text/babel">
+<<<<<<< HEAD
+const {
+  useState,
+  useEffect,
+  useRef
+} = React;
+=======
         const {
             useState,
             useEffect,
             useRef
         } = React;
+>>>>>>> a6603edaedeee7a18aa9c093ff6eb0e3eca2d092
 
         // Hilfskomponente für Icons
         const Icon = ({ name, className = "w-6 h-6" }) => {
@@ -130,6 +141,13 @@
                 <header className="relative min-h-[75vh] flex items-center text-white overflow-hidden bg-slate-900">
                     <img
                         src="https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=2000&auto=format&fit=crop"
+                        srcSet="
+                            https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=640&auto=format&fit=crop 640w,
+                            https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=1024&auto=format&fit=crop 1024w,
+                            https://images.unsplash.com/photo-1507724590858-294965f448f1?q=80&w=2000&auto=format&fit=crop 2000w
+                        "
+                        sizes="100vw"
+                        fetchpriority="high"
                         className="absolute inset-0 w-full h-full object-cover opacity-50"
                         alt="[Leuchtturm bei Nacht]"
                     />
@@ -360,18 +378,18 @@
                             <div className="absolute top-0 right-0 p-8 opacity-10"><Icon name="clock" className="w-32 h-32" /></div>
                             <h3 className="text-3xl font-bold mb-10 flex items-center"><Icon name="phone-call" className="mr-4 text-blue-400" /> Direkter Kontakt</h3>
                             <div className="space-y-10">
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                <a href="tel:+49123456789" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="Anrufen">
                                     <div className="bg-blue-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="phone" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Zentrale</p><p className="text-2xl font-bold">+49 123 456789</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="mailto:beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="E-Mail schreiben">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="WhatsApp Chat öffnen">
                                     <div className="bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold italic">Direkt-Chat</p></div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div className="p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm">
@@ -493,11 +511,7 @@
             const [isMenuOpen, setIsMenuOpen] = useState(false);
 
             // Formular-Status
-            const [contactData, setContactData] = useState({
-                name: '',
-                email: '',
-                message: ''
-            });
+            const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
             const [formSubmitted, setFormSubmitted] = useState(false);
             const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -519,16 +533,13 @@
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
-                setContactData(prev => ({
-                    ...prev,
-                    [name]: value
-                }));
+                setContactData(prev => ({ ...prev, [name]: value }));
             };
 
             const handleFormSubmit = (e) => {
                 e.preventDefault();
                 setIsSubmitting(true);
-                // Simulierte Netzwerkverzögerung für besseres UX-Feedback
+                // Simulierte Netzwerkverzögerung
                 setTimeout(() => {
                     console.log("Formular abgesendet:", contactData);
                     setIsSubmitting(false);
@@ -538,44 +549,18 @@
 
             return (
                 <div className="min-h-screen flex flex-col font-sans">
-                    <Navigation
-                        currentPage={currentPage}
-                        navigateTo={navigateTo}
-                        isMenuOpen={isMenuOpen}
-                        setIsMenuOpen={setIsMenuOpen}
-                    />
+                    <Navigation currentPage={currentPage} navigateTo={navigateTo} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
                     <main className="flex-grow">
                         {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
                         {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
                         {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}
-                        {currentPage === 'contact' && (
-                            <ContactPage
-                                contactData={contactData}
-                                handleInputChange={handleInputChange}
-                                handleFormSubmit={handleFormSubmit}
-                                formSubmitted={formSubmitted}
-                                setFormSubmitted={setFormSubmitted}
-                                isSubmitting={isSubmitting}
-                            />
-                        )}
-                        {currentPage === 'legal' && (
-                            <LegalPage
-                                legalSubTab={legalSubTab}
-                                setLegalSubTab={setLegalSubTab}
-                                navigateToLegal={navigateToLegal}
-                            />
-                        )}
+                        {currentPage === 'contact' && <ContactPage contactData={contactData} handleInputChange={handleInputChange} handleFormSubmit={handleFormSubmit} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted} isSubmitting={isSubmitting} />}
+                        {currentPage === 'legal' && <LegalPage legalSubTab={legalSubTab} setLegalSubTab={setLegalSubTab} navigateToLegal={navigateToLegal} />}
                     </main>
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
-                    <button
-                        onClick={() => navigateTo('contact')}
-                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group"
-                        title="Nachricht senden"
-                    >
+                    <button onClick={() => navigateTo('contact')} className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group" title="Nachricht senden">
                         <Icon name="message-circle" className="w-8 h-8" />
-                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                            Frage stellen?
-                        </span>
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
                     </button>
                 </div>
             );
