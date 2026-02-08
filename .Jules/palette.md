@@ -11,3 +11,7 @@
 ## 2024-05-24 - Semantic Button Refactoring
 **Learning:** When refactoring `div` containers to `button` elements for accessibility, `text-align: left` and `width: 100%` must be explicitly set, as user agent styles center text and default to inline-block display.
 **Action:** Always include reset classes like `w-full text-left` when converting block-level interactive divs to buttons to preserve visual layout.
+
+## 2024-05-24 - Hit Area Expansion
+**Learning:** Using negative margins combined with equal padding (e.g., `p-4 -m-4`) effectively expands the clickable hit area of interactive elements without affecting the surrounding layout flow.
+**Action:** Use this technique for small touch targets or lists where maintaining tight visual spacing is desired but larger hit targets are needed for accessibility.
