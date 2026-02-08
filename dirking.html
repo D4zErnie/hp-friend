@@ -76,13 +76,12 @@ const {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
                             <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
-                                <div className="mr-3">
-                                    <img src="./logo.png" alt="Dirking Versicherungsmakler Logo" className="w-10 h-10" />
-                                </div>
-                                <div>
-                                    <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
-                                    <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
-                                </div>
+                                <img 
+                                    src="./logo.png" 
+                                    alt="Dirking Versicherungsmakler Logo" 
+                                    className="h-16 md:h-18 w-auto object-contain" 
+                                    onError={(e) => { e.target.src='https://via.placeholder.com/200x60?text=Dirking'; }}
+                                />
                             </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
@@ -112,8 +111,11 @@ const {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                         <div className="col-span-1 md:col-span-2">
                             <div className="flex items-center text-white mb-6">
-                                <img src="./logo.png" alt="Dirking Versicherungsmakler Logo" className="w-8 h-8 mr-3" />
-                                <span className="text-2xl font-bold tracking-tight">DIRKING</span>
+                                <img 
+                                    src="./logo.png" 
+                                    alt="Dirking Versicherungsmakler Logo" 
+                                    className="h-16 w-auto object-contain" 
+                                />
                             </div>
                             <p className="max-w-sm mb-6 leading-relaxed">
                                 Versicherungen sind Vertrauenssache. Seit über 20 Jahren begleite ich meine Mandanten unabhängig und persönlich – ehrlich, kompetent und auf Augenhöhe.
@@ -390,10 +392,6 @@ const {
                                 <a href="mailto:beratung@dirking.de" aria-label="E-Mail schreiben: beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer hover:bg-white/5 p-4 -m-4 rounded-xl transition-colors">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
-                                </a>
-                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Chat öffnen" className="flex items-center gap-6 group cursor-pointer hover:bg-white/5 p-4 -m-4 rounded-xl transition-colors">
-                                    <div className="bg-green-500 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
-                                    <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold">Chat starten</p></div>
                                 </a>
                             </div>
                         </div>
