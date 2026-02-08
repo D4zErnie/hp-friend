@@ -24,7 +24,11 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+const {
+  useState,
+  useEffect,
+  useRef
+} = React;
 
         // Hilfskomponente für Icons
         const Icon = ({ name, className = "w-6 h-6" }) => {
@@ -356,18 +360,18 @@
                             <div className="absolute top-0 right-0 p-8 opacity-10"><Icon name="clock" className="w-32 h-32" /></div>
                             <h3 className="text-3xl font-bold mb-10 flex items-center"><Icon name="phone-call" className="mr-4 text-blue-400" /> Direkter Kontakt</h3>
                             <div className="space-y-10">
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                <a href="tel:+49123456789" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-blue-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="phone" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Zentrale</p><p className="text-2xl font-bold">+49 123 456789</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="mailto:beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group cursor-pointer">
                                     <div className="bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold italic">Direkt-Chat</p></div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div className="p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm">
@@ -499,9 +503,7 @@
 
             useEffect(() => {
                 window.scrollTo(0, 0);
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
+                if (window.lucide) window.lucide.createIcons();
             }, [currentPage, legalSubTab]);
 
             const navigateTo = (page) => {
@@ -517,10 +519,7 @@
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
-                setContactData(prev => ({
-                    ...prev,
-                    [name]: value
-                }));
+                setContactData(prev => ({ ...prev, [name]: value }));
             };
 
             const handleFormSubmit = (e) => {
@@ -546,19 +545,23 @@
                         {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
                         {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
                         {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}
-                        {currentPage === 'contact' && <ContactPage
-                            contactData={contactData}
-                            handleInputChange={handleInputChange}
-                            handleFormSubmit={handleFormSubmit}
-                            formSubmitted={formSubmitted}
-                            setFormSubmitted={setFormSubmitted}
-                            isSubmitting={isSubmitting}
-                        />}
-                        {currentPage === 'legal' && <LegalPage
-                            legalSubTab={legalSubTab}
-                            setLegalSubTab={setLegalSubTab}
-                            navigateToLegal={navigateToLegal}
-                        />}
+                        {currentPage === 'contact' && (
+                            <ContactPage
+                                contactData={contactData}
+                                handleInputChange={handleInputChange}
+                                handleFormSubmit={handleFormSubmit}
+                                formSubmitted={formSubmitted}
+                                setFormSubmitted={setFormSubmitted}
+                                isSubmitting={isSubmitting}
+                            />
+                        )}
+                        {currentPage === 'legal' && (
+                            <LegalPage
+                                legalSubTab={legalSubTab}
+                                setLegalSubTab={setLegalSubTab}
+                                navigateToLegal={navigateToLegal}
+                            />
+                        )}
                     </main>
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <button
@@ -567,9 +570,7 @@
                         title="Nachricht senden"
                     >
                         <Icon name="message-circle" className="w-8 h-8" />
-                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                            Frage stellen?
-                        </span>
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
                     </button>
                 </div>
             );
