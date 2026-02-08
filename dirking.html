@@ -2,14 +2,20 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <!-- Optimized: Pre-compiled JSX -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://unpkg.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; object-src 'none'; base-uri 'self';">
     <title>Dirking Versicherungsmakler - Unabhängige Beratung</title>
-    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js" integrity="sha384-aRB6X3zBuyu5EQF6GZFp0RCYdOwxYAOdFk4nViPfqSXYxc+MrZlqbM+nUYRwDQn1" crossorigin="anonymous"></script>
+>>>>>>> a6603edaedeee7a18aa9c093ff6eb0e3eca2d092
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -21,11 +27,19 @@
     <div id="root"></div>
 
     <script type="text/babel">
+<<<<<<< HEAD
 const {
   useState,
   useEffect,
   useRef
 } = React;
+=======
+        const {
+            useState,
+            useEffect,
+            useRef
+        } = React;
+>>>>>>> a6603edaedeee7a18aa9c093ff6eb0e3eca2d092
 
         // Hilfskomponente für Icons
         const Icon = ({ name, className = "w-6 h-6" }) => {
@@ -49,7 +63,7 @@ const {
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-20 items-center">
-                            <div className="flex items-center cursor-pointer" onClick={() => navigateTo('home')}>
+                            <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
                                 <div className="bg-blue-600 p-2 rounded-lg mr-3 shadow-lg shadow-blue-200 text-white">
                                     <Icon name="shield" className="w-8 h-8" />
                                 </div>
@@ -57,7 +71,7 @@ const {
                                     <span className="text-2xl font-bold text-slate-800 tracking-tight">DIRKING</span>
                                     <p className="text-xs text-blue-600 font-semibold uppercase tracking-widest">Versicherungsmakler</p>
                                 </div>
-                            </div>
+                            </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
                                 <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
@@ -93,8 +107,8 @@ const {
                                 Ihr unabhängiger Partner für Absicherung und Vorsorge. Seit über 15 Jahren beraten wir ehrlich, kompetent und auf Augenhöhe.
                             </p>
                             <div className="flex space-x-4 text-white">
-                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer"><Icon name="phone" className="w-5 h-5" /></div>
-                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer"><Icon name="message-circle" className="w-5 h-5" /></div>
+                                <a href="tel:+49123456789" aria-label="Anrufen" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer"><Icon name="phone" className="w-5 h-5" /></a>
+                                <a href="mailto:beratung@dirking.de" aria-label="E-Mail senden" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 transition-colors cursor-pointer"><Icon name="message-circle" className="w-5 h-5" /></a>
                             </div>
                         </div>
                         <div>
@@ -364,18 +378,18 @@ const {
                             <div className="absolute top-0 right-0 p-8 opacity-10"><Icon name="clock" className="w-32 h-32" /></div>
                             <h3 className="text-3xl font-bold mb-10 flex items-center"><Icon name="phone-call" className="mr-4 text-blue-400" /> Direkter Kontakt</h3>
                             <div className="space-y-10">
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                <a href="tel:+49123456789" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="Anrufen">
                                     <div className="bg-blue-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="phone" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Zentrale</p><p className="text-2xl font-bold">+49 123 456789</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="mailto:beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="E-Mail schreiben">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
-                                </div>
-                                <div className="flex items-center gap-6 group cursor-pointer">
+                                </a>
+                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 group cursor-pointer hover:opacity-80 transition-opacity" aria-label="WhatsApp Chat öffnen">
                                     <div className="bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold italic">Direkt-Chat</p></div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div className="p-10 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm">
@@ -496,90 +510,64 @@ const {
             const [legalSubTab, setLegalSubTab] = useState('impressum');
             const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Formular-Status
-  const [contactData, setContactData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (window.lucide) window.lucide.createIcons();
-  }, [currentPage, legalSubTab]);
-  const navigateTo = page => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-  };
-  const navigateToLegal = tab => {
-    setLegalSubTab(tab);
-    setCurrentPage('legal');
-    setIsMenuOpen(false);
-  };
-  const handleInputChange = e => {
-    const {
-      name,
-      value
-    } = e.target;
-    setContactData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulierte Netzwerkverzögerung für besseres UX-Feedback
-    setTimeout(() => {
-      console.log("Formular abgesendet:", contactData);
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-    }, 1500);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "min-h-screen flex flex-col font-sans"
-  }, /*#__PURE__*/React.createElement(Navigation, {
-    currentPage: currentPage,
-    navigateTo: navigateTo,
-    isMenuOpen: isMenuOpen,
-    setIsMenuOpen: setIsMenuOpen
-  }), /*#__PURE__*/React.createElement("main", {
-    className: "flex-grow"
-  }, currentPage === 'home' && /*#__PURE__*/React.createElement(HomePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'private' && /*#__PURE__*/React.createElement(PrivatePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'commercial' && /*#__PURE__*/React.createElement(CommercialPage, {
-    navigateTo: navigateTo
-  }), currentPage === 'contact' && /*#__PURE__*/React.createElement(ContactPage, {
-    contactData: contactData,
-    handleInputChange: handleInputChange,
-    handleFormSubmit: handleFormSubmit,
-    formSubmitted: formSubmitted,
-    setFormSubmitted: setFormSubmitted,
-    isSubmitting: isSubmitting
-  }), currentPage === 'legal' && /*#__PURE__*/React.createElement(LegalPage, {
-    legalSubTab: legalSubTab,
-    setLegalSubTab: setLegalSubTab,
-    navigateToLegal: navigateToLegal
-  })), /*#__PURE__*/React.createElement(Footer, {
-    navigateTo: navigateTo,
-    navigateToLegal: navigateToLegal
-  }), /*#__PURE__*/React.createElement("button", {
-    onClick: () => navigateTo('contact'),
-    className: "fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group",
-    title: "Nachricht senden"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "message-circle",
-    className: "w-8 h-8"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap"
-  }, "Frage stellen?")));
-};
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(/*#__PURE__*/React.createElement(App, null));
+            // Formular-Status
+            const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
+            const [formSubmitted, setFormSubmitted] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
 
-</script>
+            useEffect(() => {
+                window.scrollTo(0, 0);
+                if (window.lucide) window.lucide.createIcons();
+            }, [currentPage, legalSubTab]);
+
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+                setIsMenuOpen(false);
+            };
+
+            const navigateToLegal = (tab) => {
+                setLegalSubTab(tab);
+                setCurrentPage('legal');
+                setIsMenuOpen(false);
+            };
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setContactData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                // Simulierte Netzwerkverzögerung
+                setTimeout(() => {
+                    console.log("Formular abgesendet:", contactData);
+                    setIsSubmitting(false);
+                    setFormSubmitted(true);
+                }, 1500);
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col font-sans">
+                    <Navigation currentPage={currentPage} navigateTo={navigateTo} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+                    <main className="flex-grow">
+                        {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
+                        {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
+                        {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}
+                        {currentPage === 'contact' && <ContactPage contactData={contactData} handleInputChange={handleInputChange} handleFormSubmit={handleFormSubmit} formSubmitted={formSubmitted} setFormSubmitted={setFormSubmitted} isSubmitting={isSubmitting} />}
+                        {currentPage === 'legal' && <LegalPage legalSubTab={legalSubTab} setLegalSubTab={setLegalSubTab} navigateToLegal={navigateToLegal} />}
+                    </main>
+                    <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
+                    <button onClick={() => navigateTo('contact')} className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group" title="Nachricht senden">
+                        <Icon name="message-circle" className="w-8 h-8" />
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
+                    </button>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
