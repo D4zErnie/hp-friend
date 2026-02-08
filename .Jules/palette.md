@@ -7,3 +7,7 @@
 ## 2024-05-22 - Semantic Contact Links
 **Learning:** Replacing `div` containers with `<a>` tags for phone and email not only improves accessibility but also enables native browser features like "Click to Call" and default mail client opening, which is crucial for mobile users.
 **Action:** Always wrap contact information (phone, email, social) in semantic `<a>` tags with appropriate `href` schemes (`tel:`, `mailto:`, `https://wa.me`) rather than using `onClick` handlers or static text.
+
+## 2024-05-24 - Semantic Button Refactoring
+**Learning:** When refactoring `div` containers to `button` elements for accessibility, `text-align: left` and `width: 100%` must be explicitly set, as user agent styles center text and default to inline-block display.
+**Action:** Always include reset classes like `w-full text-left` when converting block-level interactive divs to buttons to preserve visual layout.
