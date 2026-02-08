@@ -486,94 +486,93 @@ const {
             </div>
         );
 
-const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [legalSubTab, setLegalSubTab] = useState('impressum');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [legalSubTab, setLegalSubTab] = useState('impressum');
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Formular-Status
-  const [contactData, setContactData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (window.lucide) window.lucide.createIcons();
-  }, [currentPage, legalSubTab]);
-  const navigateTo = page => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-  };
-  const navigateToLegal = tab => {
-    setLegalSubTab(tab);
-    setCurrentPage('legal');
-    setIsMenuOpen(false);
-  };
-  const handleInputChange = e => {
-    const {
-      name,
-      value
-    } = e.target;
-    setContactData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulierte Netzwerkverzögerung für besseres UX-Feedback
-    setTimeout(() => {
-      console.log("Formular abgesendet:", contactData);
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-    }, 1500);
-  };
-  return /*#__PURE__*/React.createElement("div", {
-    className: "min-h-screen flex flex-col font-sans"
-  }, /*#__PURE__*/React.createElement(Navigation, {
-    currentPage: currentPage,
-    navigateTo: navigateTo,
-    isMenuOpen: isMenuOpen,
-    setIsMenuOpen: setIsMenuOpen
-  }), /*#__PURE__*/React.createElement("main", {
-    className: "flex-grow"
-  }, currentPage === 'home' && /*#__PURE__*/React.createElement(HomePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'private' && /*#__PURE__*/React.createElement(PrivatePage, {
-    navigateTo: navigateTo
-  }), currentPage === 'commercial' && /*#__PURE__*/React.createElement(CommercialPage, {
-    navigateTo: navigateTo
-  }), currentPage === 'contact' && /*#__PURE__*/React.createElement(ContactPage, {
-    contactData: contactData,
-    handleInputChange: handleInputChange,
-    handleFormSubmit: handleFormSubmit,
-    formSubmitted: formSubmitted,
-    setFormSubmitted: setFormSubmitted,
-    isSubmitting: isSubmitting
-  }), currentPage === 'legal' && /*#__PURE__*/React.createElement(LegalPage, {
-    legalSubTab: legalSubTab,
-    setLegalSubTab: setLegalSubTab,
-    navigateToLegal: navigateToLegal
-  })), /*#__PURE__*/React.createElement(Footer, {
-    navigateTo: navigateTo,
-    navigateToLegal: navigateToLegal
-  }), /*#__PURE__*/React.createElement("button", {
-    onClick: () => navigateTo('contact'),
-    className: "fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group",
-    title: "Nachricht senden"
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "message-circle",
-    className: "w-8 h-8"
-  }), /*#__PURE__*/React.createElement("span", {
-    className: "absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap"
-  }, "Frage stellen?")));
-};
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(/*#__PURE__*/React.createElement(App, null));
-</script>
+            // Formular-Status
+            const [contactData, setContactData] = useState({
+                name: '',
+                email: '',
+                message: ''
+            });
+            const [formSubmitted, setFormSubmitted] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+
+            useEffect(() => {
+                window.scrollTo(0, 0);
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [currentPage, legalSubTab]);
+
+            const navigateTo = (page) => {
+                setCurrentPage(page);
+                setIsMenuOpen(false);
+            };
+
+            const navigateToLegal = (tab) => {
+                setLegalSubTab(tab);
+                setCurrentPage('legal');
+                setIsMenuOpen(false);
+            };
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setContactData(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                // Simulierte Netzwerkverzögerung für besseres UX-Feedback
+                setTimeout(() => {
+                    console.log("Formular abgesendet:", contactData);
+                    setIsSubmitting(false);
+                    setFormSubmitted(true);
+                }, 1500);
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col font-sans">
+                    <Navigation currentPage={currentPage} navigateTo={navigateTo} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+                    <main className="flex-grow">
+                        {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
+                        {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
+                        {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}
+                        {currentPage === 'contact' && <ContactPage
+                            contactData={contactData}
+                            handleInputChange={handleInputChange}
+                            handleFormSubmit={handleFormSubmit}
+                            formSubmitted={formSubmitted}
+                            setFormSubmitted={setFormSubmitted}
+                            isSubmitting={isSubmitting}
+                        />}
+                        {currentPage === 'legal' && <LegalPage
+                            legalSubTab={legalSubTab}
+                            setLegalSubTab={setLegalSubTab}
+                            navigateToLegal={navigateToLegal}
+                        />}
+                    </main>
+                    <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
+                    <button
+                        onClick={() => navigateTo('contact')}
+                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group"
+                        title="Nachricht senden"
+                    >
+                        <Icon name="message-circle" className="w-8 h-8" />
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
+                    </button>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
