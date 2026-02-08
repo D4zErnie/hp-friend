@@ -54,6 +54,16 @@ const {
             </svg>
         );
 
+        // Hilfskomponente für Einkommenssicherung Icon (Schild mit Banknote)
+        const IncomeShieldIcon = ({ className = "w-7 h-7" }) => (
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+                <path d="M12 2L3 6V12C3 16.5 8 21 12 23C16 21 21 16.5 21 12V6L12 2Z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="8" y="10" width="8" height="5" rx="0.5" fill="currentColor" opacity="0.7" />
+                <line x1="10" y1="10" x2="10" y2="15" stroke="white" strokeWidth="0.75" opacity="0.9" />
+                <line x1="14" y1="10" x2="14" y2="15" stroke="white" strokeWidth="0.75" opacity="0.9" />
+            </svg>
+        );
+
         const FEATURES = [
             { label: "Unabhängig", sub: "Freie Tarifwahl" },
             { label: "Erfahren", sub: "Über 20 Jahre" },
@@ -275,11 +285,11 @@ const {
                             { title: "Haftpflicht & Recht", icon: "shield", desc: "Wichtige Absicherung gegen Personen- und Sachschäden sowie Rechtshilfe." },
                             { title: "Gesundheit & Pflege", icon: "heart-pulse", desc: "Ergänzen oder optimieren Sie Ihren Schutz bei Krankheit und im Pflegefall." },
                             { title: "Altersvorsorge", icon: "clock", desc: "Sichern Sie Ihren Lebensstandard im Ruhestand mit individuellen Konzepten." },
-                            { title: "Einkommenssicherung", icon: "activity", desc: "Sichern Sie Ihre finanzielle Existenz und Ihren gewohnten Lebensstandard bei krankheits- oder unfallbedingtem Verdienstausfall." },
+                            { title: "Einkommenssicherung", icon: "income-shield", desc: "Sichern Sie Ihre finanzielle Existenz und Ihren gewohnten Lebensstandard bei krankheits- oder unfallbedingtem Verdienstausfall." },
                             { title: "Schwere Krankheiten Vorsorge", icon: "heart-pulse", desc: "Dread Disease: Finanzielle Soforthilfe bei Diagnosen wie Krebs oder Herzinfarkt." }
                         ].map((item, i) => (
                             <div key={i} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all hover:-translate-y-2">
-                                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner"><Icon name={item.icon} className="w-7 h-7" /></div>
+                                <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner">{item.icon === 'income-shield' ? <IncomeShieldIcon className="w-7 h-7" /> : <Icon name={item.icon} className="w-7 h-7" />}</div>
                                 <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
                                 <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                             </div>
