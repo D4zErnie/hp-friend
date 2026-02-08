@@ -5,5 +5,5 @@
 **Action:** In future enhancements, prioritize refactoring these to semantic `<button>` or `<a>` tags, or at minimum add `role="button"`, `tabIndex="0"`, and keydown handlers.
 
 ## 2024-05-22 - Semantic Contact Links
-**Learning:** Contact information (phone, email) wrapped in `div` tags with `cursor-pointer` creates a misleading affordance without functionality. Users expect these to initiate actions (call, email).
-**Action:** Always use semantic `<a>` tags with `tel:` and `mailto:` schemes for contact details to provide immediate utility and accessibility.
+**Learning:** Replacing `div` containers with `<a>` tags for phone and email not only improves accessibility but also enables native browser features like "Click to Call" and default mail client opening, which is crucial for mobile users.
+**Action:** Always wrap contact information (phone, email, social) in semantic `<a>` tags with appropriate `href` schemes (`tel:`, `mailto:`, `https://wa.me`) rather than using `onClick` handlers or static text.
