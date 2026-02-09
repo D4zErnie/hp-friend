@@ -15,3 +15,7 @@
 ## 2024-05-24 - Hit Area Expansion
 **Learning:** Using negative margins combined with equal padding (e.g., `p-4 -m-4`) effectively expands the clickable hit area of interactive elements without affecting the surrounding layout flow.
 **Action:** Use this technique for small touch targets or lists where maintaining tight visual spacing is desired but larger hit targets are needed for accessibility.
+
+## 2024-05-24 - Accessibility for Icon-Only Buttons
+**Learning:** Icon-only buttons (like the mobile menu toggle) are invisible to screen readers without explicit labels.
+**Action:** Always add `aria-label` to describe the action (e.g., "Open menu") and `aria-expanded` for toggle states. Also, ensure the internal icon has `aria-hidden="true"` to prevent redundancy or confusion.
