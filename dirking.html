@@ -363,16 +363,16 @@ const {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-2">
                                         <label htmlFor="name" className="text-sm font-bold text-slate-700 ml-2">Name</label>
-                                        <input id="name" name="name" value={contactData.name} onChange={handleInputChange} placeholder="Max Mustermann" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all" required />
+                                        <input id="name" name="name" maxLength={100} value={contactData.name} onChange={handleInputChange} placeholder="Max Mustermann" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all" required />
                                     </div>
                                     <div className="space-y-2">
                                         <label htmlFor="email" className="text-sm font-bold text-slate-700 ml-2">E-Mail</label>
-                                        <input id="email" name="email" type="email" value={contactData.email} onChange={handleInputChange} placeholder="name@beispiel.de" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all" required />
+                                        <input id="email" name="email" type="email" maxLength={100} value={contactData.email} onChange={handleInputChange} placeholder="name@beispiel.de" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all" required />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="message" className="text-sm font-bold text-slate-700 ml-2">Ihre Nachricht</label>
-                                    <textarea id="message" name="message" value={contactData.message} onChange={handleInputChange} placeholder="Wobei können wir Ihnen helfen?" rows="5" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"></textarea>
+                                    <textarea id="message" name="message" maxLength={3000} value={contactData.message} onChange={handleInputChange} placeholder="Wobei können wir Ihnen helfen?" rows="5" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"></textarea>
                                 </div>
                                 <button type="submit" disabled={isSubmitting} className="w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 disabled:bg-slate-700 disabled:cursor-not-allowed transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center">
                                     {isSubmitting ? <><Icon name="loader-2" className="animate-spin mr-3" /> Wird gesendet...</> : "Nachricht jetzt senden"}
