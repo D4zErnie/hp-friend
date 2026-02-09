@@ -565,8 +565,9 @@ const {
 
             return (
                 <div className="min-h-screen flex flex-col font-sans">
+                    <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-white focus:text-blue-600 focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-600 transition-all">Zum Hauptinhalt springen</a>
                     <Navigation currentPage={currentPage} navigateTo={navigateTo} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-                    <main className="flex-grow">
+                    <main id="main-content" tabIndex="-1" className="flex-grow outline-none">
                         {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
                         {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} />}
                         {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} />}

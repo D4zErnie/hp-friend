@@ -19,3 +19,7 @@
 ## 2024-05-24 - Accessibility for Icon-Only Buttons
 **Learning:** Icon-only buttons (like the mobile menu toggle) are invisible to screen readers without explicit labels.
 **Action:** Always add `aria-label` to describe the action (e.g., "Open menu") and `aria-expanded` for toggle states. Also, ensure the internal icon has `aria-hidden="true"` to prevent redundancy or confusion.
+
+## 2024-05-24 - Skip to Content Link
+**Learning:** For keyboard users, navigating through repeated header content (navigation, logo) on every page load is tedious.
+**Action:** Always implement a "Skip to Content" link as the first focusable element. It should be visually hidden (`sr-only`) until focused, pointing to `<main id="main-content" tabIndex="-1">` to ensure focus moves correctly to the content area.
