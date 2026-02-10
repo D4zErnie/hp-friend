@@ -87,10 +87,39 @@ const {
             </svg>
         );
 
+        const CookieBanner = () => {
+            const [accepted, setAccepted] = useState(false);
+
+            useEffect(() => {
+                const consent = localStorage.getItem('dirking_cookie_consent');
+                if (consent) setAccepted(true);
+            }, []);
+
+            const accept = () => {
+                localStorage.setItem('dirking_cookie_consent', 'true');
+                setAccepted(true);
+            };
+
+            if (accepted) return null;
+
+            return (
+                <div className="fixed bottom-4 left-4 right-4 md:right-auto md:w-96 bg-white p-6 rounded-2xl shadow-2xl border border-slate-200 z-[60] animate-slide-up">
+                    <h4 className="font-bold text-slate-900 mb-2 flex items-center"><Icon name="cookie" className="w-4 h-4 mr-2 text-blue-600"/> Datenschutzeinstellung</h4>
+                    <p className="text-sm text-slate-600 mb-4 leading-relaxed">
+                        Wir nutzen technisch notwendige Cookies, um die Funktionalität der Webseite zu gewährleisten (z.B. Ihre Merkliste). Es werden keine Tracking-Daten an Dritte weitergegeben.
+                    </p>
+                    <div className="flex gap-3">
+                        <button onClick={accept} className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-600 transition-colors w-full">Einverstanden</button>
+                        <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('button[data-legal="datenschutz"]').click(); }} className="text-slate-500 px-4 py-2 text-sm font-medium hover:text-slate-900 w-full text-center">Infos</a>
+                    </div>
+                </div>
+            );
+        };
+
         const FEATURES = [
-            { label: "Unabhängig", sub: "Freie Tarifwahl" },
-            { label: "Erfahren", sub: "Über 20 Jahre" },
-            { label: "Persönlich", sub: "Fester Ansprechpartner" },
+            { label: "Unabhängig", sub: "Freie Tarifwahl aus dem gesamten Markt" },
+            { label: "Erfahren", sub: "Über 20 Jahre Expertise" },
+            { label: "Persönlich", sub: "Ein fester Ansprechpartner" },
             { label: "Transparent", sub: "Keine versteckten Kosten" }
         ];
 
