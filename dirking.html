@@ -165,6 +165,7 @@ const {
                             <ul className="space-y-4 text-sm">
                                 <li><button onClick={() => navigateTo('private')} className="hover:text-blue-400 transition-colors text-left">Privatkunden</button></li>
                                 <li><button onClick={() => navigateTo('commercial')} className="hover:text-blue-400 transition-colors text-left">Gewerbekunden</button></li>
+                                <li><button onClick={() => navigateTo('claim')} className="hover:text-blue-400 transition-colors text-left">Schaden melden</button></li>
                                 <li><button onClick={() => navigateTo('contact')} className="hover:text-blue-400 transition-colors text-left">Termin vereinbaren</button></li>
                             </ul>
                         </div>
@@ -466,7 +467,7 @@ const {
             </div>
         );
 
-        const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices }) => (
+        const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices, navigateTo }) => (
             <div className="animate-fade-in py-24 px-4 max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-slate-900">Lernen wir uns kennen</h1>
@@ -529,6 +530,15 @@ const {
                         )}
                     </div>
                     <div className="space-y-8">
+                        <div className="bg-orange-50 p-10 rounded-[3rem] shadow-sm border border-orange-100 relative overflow-hidden group">
+                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Icon name="alert-triangle" className="w-32 h-32 text-orange-500" /></div>
+                             <h3 className="text-2xl font-bold mb-4 text-orange-900 flex items-center"><Icon name="alert-triangle" className="mr-3 text-orange-500 w-6 h-6" /> Schaden melden?</h3>
+                             <p className="text-orange-800 mb-6 relative z-10">Schnelle Hilfe im Schadensfall. Nutzen Sie unseren digitalen Assistenten.</p>
+                             <button onClick={() => navigateTo('claim')} className="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-orange-100 transition-colors shadow-sm relative z-10 flex items-center">
+                                Jetzt melden <Icon name="arrow-right" className="ml-2 w-4 h-4" />
+                             </button>
+                        </div>
+
                         <div className="bg-slate-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden h-fit">
                             <div className="absolute top-0 right-0 p-8 opacity-10"><Icon name="clock" className="w-32 h-32" /></div>
                             <h3 className="text-3xl font-bold mb-10 flex items-center"><Icon name="phone-call" className="mr-4 text-blue-400" /> Direkter Kontakt</h3>
@@ -540,6 +550,10 @@ const {
                                 <a href="mailto:beratung@dirking.de" aria-label="E-Mail schreiben: beratung@dirking.de" className="flex items-center gap-6 group cursor-pointer hover:bg-white/5 p-4 -m-4 rounded-xl transition-colors">
                                     <div className="bg-blue-800 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/40"><Icon name="mail" className="text-white w-7 h-7" /></div>
                                     <div><p className="text-blue-400 text-xs uppercase font-extrabold tracking-widest mb-1">Anfragen</p><p className="text-2xl font-bold">beratung@dirking.de</p></div>
+                                </a>
+                                <a href="https://wa.me/49123456789" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Chat öffnen" className="flex items-center gap-6 group cursor-pointer hover:bg-white/5 p-4 -m-4 rounded-xl transition-colors">
+                                    <div className="bg-green-600 p-5 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-900/40"><Icon name="message-circle" className="text-white w-7 h-7" /></div>
+                                    <div><p className="text-green-400 text-xs uppercase font-extrabold tracking-widest mb-1">WhatsApp</p><p className="text-2xl font-bold">+49 123 456789</p></div>
                                 </a>
                             </div>
                         </div>
@@ -659,6 +673,107 @@ const {
                             </div>
                         </div>
                     )}
+                </div>
+            </div>
+        );
+
+        const ClaimWizard = () => {
+            const [damageType, setDamageType] = useState('');
+            const [date, setDate] = useState('');
+            const [description, setDescription] = useState('');
+            const [isValid, setIsValid] = useState(false);
+
+            useEffect(() => {
+                setIsValid(damageType !== '' && date !== '' && description !== '');
+            }, [damageType, date, description]);
+
+            const subject = `[Schaden] - ${damageType} - ${date}`;
+            const body = `Schadensart: ${damageType}%0D%0ADatum: ${date}%0D%0A%0D%0ABeschreibung:%0D%0A${encodeURIComponent(description)}`;
+            const mailtoLink = `mailto:beratung@dirking.de?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+            return (
+                <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100 max-w-3xl mx-auto">
+                    <div className="text-center mb-10">
+                        <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
+                            <Icon name="alert-triangle" className="w-10 h-10" />
+                        </div>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Schaden melden</h2>
+                        <p className="text-slate-600">Wir helfen Ihnen schnell und unkompliziert. Bitte füllen Sie die folgenden Felder aus, um Ihre Schadensmeldung vorzubereiten.</p>
+                    </div>
+
+                    <div className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700 ml-2">Art des Schadens *</label>
+                                <div className="relative">
+                                    <select
+                                        value={damageType}
+                                        onChange={(e) => setDamageType(e.target.value)}
+                                        className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-slate-700"
+                                    >
+                                        <option value="" disabled>Bitte wählen...</option>
+                                        <option value="Sturm">Sturm</option>
+                                        <option value="Diebstahl">Diebstahl</option>
+                                        <option value="Wasser">Wasser</option>
+                                        <option value="Unfall">Unfall</option>
+                                        <option value="Sonstiges">Sonstiges</option>
+                                    </select>
+                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                        <Icon name="chevron-down" className="w-5 h-5" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700 ml-2">Wann ist es passiert? *</label>
+                                <input
+                                    type="date"
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all text-slate-700"
+                                />
+                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-slate-700 ml-2">Kurzbeschreibung *</label>
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                rows="5"
+                                className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"
+                                placeholder="Was ist passiert? Welche Gegenstände sind betroffen?"
+                            ></textarea>
+                        </div>
+
+                        <a
+                           href={isValid ? mailtoLink : '#'}
+                           className={`w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center ${!isValid ? 'opacity-50 cursor-not-allowed pointer-events-none bg-slate-400 shadow-none' : ''}`}
+                           onClick={(e) => { if (!isValid) e.preventDefault(); }}
+                        >
+                            <Icon name="mail" className="w-6 h-6 mr-3" /> E-Mail generieren
+                        </a>
+                        <p className="text-xs text-center text-slate-400 mt-4">
+                            Durch Klick auf den Button öffnet sich Ihr E-Mail-Programm mit den vorbereiteten Daten.
+                        </p>
+                    </div>
+                </div>
+            );
+        };
+
+        const ClaimPage = ({ navigateTo }) => (
+            <div className="animate-fade-in">
+                <div className="relative h-[400px] bg-slate-900 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover opacity-40" alt="[Defektes Fenster]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pb-20">
+                        <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl">Schadenservice</h1>
+                        <p className="text-slate-200 text-xl mt-4 max-w-2xl">Wir lassen Sie nicht im Regen stehen.</p>
+                    </div>
+                </div>
+                <div className="max-w-7xl mx-auto px-4 -mt-32 pb-24 relative z-10">
+                     <button onClick={() => navigateTo('home')} className="flex items-center text-white/80 mb-8 hover:text-white transition-colors font-semibold group w-fit">
+                        <div className="bg-white/10 backdrop-blur p-2 rounded-lg shadow-sm mr-3 group-hover:bg-white/20 transition-colors"><Icon name="arrow-left" className="w-5 h-5" /></div> Zurück zur Startseite
+                    </button>
+                    <ClaimWizard />
                 </div>
             </div>
         );
@@ -915,7 +1030,9 @@ const {
                             savedServices={savedServices}
                             toggleService={toggleService}
                             clearServices={clearServices}
+                            navigateTo={navigateTo}
                         />}
+                        {currentPage === 'claim' && <ClaimPage navigateTo={navigateTo} />}
                         {currentPage === 'legal' && <LegalPage
                             legalSubTab={legalSubTab}
                             setLegalSubTab={setLegalSubTab}

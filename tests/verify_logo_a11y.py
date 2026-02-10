@@ -11,9 +11,10 @@ def run():
             # Wait for content
             page.get_by_text("DIRKING").first.wait_for()
 
-            # Press Tab to focus the skip link
+            # Press Tab to focus the first element (Skip Link)
             page.keyboard.press("Tab")
-            # Press Tab again to focus the logo button
+
+            # Press Tab again to focus the Logo (Navigation)
             page.keyboard.press("Tab")
 
             # Get focused element
