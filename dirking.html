@@ -556,6 +556,15 @@ const {
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
+
+                // Security: Enforce max length in state to prevent bypass of HTML attribute
+                const MAX_LENGTHS = {
+                    name: 100,
+                    email: 100,
+                    message: 3000
+                };
+                if (value.length > (MAX_LENGTHS[name] || 3000)) return;
+
                 setContactData(prev => ({
                     ...prev,
                     [name]: value
