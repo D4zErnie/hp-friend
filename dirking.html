@@ -31,30 +31,13 @@ const {
 
         // Hilfskomponente für Icons
         const Icon = ({ name, className = "w-6 h-6" }) => {
-            const pascalName = name.replace(/(^\w|-\w)/g, (clear) => clear.replace(/-/, "").toUpperCase());
-            const iconData = window.lucide && window.lucide.icons ? window.lucide.icons[pascalName] : null;
-
-            if (!iconData) return null;
-
-            return (
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={`lucide lucide-${name} ${className}`}
-                    aria-hidden="true"
-                >
-                    {iconData.map(([tag, attrs], index) => (
-                        React.createElement(tag, { ...attrs, key: index })
-                    ))}
-                </svg>
-            );
+            const ref = useRef(null);
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className} aria-hidden="true"></i>;
         };
 
         // Hilfskomponente für das neue Logo (nach Vorlage)
@@ -471,14 +454,6 @@ const {
                                     </p>
                                 </div>
                             </div>
-                        {/* Neuer Bereich für Beteiligungen gemäß Ihrer Anfrage */}
-                            <div className="mt-16 pt-8 border-t border-slate-100">
-                                <h4 className="font-bold text-blue-600 uppercase text-sm mb-4">Beteiligungen</h4>
-                                <div className="text-slate-700 text-sm leading-relaxed space-y-2">
-                                    <p>Der Versicherungsmakler hält keine direkte oder indirekte Beteiligung von mehr als 10% an den Stimmrechten oder am Kapital eines Versicherungsunternehmens.</p>
-                                    <p>Kein Versicherungsunternehmen oder Mutterunternehmen eines Versicherungsunternehmens hält eine direkte oder indirekte Beteiligung von mehr als 10% an den Stimmrechten oder am Kapital des Versicherungsmaklers.</p>
-                                </div>
-                            </div>
                         </div>
                     )}
 
@@ -537,13 +512,6 @@ const {
             </div>
         );
 
-        // Security: Define allowed fields and length limits
-        const MAX_LENGTHS = {
-            name: 100,
-            email: 100,
-            message: 3000
-        };
-
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
@@ -560,6 +528,9 @@ const {
 
             useEffect(() => {
                 window.scrollTo(0, 0);
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
             }, [currentPage, legalSubTab]);
 
             const navigateTo = (page) => {
@@ -575,12 +546,6 @@ const {
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
-
-                // Security: strict input validation & Allowlisting
-                if (!MAX_LENGTHS[name] || value.length > MAX_LENGTHS[name]) {
-                    return;
-                }
-
                 setContactData(prev => ({
                     ...prev,
                     [name]: value
@@ -623,9 +588,9 @@ const {
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <button
                         onClick={() => navigateTo('contact')}
-                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group focus-visible:ring-4 focus-visible:ring-green-500/50 outline-none"
+                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group"
                         title="Nachricht senden"
-                        aria-label="Kontaktformular öffnen"
+                        aria-label="Nachricht senden"
                     >
                         <Icon name="message-circle" className="w-8 h-8" />
                         <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>

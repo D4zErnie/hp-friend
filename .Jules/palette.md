@@ -24,6 +24,6 @@
 **Learning:** For keyboard users, navigating through repeated header content (navigation, logo) on every page load is tedious.
 **Action:** Always implement a "Skip to Content" link as the first focusable element. It should be visually hidden (`sr-only`) until focused, pointing to `<main id="main-content" tabIndex="-1">` to ensure focus moves correctly to the content area.
 
-## 2024-05-25 - Accessible Tooltips on Focus
-**Learning:** Tooltips that only appear on hover (`group-hover:opacity-100`) are inaccessible to keyboard users, leaving them guessing about icon-only button functions.
-**Action:** Always pair `group-hover:opacity-100` with `group-focus-visible:opacity-100` on the tooltip element. Ensure the parent button has the `group` class and a clear focus indicator (e.g., `focus-visible:ring`) to guide the user.
+## 2024-05-24 - Tooltip Visibility on Focus
+**Learning:** Icon-only buttons with tooltips relying solely on `group-hover` are inaccessible to keyboard users as hover states don't trigger on focus.
+**Action:** Always pair `group-hover:opacity-100` with `group-focus-visible:opacity-100` on tooltip elements to ensure they appear when the parent button receives keyboard focus.
