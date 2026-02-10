@@ -40,6 +40,24 @@ def verify_feature():
             print("Cookie Banner NOT found or not visible!")
             sys.exit(1)
 
+        # Verify "Infos" link click (Test new fix)
+        print("Testing 'Infos' link in Cookie Banner...")
+        infos_link = page.locator("a:text('Infos')")
+        infos_link.click()
+
+        # Check if navigated to Privacy Policy (or at least triggered the action)
+        # We expect to see the "Datenschutzerklärung" headline
+        privacy_headline = page.locator("h2:text('Datenschutzerklärung')")
+        try:
+            privacy_headline.wait_for(state="visible", timeout=2000)
+            print("Successfully navigated to Privacy Policy via 'Infos' link.")
+        except:
+            print("Failed to navigate to Privacy Policy via 'Infos' link!")
+            sys.exit(1)
+
+        # Reload to bring back banner (since we navigated away, state might be reset depending on implementation, but cookie consent is stored in local storage so it might not appear if we accepted it. Wait, we haven't accepted it yet in this run logic flow.)
+        # Actually, clicking Infos just changes the page content. The banner remains unless accepted.
+
         # Click "Einverstanden"
         accept_button = page.locator("button:text('Einverstanden')")
         accept_button.click()

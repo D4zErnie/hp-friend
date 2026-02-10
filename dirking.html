@@ -87,7 +87,7 @@ const {
             </svg>
         );
 
-        const CookieBanner = () => {
+        const CookieBanner = ({ onInfoClick }) => {
             const [accepted, setAccepted] = useState(false);
 
             useEffect(() => {
@@ -110,7 +110,7 @@ const {
                     </p>
                     <div className="flex gap-3">
                         <button onClick={accept} className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-600 transition-colors w-full">Einverstanden</button>
-                        <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('button[data-legal="datenschutz"]').click(); }} className="text-slate-500 px-4 py-2 text-sm font-medium hover:text-slate-900 w-full text-center">Infos</a>
+                        <a href="#" onClick={(e) => { e.preventDefault(); onInfoClick(); }} className="text-slate-500 px-4 py-2 text-sm font-medium hover:text-slate-900 w-full text-center">Infos</a>
                     </div>
                 </div>
             );
@@ -445,18 +445,35 @@ const {
                         ].map((item, i) => {
                             const isSaved = savedServices && savedServices.includes(item.title);
                             return (
-                                <div key={i} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all relative group">
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); toggleService(item.title); }}
-                                        className={`absolute top-6 right-6 p-2 rounded-full transition-all z-10 ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 hover:text-blue-600 hover:bg-slate-50'}`}
-                                        aria-label={isSaved ? "Von Merkliste entfernen" : "Auf Merkliste setzen"}
-                                        title={isSaved ? "Von Merkliste entfernen" : "Auf Merkliste setzen"}
-                                    >
+                                <div
+                                    key={i}
+                                    onClick={() => toggleService(item.title)}
+                                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(item.title); } }}
+                                    role="button"
+                                    tabIndex={0}
+                                    className={`cursor-pointer bg-white p-10 rounded-[2rem] border transition-all relative group h-full flex flex-col ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
+                                >
+                                    <div className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 group-hover:text-blue-600 group-hover:bg-slate-50'}`}>
                                         <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
-                                    </button>
-                                    <div className="w-14 h-14 bg-slate-100 text-slate-700 rounded-2xl flex items-center justify-center mb-8"><Icon name="briefcase" className="w-7 h-7" /></div>
-                                    <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                                    </div>
+                                    <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                                        <Icon name="briefcase" className="w-7 h-7" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
+                                    <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{item.desc}</p>
+                                    <div className={`flex items-center font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
+                                        {isSaved ? (
+                                            <>
+                                                <Icon name="check" className="w-4 h-4 mr-2" />
+                                                Für Gespräch vorgemerkt
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Icon name="plus" className="w-4 h-4 mr-2" />
+                                                Auf die Merkliste
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             );
                         })}
@@ -1070,7 +1087,7 @@ const {
                     </main>
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <StickyCallback />
-                    <CookieBanner />
+                    <CookieBanner onInfoClick={() => navigateToLegal('datenschutz')} />
                 </div>
             );
         };
