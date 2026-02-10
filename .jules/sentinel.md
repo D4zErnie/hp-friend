@@ -12,3 +12,8 @@
 **Vulnerability:** A script library was included twice: once without SRI (top) and once with SRI (bottom). The browser executes the first occurrence, rendering the SRI protection useless.
 **Learning:** Simply adding a secured script tag is insufficient if an insecure version remains in the document. Browsers process scripts sequentially.
 **Prevention:** Audit HTML for duplicate script inclusions and ensure only the secured, pinned version is present.
+
+## 2026-02-12 - Client-Side Validation Bypass in React State
+**Vulnerability:** Input length limits were enforced only by HTML `maxLength` attributes, which can be easily bypassed by attackers or scripts, allowing large payloads to be stored in React state.
+**Learning:** Controlled components in React update state based on `e.target.value` without inherent validation. If the underlying HTML attribute is bypassed, the component will accept and render oversized input unless explicit validation logic exists in the `onChange` handler.
+**Prevention:** Implement server-side style validation logic within the `onChange` handler (e.g., allow-listing fields and checking lengths against constants) to enforce data integrity at the application state level.

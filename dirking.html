@@ -520,6 +520,13 @@ const {
             </div>
         );
 
+        // Security: Define allowed fields and length limits
+        const MAX_LENGTHS = {
+            name: 100,
+            email: 100,
+            message: 3000
+        };
+
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
@@ -554,6 +561,12 @@ const {
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
+
+                // Security: strict input validation & Allowlisting
+                if (!MAX_LENGTHS[name] || value.length > MAX_LENGTHS[name]) {
+                    return;
+                }
+
                 setContactData(prev => ({
                     ...prev,
                     [name]: value
