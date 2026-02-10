@@ -87,7 +87,7 @@ const {
             </svg>
         );
 
-        const CookieBanner = () => {
+        const CookieBanner = ({ onInfoClick }) => {
             const [accepted, setAccepted] = useState(false);
 
             useEffect(() => {
@@ -110,7 +110,7 @@ const {
                     </p>
                     <div className="flex gap-3">
                         <button onClick={accept} className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-600 transition-colors w-full">Einverstanden</button>
-                        <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('button[data-legal="datenschutz"]').click(); }} className="text-slate-500 px-4 py-2 text-sm font-medium hover:text-slate-900 w-full text-center">Infos</a>
+                        <a href="#" onClick={(e) => { e.preventDefault(); onInfoClick(); }} className="text-slate-500 px-4 py-2 text-sm font-medium hover:text-slate-900 w-full text-center">Infos</a>
                     </div>
                 </div>
             );
@@ -1087,7 +1087,7 @@ const {
                     </main>
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <StickyCallback />
-                    <CookieBanner />
+                    <CookieBanner onInfoClick={() => navigateToLegal('datenschutz')} />
                 </div>
             );
         };
