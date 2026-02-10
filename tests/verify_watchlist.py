@@ -19,9 +19,28 @@ def verify_watchlist():
             time.sleep(1) # Wait for navigation
 
             # Find the first 'Merken' button and click it
-            print("Clicking 'Merken' on first item...")
+            print("Hovering over card and clicking 'Merken' on first item...")
+
+            item_name = "Hausrat & Gebäude"
+            # Locate the card specifically by text
+            first_card = page.locator(f"div.group:has-text('{item_name}')").first
+
+            if not first_card.is_visible():
+                print(f"Card '{item_name}' not found.")
+                sys.exit(1)
+
+            first_card.hover()
+
             # Using the new text logic for card
-            bookmark_btn = page.locator('text=Auf die Merkliste').first
+            bookmark_btn = first_card.locator('text=Auf die Merkliste')
+
+            # Wait for it to be visible
+            try:
+                bookmark_btn.wait_for(state="visible", timeout=5000)
+            except:
+                print("Button 'Auf die Merkliste' did not become visible after hover.")
+                sys.exit(1)
+
             bookmark_btn.click()
 
             # Verify badge in navigation
@@ -44,8 +63,6 @@ def verify_watchlist():
                 sys.exit(1)
 
             # Verify the item is listed
-            # We assume the first item on Private Page is "Hausrat & Gebäude"
-            item_name = "Hausrat & Gebäude"
             if not page.get_by_text(item_name).is_visible():
                 print(f"FAILED: Item '{item_name}' not visible in Merkliste")
                 sys.exit(1)
