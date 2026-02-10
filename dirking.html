@@ -395,7 +395,7 @@ const {
             </div>
         );
 
-        const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService }) => (
+        const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices }) => (
             <div className="animate-fade-in py-24 px-4 max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-slate-900">Lernen wir uns kennen</h1>
@@ -416,7 +416,10 @@ const {
                             <form onSubmit={handleFormSubmit} className="space-y-8">
                                 {savedServices && savedServices.length > 0 && (
                                     <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                                        <h3 className="font-bold text-blue-800 mb-3 flex items-center"><Icon name="bookmark" className="w-4 h-4 mr-2" /> Ihre Merkliste</h3>
+                                        <div className="flex justify-between items-center mb-3">
+                                            <h3 className="font-bold text-blue-800 flex items-center"><Icon name="bookmark" className="w-4 h-4 mr-2" /> Ihre Merkliste</h3>
+                                            <button type="button" onClick={clearServices} className="text-xs text-blue-500 hover:text-red-500 font-medium transition-colors">Alle löschen</button>
+                                        </div>
                                         <div className="flex flex-wrap gap-2">
                                             {savedServices.map(service => (
                                                 <span key={service} className="inline-flex items-center bg-white border border-blue-200 text-blue-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
@@ -589,13 +592,40 @@ const {
             </div>
         );
 
+        const useLocalStorage = (key, initialValue) => {
+            const [storedValue, setStoredValue] = useState(() => {
+                if (typeof window === "undefined") {
+                    return initialValue;
+                }
+                try {
+                    const item = window.localStorage.getItem(key);
+                    return item ? JSON.parse(item) : initialValue;
+                } catch (error) {
+                    console.log(error);
+                    return initialValue;
+                }
+            });
+            const setValue = (value) => {
+                try {
+                    const valueToStore = value instanceof Function ? value(storedValue) : value;
+                    setStoredValue(valueToStore);
+                    if (typeof window !== "undefined") {
+                        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            return [storedValue, setValue];
+        };
+
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
             const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-            // Merkliste-Status
-            const [savedServices, setSavedServices] = useState([]);
+            // Merkliste-Status (Persistent)
+            const [savedServices, setSavedServices] = useLocalStorage('dirking_saved_services', []);
 
             // Formular-Status
             const [contactData, setContactData] = useState({
@@ -632,6 +662,10 @@ const {
                         return [...prev, service];
                     }
                 });
+            };
+
+            const clearServices = () => {
+                setSavedServices([]);
             };
 
             const handleInputChange = (e) => {
@@ -673,6 +707,7 @@ const {
                             isSubmitting={isSubmitting}
                             savedServices={savedServices}
                             toggleService={toggleService}
+                            clearServices={clearServices}
                         />}
                         {currentPage === 'legal' && <LegalPage
                             legalSubTab={legalSubTab}
