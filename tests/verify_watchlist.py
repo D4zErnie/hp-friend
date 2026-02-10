@@ -20,8 +20,8 @@ def verify_watchlist():
 
             # Find the first 'Merken' button and click it
             print("Clicking 'Merken' on first item...")
-            # Using the aria-label we added
-            bookmark_btn = page.locator('button[aria-label="Auf Merkliste setzen"]').first
+            # Using the new text logic for card
+            bookmark_btn = page.locator('text=Auf die Merkliste').first
             bookmark_btn.click()
 
             # Verify badge in navigation
@@ -39,7 +39,7 @@ def verify_watchlist():
 
             # Verify "Ihre Merkliste" section exists
             print("Verifying Merkliste section...")
-            if not page.get_by_text("Ihre Merkliste").is_visible():
+            if not page.locator("h3:has-text('Ihre Merkliste')").is_visible():
                 print("FAILED: 'Ihre Merkliste' section not visible")
                 sys.exit(1)
 
