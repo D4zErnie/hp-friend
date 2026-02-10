@@ -6,7 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://unpkg.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; object-src 'none'; base-uri 'self';">
-    <title>Dirking Versicherungsmakler - Unabhängige Beratung</title>
+
+    <!-- SEO & Meta Information -->
+    <title>Dirking Versicherungsmakler - Unabhängige Beratung in Schüttorf</title>
+    <meta name="description" content="Ihr unabhängiger Versicherungsmakler in Schüttorf. Persönliche Beratung für Privat- und Gewerbekunden. Über 20 Jahre Erfahrung. Jetzt Termin vereinbaren.">
+    <meta name="keywords" content="Versicherungsmakler, Schüttorf, Dirking, Versicherungen, Unabhängig, Gewerbeversicherung, Private Krankenversicherung, Altersvorsorge">
+    <meta name="author" content="Mario Dirking">
+
+    <!-- Open Graph / Social Media (WhatsApp, LinkedIn, Facebook Vorschau) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.dirking.de/">
+    <meta property="og:title" content="Dirking Versicherungsmakler - Sicherheit für Ihr Leben">
+    <meta property="og:description" content="Unabhängig. Fair. Regional. Maßgeschneiderte Konzepte für Privat und Gewerbe.">
+    <meta property="og:image" content="./logo.png">
+
     <!-- Favicon -->
     <link rel="icon" href="./favicon.png" type="image/png">
     <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
@@ -19,6 +32,8 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Logo Blend Mode Fix */
+        .logo-blend { mix-blend-mode: multiply; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -132,14 +147,20 @@ const {
         const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex justify-between h-20 items-center">
-                            <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
+                        <div className="flex justify-between h-24 items-center">
+                            <button className="flex items-center cursor-pointer text-left bg-transparent border-none p-0 group" onClick={() => navigateTo('home')} aria-label="Zur Startseite">
                                 <img 
                                     src="./logo.png" 
                                     alt="Dirking Versicherungsmakler Logo" 
-                                    className="h-16 md:h-18 w-auto object-contain" 
-                                    onError={(e) => { e.target.src='https://via.placeholder.com/200x60?text=Dirking'; }}
+                                    className="h-16 md:h-20 w-auto object-contain logo-blend group-hover:opacity-90 transition-opacity"
+                                    onError={(e) => {
+                                        e.target.style.display='none';
+                                        e.target.nextSibling.style.display='block';
+                                    }}
                                 />
+                                <div style={{display: 'none'}} className="text-2xl font-bold text-blue-900 tracking-wider">
+                                    DIRKING
+                                </div>
                             </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
@@ -213,6 +234,7 @@ const {
                                 <li><button onClick={() => navigateTo('private')} className="hover:text-blue-400 transition-colors text-left">Privatkunden</button></li>
                                 <li><button onClick={() => navigateTo('commercial')} className="hover:text-blue-400 transition-colors text-left">Gewerbekunden</button></li>
                                 <li><button onClick={() => navigateTo('contact')} className="hover:text-blue-400 transition-colors text-left">Termin vereinbaren</button></li>
+                                <li><button onClick={() => navigateTo('claim')} className="hover:text-blue-400 transition-colors text-left">Schaden melden</button></li>
                             </ul>
                         </div>
                         <div>
@@ -246,7 +268,7 @@ const {
                             <div className="inline-flex items-center bg-blue-600/20 border border-blue-400/30 px-4 py-2 rounded-full text-blue-300 text-sm font-bold mb-6 backdrop-blur-md">
                                 <Icon name="shield" className="w-4 h-4 mr-2" /> Ihr Makler vor Ort & Digital
                             </div>
-                            <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight md:whitespace-nowrap">Sicherheit für <span className="text-blue-400 italic">Ihr Leben</span></h1>
+                            <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight md:whitespace-nowrap">Sicherheit für <br/><span className="text-blue-400 italic">Ihr Leben</span></h1>
                             <p className="text-xl text-blue-100 mb-10 max-w-3xl leading-relaxed">Unabhängig. Fair. Regional. Aus hunderten Tarifen finden wir gemeinsam den Schutz, der wirklich zu Ihnen passt – objektiv und individuell auf Sie zugeschnitten.</p>
                             <div className="flex flex-wrap gap-4">
                                 <button onClick={() => navigateTo('contact')} className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95">Termin vereinbaren</button>
@@ -627,7 +649,7 @@ const {
                                         <h4 className="font-bold text-blue-600 uppercase text-sm mb-4">Berufsbezeichnung & Register</h4>
                                         <p className="text-slate-700">
                                             Versicherungsmakler mit Erlaubnis nach § 34d Abs. 1 GewO<br />
-                                            Registernummer: <strong className="text-slate-900">D-8UIO-45JGY-79</strong>
+                                            Registernummer: <strong className="text-slate-900">D-XXXX-XXXXX-XX (Bitte prüfen!)</strong>
                                         </p>
                                     </div>
                                 </div>
@@ -1052,6 +1074,8 @@ const {
                 e.preventDefault();
                 setIsSubmitting(true);
                 // Simulierte Netzwerkverzögerung für besseres UX-Feedback
+                // TIPP: Für echte E-Mails nutzen Sie Dienste wie Formspree.io oder Getform.io
+                // Ersetzen Sie dazu einfach diesen Handler durch ein echtes Form-Action-Attribut oder einen fetch()-Call.
                 setTimeout(() => {
                     console.log("Formular abgesendet:", { ...contactData, interestedIn: savedServices });
                     setIsSubmitting(false);

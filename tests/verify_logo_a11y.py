@@ -9,7 +9,7 @@ def run():
             page.goto("http://localhost:3000/dirking.html")
 
             # Wait for content
-            page.get_by_text("DIRKING").first.wait_for()
+            page.locator("img[alt='Dirking Versicherungsmakler Logo']").first.wait_for()
 
             # Press Tab to focus the first element (Skip Link)
             page.keyboard.press("Tab")
