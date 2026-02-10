@@ -588,11 +588,12 @@ const {
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <button
                         onClick={() => navigateTo('contact')}
-                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group"
+                        className="fixed bottom-8 right-8 bg-green-500 text-white p-5 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all z-40 shadow-green-500/30 group focus-visible:ring-4 focus-visible:ring-green-500/50 outline-none"
                         title="Nachricht senden"
+                        aria-label="Kontaktformular öffnen"
                     >
                         <Icon name="message-circle" className="w-8 h-8" />
-                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Frage stellen?</span>
                     </button>
                 </div>
             );
