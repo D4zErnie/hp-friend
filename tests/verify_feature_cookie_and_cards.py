@@ -7,6 +7,7 @@ def verify_feature():
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
+        # Use a desktop viewport to ensure layout is standard
         page = browser.new_page(viewport={"width": 1280, "height": 720})
 
         # Start server (assuming it's running via run_tests_with_server.py logic or similar, but here we assume port 3000)
@@ -27,6 +28,10 @@ def verify_feature():
         # --- Cookie Banner Verification ---
         print("Verifying Cookie Banner...")
         # Check if cookie banner is visible
+        # Note: If tests ran before, local storage might persist. We should clear it.
+        page.evaluate("localStorage.clear()")
+        page.reload()
+
         cookie_banner = page.locator("text=Datenschutzeinstellung")
         try:
             cookie_banner.wait_for(state="visible", timeout=5000)
@@ -64,7 +69,12 @@ def verify_feature():
         card_title = "Hausrat & Gebäude"
         # The card is now the wrapper div. It contains the title.
         # We can find the card by finding the text and going up to the wrapper
+        # Using a more specific selector to target the card container
         card = page.locator(f"div.group:has-text('{card_title}')").first
+
+        if not card.is_visible():
+            print(f"Card '{card_title}' not found.")
+            sys.exit(1)
 
         # Check initial state text
         initial_text = card.locator("text=Auf die Merkliste")
@@ -74,18 +84,34 @@ def verify_feature():
             print(f"Initial state incorrect: 'Auf die Merkliste' NOT found in '{card_title}' card.")
             sys.exit(1)
 
-        # Check hover effect class on icon
-        # The icon is inside the card. We expect `group-hover:fill-current` on the SVG or its container?
-        # My implementation added `group-hover:fill-current` to the Icon component which puts it on the SVG (or path depending on implementation)
-        # The Icon component returns an SVG with `className`.
-        # So we look for an SVG inside the card that has `group-hover:fill-current`.
-        icon_svg = card.locator("svg.group-hover\\:fill-current")
-        if icon_svg.count() > 0:
-             print("Icon has 'group-hover:fill-current' class.")
+        # Check NEW hover effect classes on icon container
+        # We look for a div with `group-hover:bg-blue-600` and `group-hover:text-white` inside the card
+        icon_container = card.locator("div.group-hover\\:bg-blue-600.group-hover\\:text-white")
+        if icon_container.count() > 0:
+             print("Icon container has expected hover classes (bg-blue-600, text-white).")
         else:
-             print("Icon does NOT have 'group-hover:fill-current' class.")
-             # Print HTML for debug
-             # print(card.inner_html())
+             print("Icon container does NOT have expected hover classes.")
+             sys.exit(1)
+
+        # Check for Bookmark Indicator (absolute positioned div with bookmark icon)
+        # It should have class `absolute top-6 right-6`
+        bookmark_indicator = card.locator("div.absolute.top-6.right-6 svg.lucide-bookmark") # Assuming lucide adds class or similar, or just svg inside
+        # Actually Icon component renders svg.
+        # Let's check for the container div
+        bookmark_container = card.locator("div.absolute.top-6.right-6")
+        if bookmark_container.count() > 0:
+             print("Bookmark indicator container found.")
+             # Check if it contains the bookmark icon
+             # The Icon component adds `lucide-bookmark` class? No, usually generic svg but I can check presence of path or something?
+             # My implementation: <Icon name="bookmark" ...>
+             # Let's just check if it exists inside
+             if bookmark_container.locator("svg").count() > 0:
+                 print("Bookmark icon found inside indicator.")
+             else:
+                 print("Bookmark icon NOT found inside indicator.")
+                 sys.exit(1)
+        else:
+             print("Bookmark indicator container NOT found.")
              sys.exit(1)
 
         # Click the card to toggle
@@ -97,6 +123,15 @@ def verify_feature():
         active_text.wait_for(state="visible", timeout=2000)
         print("Active state confirmed: 'Für Gespräch vorgemerkt' is visible.")
 
+        # Check bookmark active state (text-blue-600 bg-blue-50)
+        # Re-query bookmark container
+        bookmark_container_active = card.locator("div.absolute.top-6.right-6.text-blue-600.bg-blue-50")
+        if bookmark_container_active.count() > 0:
+             print("Bookmark indicator has active styling.")
+        else:
+             print("Bookmark indicator does NOT have active styling.")
+             sys.exit(1)
+
         # Check color (text-green-600)
         # We can check if the class is present on the wrapper of the text
         text_wrapper = card.locator("div.text-green-600")
@@ -106,18 +141,32 @@ def verify_feature():
             print("Active text does NOT have green color class.")
             sys.exit(1)
 
-        # Check bookmark badge in header (optional, but good for integration test)
+        # Check header badge (optional)
         header_badge = page.locator("nav button:has-text('Kontakt') span").first
         if header_badge.is_visible() and header_badge.inner_text() == "1":
              print("Header badge updated correctly.")
         else:
-             print("Header badge verification failed.")
+             # Depending on implementation, might take a moment or be hidden on mobile?
+             # Just print warning if not found
+             print("Header badge verification skipped/failed.")
 
         # Click again to untoggle
         print("Clicking card again to untoggle...")
         card.click()
         initial_text.wait_for(state="visible", timeout=2000)
         print("Returned to initial state.")
+
+        # Test Keyboard Interaction
+        print("Testing keyboard interaction (Enter key)...")
+        card.focus()
+        page.keyboard.press("Enter")
+        active_text.wait_for(state="visible", timeout=2000)
+        print("Keyboard interaction (Enter) toggled card ON.")
+
+        card.focus()
+        page.keyboard.press("Space")
+        initial_text.wait_for(state="visible", timeout=2000)
+        print("Keyboard interaction (Space) toggled card OFF.")
 
         print("Verification SUCCESS!")
         browser.close()
