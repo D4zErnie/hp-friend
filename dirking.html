@@ -459,11 +459,11 @@ const {
                         )}
                     </div>
                     <div className="space-y-8">
-                        <div className="bg-orange-50 p-10 rounded-[3rem] shadow-sm border border-orange-100 relative overflow-hidden group">
-                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Icon name="alert-triangle" className="w-32 h-32 text-orange-500" /></div>
-                             <h3 className="text-2xl font-bold mb-4 text-orange-900 flex items-center"><Icon name="alert-triangle" className="mr-3 text-orange-500 w-6 h-6" /> Schaden melden?</h3>
-                             <p className="text-orange-800 mb-6 relative z-10">Schnelle Hilfe im Schadensfall. Nutzen Sie unseren digitalen Assistenten.</p>
-                             <button onClick={() => navigateTo('claim')} className="bg-white text-orange-600 px-6 py-3 rounded-xl font-bold hover:bg-orange-100 transition-colors shadow-sm relative z-10 flex items-center">
+                        <div className="bg-blue-50 p-10 rounded-[3rem] shadow-sm border border-blue-100 relative overflow-hidden group">
+                             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform"><Icon name="shield-alert" className="w-32 h-32 text-blue-500" /></div>
+                             <h3 className="text-2xl font-bold mb-4 text-blue-900 flex items-center"><Icon name="shield-alert" className="mr-3 text-blue-500 w-6 h-6" /> Schaden melden?</h3>
+                             <p className="text-blue-800 mb-6 relative z-10">Schnelle Hilfe im Schadensfall. Nutzen Sie unseren digitalen Assistenten.</p>
+                             <button onClick={() => navigateTo('claim')} className="bg-white text-blue-600 px-6 py-3 rounded-xl font-bold hover:bg-blue-100 transition-colors shadow-sm relative z-10 flex items-center">
                                 Jetzt melden <Icon name="arrow-right" className="ml-2 w-4 h-4" />
                              </button>
                         </div>
@@ -610,27 +610,63 @@ const {
             const [damageType, setDamageType] = useState('');
             const [date, setDate] = useState('');
             const [description, setDescription] = useState('');
+            const [files, setFiles] = useState([]);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isSubmitted, setIsSubmitted] = useState(false);
             const [isValid, setIsValid] = useState(false);
 
             useEffect(() => {
                 setIsValid(damageType !== '' && date !== '' && description !== '');
             }, [damageType, date, description]);
 
-            const subject = `[Schaden] - ${damageType} - ${date}`;
-            const body = `Schadensart: ${damageType}%0D%0ADatum: ${date}%0D%0A%0D%0ABeschreibung:%0D%0A${encodeURIComponent(description)}`;
-            const mailtoLink = `mailto:beratung@dirking.de?subject=${encodeURIComponent(subject)}&body=${body}`;
+            const handleFileChange = (e) => {
+                if (e.target.files) {
+                    setFiles(Array.from(e.target.files));
+                }
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (!isValid) return;
+
+                setIsSubmitting(true);
+                // Simulate network request
+                setTimeout(() => {
+                    console.log("Claim Submitted:", { damageType, date, description, files: files.map(f => f.name) });
+                    setIsSubmitting(false);
+                    setIsSubmitted(true);
+                }, 1500);
+            };
+
+            if (isSubmitted) {
+                return (
+                    <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100 max-w-3xl mx-auto text-center animate-fade-in">
+                        <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 text-green-600">
+                            <Icon name="check-circle-2" className="w-12 h-12" />
+                        </div>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Meldung erhalten</h2>
+                        <p className="text-slate-600 text-lg mb-8">Vielen Dank. Wir haben Ihre Schadensmeldung und die {files.length > 0 ? `${files.length} Bilder` : 'Daten'} erhalten. Wir prüfen den Fall und melden uns umgehend bei Ihnen.</p>
+                        <button
+                            onClick={() => { setIsSubmitted(false); setDamageType(''); setDate(''); setDescription(''); setFiles([]); }}
+                            className="text-blue-600 font-bold hover:underline"
+                        >
+                            Weitere Meldung erfassen
+                        </button>
+                    </div>
+                );
+            }
 
             return (
                 <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100 max-w-3xl mx-auto">
                     <div className="text-center mb-10">
-                        <div className="bg-orange-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
-                            <Icon name="alert-triangle" className="w-10 h-10" />
+                        <div className="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600">
+                            <Icon name="shield-alert" className="w-10 h-10" />
                         </div>
                         <h2 className="text-3xl font-bold text-slate-900 mb-4">Schaden melden</h2>
                         <p className="text-slate-600">Wir helfen Ihnen schnell und unkompliziert. Bitte füllen Sie die folgenden Felder aus, um Ihre Schadensmeldung vorzubereiten.</p>
                     </div>
 
-                    <div className="space-y-8">
+                    <form onSubmit={handleSubmit} className="space-y-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-700 ml-2">Art des Schadens *</label>
@@ -673,17 +709,46 @@ const {
                             ></textarea>
                         </div>
 
-                        <a
-                           href={isValid ? mailtoLink : '#'}
-                           className={`w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center ${!isValid ? 'opacity-50 cursor-not-allowed pointer-events-none bg-slate-400 shadow-none' : ''}`}
-                           onClick={(e) => { if (!isValid) e.preventDefault(); }}
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-slate-700 ml-2">Bilder hinzufügen (Optional)</label>
+                            <div className="relative border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors group cursor-pointer bg-slate-50/50">
+                                <input
+                                    type="file"
+                                    multiple
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                                <div className="flex flex-col items-center justify-center pointer-events-none">
+                                    <div className="bg-white p-3 rounded-full shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                                        <Icon name="upload-cloud" className="w-6 h-6 text-blue-600" />
+                                    </div>
+                                    <p className="font-bold text-slate-700">Klicken zum Auswählen</p>
+                                    <p className="text-xs text-slate-400 mt-1">JPG, PNG (Max. 5MB)</p>
+                                </div>
+                            </div>
+                            {files.length > 0 && (
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {files.map((file, i) => (
+                                        <span key={i} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold flex items-center border border-blue-100">
+                                            <Icon name="image" className="w-3 h-3 mr-1" /> {file.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <button
+                           type="submit"
+                           disabled={!isValid || isSubmitting}
+                           className="w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 disabled:bg-slate-300 disabled:cursor-not-allowed transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center"
                         >
-                            <Icon name="mail" className="w-6 h-6 mr-3" /> E-Mail generieren
-                        </a>
+                            {isSubmitting ? <><Icon name="loader-2" className="animate-spin mr-3" /> Wird gesendet...</> : <><Icon name="send" className="w-6 h-6 mr-3" /> Schaden melden</>}
+                        </button>
                         <p className="text-xs text-center text-slate-400 mt-4">
-                            Durch Klick auf den Button öffnet sich Ihr E-Mail-Programm mit den vorbereiteten Daten.
+                            Wir behandeln Ihre Daten vertraulich gemäß unserer Datenschutzerklärung.
                         </p>
-                    </div>
+                    </form>
                 </div>
             );
         };
