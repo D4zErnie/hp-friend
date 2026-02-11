@@ -27,3 +27,7 @@
 ## 2024-05-24 - Tooltip Visibility on Focus
 **Learning:** Icon-only buttons with tooltips relying solely on `group-hover` are inaccessible to keyboard users as hover states don't trigger on focus.
 **Action:** Always pair `group-hover:opacity-100` with `group-focus-visible:opacity-100` on tooltip elements to ensure they appear when the parent button receives keyboard focus.
+
+## 2024-05-24 - File Input Accessibility
+**Learning:** Invisible file inputs (opacity 0) overlaying custom UI lack native focus indication, making them inaccessible to keyboard users who can't see where they are navigating.
+**Action:** Always add focus-within styles (e.g., ring, border change) to the parent container of the invisible file input to provide visual feedback when the input receives focus.
