@@ -373,6 +373,86 @@ const {
             </div>
         );
 
+        const QuickEstimator = ({ navigateTo }) => {
+            const [sqm, setSqm] = useState(60);
+            const VALUE_PER_SQM = 650;
+            const RATE = 0.002;
+
+            const sumInsured = sqm * VALUE_PER_SQM;
+            const annualPremium = sumInsured * RATE;
+
+            return (
+                <div className="bg-slate-900 text-white rounded-[3rem] p-10 md:p-16 shadow-2xl overflow-hidden relative mb-20">
+                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+                        <Icon name="calculator" className="w-96 h-96" />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-16 relative z-10 items-center">
+                        <div>
+                            <div className="inline-flex items-center bg-blue-600/20 border border-blue-500/30 rounded-full px-4 py-1.5 text-blue-300 text-sm font-bold mb-6">
+                                <Icon name="zap" className="w-4 h-4 mr-2" />
+                                Blitz-Rechner
+                            </div>
+                            <h2 className="text-4xl font-bold mb-6">Hausrat-Schnellcheck</h2>
+                            <p className="text-blue-200 text-lg mb-10 leading-relaxed">
+                                Wie gut ist Ihr Eigentum geschützt? Berechnen Sie in Sekunden Ihren geschätzten Beitrag für eine Top-Absicherung.*
+                            </p>
+
+                            <div className="space-y-6">
+                                <div>
+                                    <div className="flex justify-between text-sm font-bold mb-2">
+                                        <span>Wohnfläche</span>
+                                        <span className="text-blue-400">{sqm} m²</span>
+                                    </div>
+                                    <input
+                                        type="range"
+                                        min="20"
+                                        max="200"
+                                        step="1"
+                                        value={sqm}
+                                        onChange={(e) => setSqm(Number(e.target.value))}
+                                        className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                                    />
+                                    <div className="flex justify-between text-xs text-slate-500 mt-2">
+                                        <span>20 m²</span>
+                                        <span>200 m²</span>
+                                    </div>
+                                </div>
+
+                                <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                                     <div className="flex justify-between items-center mb-2">
+                                        <span className="text-slate-400 text-sm">Empfohlene Versicherungssumme</span>
+                                        <span className="font-bold">{sumInsured.toLocaleString('de-DE')} €</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-blue-600 rounded-[2.5rem] p-10 text-center shadow-xl shadow-blue-900/50 relative overflow-hidden group">
+                             <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700"></div>
+                             <div className="relative z-10">
+                                <p className="text-blue-200 text-sm font-bold uppercase tracking-wider mb-2">Geschätzter Jahresbeitrag</p>
+                                <div className="text-5xl font-extrabold text-white mb-2 tracking-tight">
+                                    {annualPremium.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
+                                </div>
+                                <p className="text-blue-200 text-xs mb-8 opacity-80">inkl. Versicherungssteuer</p>
+
+                                <button
+                                    onClick={() => navigateTo('contact')}
+                                    className="w-full bg-white text-blue-600 font-bold py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center group-hover:scale-[1.02] active:scale-[0.98]"
+                                >
+                                    Preis jetzt sichern <Icon name="arrow-right" className="ml-2 w-5 h-5" />
+                                </button>
+                                <p className="text-[10px] text-blue-200 mt-4 leading-tight opacity-60">
+                                    *Unverbindliche Orientierungshilfe. Der tatsächliche Beitrag kann je nach Tarif, Standort und Zusatzleistungen abweichen.
+                                </p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         const PrivatePage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-blue-900 overflow-hidden">
@@ -434,12 +514,7 @@ const {
                             );
                         })}
                     </div>
-                    <div className="bg-blue-600 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-12 opacity-10"><Icon name="shield" className="w-64 h-64" /></div>
-                        <h3 className="text-3xl font-bold mb-4 relative z-10">Zeit für einen Check-up?</h3>
-                        <p className="text-blue-100 mb-8 text-lg max-w-2xl mx-auto relative z-10">Versicherungen sollten sich Ihrem Leben anpassen, nicht umgekehrt. Lassen Sie uns gemeinsam prüfen, wo Sie sparen können.</p>
-                        <button onClick={() => navigateTo('contact')} className="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-50 transition-all relative z-10">Kostenlose Erstberatung</button>
-                    </div>
+                    <QuickEstimator navigateTo={navigateTo} />
                 </div>
             </div>
         );
