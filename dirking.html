@@ -141,7 +141,9 @@ const {
         const MAX_LENGTHS = {
             name: 100,
             email: 100,
-            message: 3000
+            message: 3000,
+            claimDescription: 3000,
+            phone: 50
         };
 
         const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
@@ -851,7 +853,12 @@ const {
                             <label className="text-sm font-bold text-slate-700 ml-2">Kurzbeschreibung *</label>
                             <textarea
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={(e) => {
+                                    if (e.target.value.length <= MAX_LENGTHS.claimDescription) {
+                                        setDescription(e.target.value);
+                                    }
+                                }}
+                                maxLength={MAX_LENGTHS.claimDescription}
                                 rows="5"
                                 className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"
                                 placeholder="Was ist passiert? Welche Gegenstände sind betroffen?"
@@ -1028,7 +1035,12 @@ const {
                                                 type="tel"
                                                 required
                                                 value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
+                                                onChange={(e) => {
+                                                    if (e.target.value.length <= MAX_LENGTHS.phone) {
+                                                        setPhone(e.target.value);
+                                                    }
+                                                }}
+                                                maxLength={MAX_LENGTHS.phone}
                                                 placeholder="0171 12345678"
                                                 className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium"
                                             />
