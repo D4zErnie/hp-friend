@@ -38,7 +38,7 @@ def verify_feature():
 
         # Verify "Infos" link click
         print("Testing 'Infos' link in Cookie Banner...")
-        infos_link = page.locator("a:text('Infos')")
+        infos_link = page.locator("button:text('Infos')")
         infos_link.click()
 
         # Check if navigated to Privacy Policy (or at least triggered the action)
