@@ -261,6 +261,9 @@ const {
                 <header className="relative min-h-[50vh] flex items-center text-white overflow-hidden bg-slate-900">
                     <img
                         src="https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?q=80&w=2000&auto=format&fit=crop"
+                        srcSet="https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1610029795220-e5afca4dc7ba?q=80&w=2000&auto=format&fit=crop 2000w"
+                        sizes="100vw"
+                        fetchPriority="high"
                         className="absolute inset-0 w-full h-full object-cover opacity-50"
                         alt="[Leuchtturm bei Nacht]"
                     />
@@ -376,7 +379,13 @@ const {
         const PrivatePage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-blue-900 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover opacity-50" alt="[Familie vor deutschem Haus]" />
+                    <img
+                        src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop"
+                        srcSet="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop 2000w"
+                        sizes="100vw"
+                        className="w-full h-full object-cover opacity-50"
+                        alt="[Familie vor deutschem Haus]"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                         <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-2xl">Schutz für Privatkunden</h1>
@@ -447,7 +456,13 @@ const {
         const CommercialPage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-slate-900 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover opacity-40" alt="[Bürogebäude]" />
+                    <img
+                        src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop"
+                        srcSet="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop 2000w"
+                        sizes="100vw"
+                        className="w-full h-full object-cover opacity-40"
+                        alt="[Bürogebäude]"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                         <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-2xl">Gewerbliche Absicherung</h1>
@@ -925,7 +940,13 @@ const {
         const ClaimPage = ({ navigateTo }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[400px] bg-slate-900 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover opacity-40" alt="[Defektes Fenster]" />
+                    <img
+                        src="https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=2000&auto=format&fit=crop"
+                        srcSet="https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=2000&auto=format&fit=crop 2000w"
+                        sizes="100vw"
+                        className="w-full h-full object-cover opacity-40"
+                        alt="[Defektes Fenster]"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pb-20">
                         <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl">Schadenservice</h1>
