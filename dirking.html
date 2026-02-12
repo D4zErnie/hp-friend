@@ -46,13 +46,25 @@ const {
   useRef
 } = React;
 
+        // Cache für Icons zur Vermeidung wiederholter String-Operationen
+        const iconCache = Object.create(null);
+
         // Hilfskomponente für Icons (Optimiert: Rendert SVG direkt aus lucide.icons)
         const Icon = ({ name, className = "w-6 h-6" }) => {
-            const iconName = name.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
-            const iconData = window.lucide && window.lucide.icons ? window.lucide.icons[iconName] : null;
+            if (iconCache[name] === undefined) {
+                const iconName = name.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+                const data = window.lucide && window.lucide.icons ? window.lucide.icons[iconName] : null;
+
+                if (!data) {
+                    console.warn(`Icon ${name} (${iconName}) not found`);
+                }
+
+                iconCache[name] = data;
+            }
+
+            const iconData = iconCache[name];
 
             if (!iconData) {
-                console.warn(`Icon ${name} (${iconName}) not found`);
                 return null;
             }
 
