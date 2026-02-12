@@ -43,7 +43,9 @@
 const {
   useState,
   useEffect,
-  useRef
+  useRef,
+  useCallback,
+  memo
 } = React;
 
         // Hilfskomponente für Icons (Optimiert: Rendert SVG direkt aus lucide.icons)
@@ -146,7 +148,7 @@ const {
             phone: 50
         };
 
-        const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
+        const Navigation = memo(({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-24 items-center">
@@ -208,7 +210,7 @@ const {
                     </div>
                 )}
             </nav>
-        );
+        ));
 
         const Footer = ({ navigateTo, navigateToLegal }) => (
             <footer className="bg-slate-900 text-slate-400 py-16 mt-auto">
@@ -1169,16 +1171,16 @@ const {
                 window.scrollTo(0, 0);
             }, [currentPage, legalSubTab]);
 
-            const navigateTo = (page) => {
+            const navigateTo = useCallback((page) => {
                 setCurrentPage(page);
                 setIsMenuOpen(false);
-            };
+            }, []);
 
-            const navigateToLegal = (tab) => {
+            const navigateToLegal = useCallback((tab) => {
                 setLegalSubTab(tab);
                 setCurrentPage('legal');
                 setIsMenuOpen(false);
-            };
+            }, []);
 
             const toggleService = (service) => {
                 setSavedServices(prev => {
