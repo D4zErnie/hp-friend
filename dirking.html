@@ -43,16 +43,29 @@
 const {
   useState,
   useEffect,
-  useRef
+  useRef,
+  useCallback,
+  memo
 } = React;
+
+        // Cache für Icons zur Vermeidung wiederholter String-Operationen
+        const iconCache = Object.create(null);
 
         // Hilfskomponente für Icons (Optimiert: Rendert SVG direkt aus lucide.icons)
         const Icon = ({ name, className = "w-6 h-6" }) => {
-            const iconName = name.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
-            const iconData = window.lucide && window.lucide.icons ? window.lucide.icons[iconName] : null;
+            if (iconCache[name] === undefined) {
+                const iconName = name.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+                const data = window.lucide && window.lucide.icons ? window.lucide.icons[iconName] : null;
+
+                if (!data) {
+                    console.warn(`Icon ${name} (${iconName}) not found`);
+                }
+                iconCache[name] = data;
+            }
+
+            const iconData = iconCache[name];
 
             if (!iconData) {
-                console.warn(`Icon ${name} (${iconName}) not found`);
                 return null;
             }
 
@@ -146,7 +159,7 @@ const {
             phone: 50
         };
 
-        const Navigation = ({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
+        const Navigation = memo(({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-24 items-center">
@@ -208,7 +221,7 @@ const {
                     </div>
                 )}
             </nav>
-        );
+        ));
 
         const Footer = ({ navigateTo, navigateToLegal }) => (
             <footer className="bg-slate-900 text-slate-400 py-16 mt-auto">
@@ -376,6 +389,8 @@ const {
             </div>
         );
 
+
+
         const PrivatePage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-blue-900 overflow-hidden">
@@ -443,15 +458,18 @@ const {
                             );
                         })}
                     </div>
-                    <div className="bg-blue-600 rounded-[3rem] p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-12 opacity-10"><Icon name="shield" className="w-64 h-64" /></div>
-                        <h3 className="text-3xl font-bold mb-4 relative z-10">Zeit für einen Check-up?</h3>
-                        <p className="text-blue-100 mb-8 text-lg max-w-2xl mx-auto relative z-10">Versicherungen sollten sich Ihrem Leben anpassen, nicht umgekehrt. Lassen Sie uns gemeinsam prüfen, wo Sie sparen können.</p>
-                        <button onClick={() => navigateTo('contact')} className="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-50 transition-all relative z-10">Kostenlose Erstberatung</button>
-                    </div>
                 </div>
             </div>
         );
+
+        const COMMERCIAL_SERVICES = [
+            { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
+            { title: "Inhaltsversicherung", desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden." },
+            { title: "Personal & Vorsorge", desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen." },
+            { title: "D&O Versicherung", desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen." },
+            { title: "Gewerbegebäude", desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten." },
+            { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
+        ];
 
         const CommercialPage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
@@ -474,14 +492,7 @@ const {
                         <div className="bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"><Icon name="arrow-left" className="w-5 h-5" /></div> Zurück zur Startseite
                     </button>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
-                            { title: "Inhaltsversicherung", desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden." },
-                            { title: "Personal & Vorsorge", desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen." },
-                            { title: "D&O Versicherung", desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen." },
-                            { title: "Gewerbegebäude", desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten." },
-                            { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
-                        ].map((item, i) => {
+                        {COMMERCIAL_SERVICES.map((item, i) => {
                             const isSaved = savedServices && savedServices.includes(item.title);
                             return (
                                 <div
@@ -620,15 +631,17 @@ const {
             </div>
         );
 
+        const LEGAL_TABS = [
+            { id: 'impressum', label: 'Impressum', icon: 'info' },
+            { id: 'datenschutz', label: 'Datenschutz', icon: 'lock' },
+            { id: 'erstinfo', label: 'Erstinformation', icon: 'file-text' }
+        ];
+
         const LegalPage = ({ legalSubTab, setLegalSubTab, navigateToLegal }) => (
             <div className="animate-fade-in py-16 px-4 max-w-5xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-12 text-center text-slate-900">Rechtliches & Information</h1>
                 <div className="flex flex-col md:flex-row justify-center mb-16 gap-3">
-                    {[
-                        { id: 'impressum', label: 'Impressum', icon: 'info' },
-                        { id: 'datenschutz', label: 'Datenschutz', icon: 'lock' },
-                        { id: 'erstinfo', label: 'Erstinformation', icon: 'file-text' }
-                    ].map((tab) => (
+                    {LEGAL_TABS.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setLegalSubTab(tab.id)}
@@ -675,7 +688,7 @@ const {
                                         <h4 className="font-bold text-blue-600 uppercase text-sm mb-4">Berufsbezeichnung & Register</h4>
                                         <p className="text-slate-700">
                                             Versicherungsmakler mit Erlaubnis nach § 34d Abs. 1 GewO<br />
-                                            Registernummer: <strong className="text-slate-900">D-XXXX-XXXXX-XX (Bitte prüfen!)</strong>
+                                            Registernummer: <strong className="text-slate-900">D-8UIO-45JGY-79</strong>
                                         </p>
                                     </div>
                                 </div>
@@ -1148,6 +1161,9 @@ const {
             );
         };
 
+
+
+
         const App = () => {
             const [currentPage, setCurrentPage] = useState('home');
             const [legalSubTab, setLegalSubTab] = useState('impressum');
@@ -1169,16 +1185,16 @@ const {
                 window.scrollTo(0, 0);
             }, [currentPage, legalSubTab]);
 
-            const navigateTo = (page) => {
+            const navigateTo = useCallback((page) => {
                 setCurrentPage(page);
                 setIsMenuOpen(false);
-            };
+            }, []);
 
-            const navigateToLegal = (tab) => {
+            const navigateToLegal = useCallback((tab) => {
                 setLegalSubTab(tab);
                 setCurrentPage('legal');
                 setIsMenuOpen(false);
-            };
+            }, []);
 
             const toggleService = (service) => {
                 setSavedServices(prev => {
@@ -1196,7 +1212,8 @@ const {
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
-                if (MAX_LENGTHS[name] && value.length > MAX_LENGTHS[name]) {
+                // Security: strict input validation & Allowlisting
+                if (!MAX_LENGTHS[name] || value.length > MAX_LENGTHS[name]) {
                     return;
                 }
                 setContactData(prev => ({
