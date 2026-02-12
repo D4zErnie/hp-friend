@@ -181,7 +181,6 @@ const {
                                 <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
                                 <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
                                 <button onClick={() => navigateTo('commercial')} className={currentPage === 'commercial' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Gewerbe</button>
-                                <button onClick={() => navigateTo('wizard')} className={currentPage === 'wizard' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Bedarfs-Check</button>
                                 <button onClick={() => navigateTo('contact')} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md relative group">
                                     Kontakt
                                     {savedServices && savedServices.length > 0 && (
@@ -211,7 +210,6 @@ const {
                         <button onClick={() => navigateTo('home')} className="block w-full text-left text-slate-600 py-2">Startseite</button>
                         <button onClick={() => navigateTo('private')} className="block w-full text-left text-slate-600 py-2">Privat</button>
                         <button onClick={() => navigateTo('commercial')} className="block w-full text-left text-slate-600 py-2">Gewerbe</button>
-                        <button onClick={() => navigateTo('wizard')} className="block w-full text-left text-slate-600 py-2">Bedarfs-Check</button>
                         <button onClick={() => navigateTo('contact')} className="block w-full bg-blue-600 text-white p-3 rounded-lg text-center font-bold flex justify-center items-center gap-2">
                             Kontakt
                             {savedServices && savedServices.length > 0 && (
@@ -391,85 +389,6 @@ const {
             </div>
         );
 
-                const QuickEstimator = ({ navigateTo }) => {
-            const [sqm, setSqm] = useState(60);
-            const VALUE_PER_SQM = 650;
-            const RATE = 0.002;
-
-            const sumInsured = sqm * VALUE_PER_SQM;
-            const annualPremium = sumInsured * RATE;
-
-            return (
-                <div className="bg-slate-900 text-white rounded-[3rem] p-10 md:p-16 shadow-2xl overflow-hidden relative mb-20">
-                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-                        <Icon name="calculator" className="w-96 h-96" />
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-16 relative z-10 items-center">
-                        <div>
-                            <div className="inline-flex items-center bg-blue-600/20 border border-blue-500/30 rounded-full px-4 py-1.5 text-blue-300 text-sm font-bold mb-6">
-                                <Icon name="zap" className="w-4 h-4 mr-2" />
-                                Blitz-Rechner
-                            </div>
-                            <h2 className="text-4xl font-bold mb-6">Hausrat-Schnellcheck</h2>
-                            <p className="text-blue-200 text-lg mb-10 leading-relaxed">
-                                Wie gut ist Ihr Eigentum geschützt? Berechnen Sie in Sekunden Ihren geschätzten Beitrag für eine Top-Absicherung.*
-                            </p>
-
-                            <div className="space-y-6">
-                                <div>
-                                    <div className="flex justify-between text-sm font-bold mb-2">
-                                        <span>Wohnfläche</span>
-                                        <span className="text-blue-400">{sqm} m²</span>
-                                    </div>
-                                    <input
-                                        type="range"
-                                        min="20"
-                                        max="200"
-                                        step="1"
-                                        value={sqm}
-                                        onChange={(e) => setSqm(Number(e.target.value))}
-                                        className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                                    />
-                                    <div className="flex justify-between text-xs text-slate-500 mt-2">
-                                        <span>20 m²</span>
-                                        <span>200 m²</span>
-                                    </div>
-                                </div>
-
-                                <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
-                                     <div className="flex justify-between items-center mb-2">
-                                        <span className="text-slate-400 text-sm">Empfohlene Versicherungssumme</span>
-                                        <span className="font-bold">{sumInsured.toLocaleString('de-DE')} €</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-blue-600 rounded-[2.5rem] p-10 text-center shadow-xl shadow-blue-900/50 relative overflow-hidden group">
-                             <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700"></div>
-                             <div className="relative z-10">
-                                <p className="text-blue-200 text-sm font-bold uppercase tracking-wider mb-2">Geschätzter Jahresbeitrag</p>
-                                <div className="text-5xl font-extrabold text-white mb-2 tracking-tight">
-                                    {annualPremium.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
-                                </div>
-                                <p className="text-blue-200 text-xs mb-8 opacity-80">inkl. Versicherungssteuer</p>
-
-                                <button
-                                    onClick={() => navigateTo('contact')}
-                                    className="w-full bg-white text-blue-600 font-bold py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center group-hover:scale-[1.02] active:scale-[0.98]"
-                                >
-                                    Preis jetzt sichern <Icon name="arrow-right" className="ml-2 w-5 h-5" />
-                                </button>
-                                <p className="text-[10px] text-blue-200 mt-4 leading-tight opacity-60">
-                                    *Unverbindliche Orientierungshilfe. Der tatsächliche Beitrag kann je nach Tarif, Standort und Zusatzleistungen abweichen.
-                                </p>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
 
 
         const PrivatePage = ({ navigateTo, savedServices, toggleService }) => (
@@ -539,7 +458,6 @@ const {
                             );
                         })}
                     </div>
-                    <QuickEstimator navigateTo={navigateTo} />
                 </div>
             </div>
         );
@@ -770,7 +688,7 @@ const {
                                         <h4 className="font-bold text-blue-600 uppercase text-sm mb-4">Berufsbezeichnung & Register</h4>
                                         <p className="text-slate-700">
                                             Versicherungsmakler mit Erlaubnis nach § 34d Abs. 1 GewO<br />
-                                            Registernummer: <strong className="text-slate-900">D-XXXX-XXXXX-XX (Bitte prüfen!)</strong>
+                                            Registernummer: <strong className="text-slate-900">D-8UIO-45JGY-79</strong>
                                         </p>
                                     </div>
                                 </div>
@@ -1243,140 +1161,6 @@ const {
             );
         };
 
-                const CoverageWizard = ({ navigateTo, savedServices, toggleService }) => {
-            const [step, setStep] = useState(1);
-            const [selections, setSelections] = useState({ userType: null, protectionType: null });
-
-            const USER_TYPES = [
-                { id: 'student', label: 'Student', icon: 'graduation-cap' },
-                { id: 'employee', label: 'Angestellter', icon: 'briefcase' },
-                { id: 'self_employed', label: 'Selbstständig', icon: 'store' },
-                { id: 'retiree', label: 'Rentner', icon: 'armchair' }
-            ];
-
-            const PROTECTION_TYPES = [
-                { id: 'health', label: 'Gesundheit', icon: 'heart-pulse' },
-                { id: 'car', label: 'Auto / Kfz', icon: 'car' },
-                { id: 'house', label: 'Haus & Wohnen', icon: 'home' },
-                { id: 'family', label: 'Familie', icon: 'users' }
-            ];
-
-            const getRecommendations = () => {
-                const { userType, protectionType } = selections;
-                if (protectionType === 'car') return [{ title: "KFZ-Haftpflicht & Vollkasko", desc: "Umfassender Schutz für Ihr Fahrzeug." }];
-                if (protectionType === 'house') return [{ title: "Hausrat & Gebäude", desc: "Schutz gegen Feuer, Wasser und Einbruch." }];
-                if (protectionType === 'family') return [{ title: "Privathaftpflicht", desc: "Basis-Absicherung für die ganze Familie." }, { title: "Risikolebensversicherung", desc: "Finanzielle Sicherheit für Ihre Angehörigen." }];
-
-                if (protectionType === 'health') {
-                    if (userType === 'student') return [{ title: "Studentische Krankenversicherung", desc: "Günstige Tarife speziell für Studierende." }];
-                    if (userType === 'self_employed') return [{ title: "Private Krankenversicherung", desc: "Leistungsstarker Schutz für Selbstständige." }];
-                    return [{ title: "Krankenzusatzversicherung", desc: "Optimale Ergänzung zur gesetzlichen Kasse." }];
-                }
-                return [];
-            };
-
-            const handleSelect = (key, value) => {
-                setSelections(prev => ({ ...prev, [key]: value }));
-                if (key === 'userType') setStep(2);
-                if (key === 'protectionType') setStep(3);
-            };
-
-            const reset = () => {
-                setStep(1);
-                setSelections({ userType: null, protectionType: null });
-            };
-
-            const handleAddAndContact = () => {
-                 const recs = getRecommendations();
-                 recs.forEach(r => {
-                     if (!savedServices.includes(r.title)) {
-                         toggleService(r.title);
-                     }
-                 });
-                 navigateTo('contact');
-            };
-
-            return (
-                <div className="animate-fade-in py-16 px-4 max-w-4xl mx-auto">
-                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-bold mb-4">Ihr Bedarfs-Check</h1>
-                        <p className="text-slate-600">Finden Sie in wenigen Schritten den passenden Schutz.</p>
-                        <div className="flex justify-center mt-6 gap-2">
-                            <div className={`h-2 w-12 rounded-full transition-colors ${step >= 1 ? 'bg-blue-600' : 'bg-slate-200'}`}></div>
-                            <div className={`h-2 w-12 rounded-full transition-colors ${step >= 2 ? 'bg-blue-600' : 'bg-slate-200'}`}></div>
-                            <div className={`h-2 w-12 rounded-full transition-colors ${step >= 3 ? 'bg-blue-600' : 'bg-slate-200'}`}></div>
-                        </div>
-                     </div>
-
-                     <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100 min-h-[400px] flex flex-col justify-center text-center">
-
-                        {step === 1 && (
-                            <div className="animate-fade-in w-full">
-                                <h2 className="text-2xl font-bold mb-8">Wer sind Sie?</h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {USER_TYPES.map(type => (
-                                        <button key={type.id} onClick={() => handleSelect('userType', type.id)} className="p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 transition-all text-left flex items-center group w-full">
-                                            <div className="bg-white p-3 rounded-full shadow-sm text-slate-400 group-hover:text-blue-600 mr-4 transition-colors">
-                                                <Icon name={type.icon} className="w-6 h-6" />
-                                            </div>
-                                            <span className="font-bold text-slate-700 group-hover:text-blue-900 text-lg">{type.label}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {step === 2 && (
-                            <div className="animate-fade-in w-full">
-                                <button onClick={() => setStep(1)} className="mb-6 text-slate-400 hover:text-blue-600 flex items-center text-sm font-bold mx-auto sm:mx-0"><Icon name="arrow-left" className="w-4 h-4 mr-1"/> Zurück</button>
-                                <h2 className="text-2xl font-bold mb-8">Was möchten Sie absichern?</h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {PROTECTION_TYPES.map(type => (
-                                        <button key={type.id} onClick={() => handleSelect('protectionType', type.id)} className="p-6 rounded-2xl border-2 border-slate-100 hover:border-blue-600 hover:bg-blue-50 transition-all text-left flex items-center group w-full">
-                                            <div className="bg-white p-3 rounded-full shadow-sm text-slate-400 group-hover:text-blue-600 mr-4 transition-colors">
-                                                <Icon name={type.icon} className="w-6 h-6" />
-                                            </div>
-                                            <span className="font-bold text-slate-700 group-hover:text-blue-900 text-lg">{type.label}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {step === 3 && (
-                            <div className="animate-fade-in w-full">
-                                <h2 className="text-3xl font-bold mb-2">Unsere Empfehlung</h2>
-                                <p className="text-slate-500 mb-8">Basierend auf Ihren Angaben:</p>
-
-                                <div className="space-y-4 mb-10 text-left max-w-lg mx-auto">
-                                    {getRecommendations().map((rec, idx) => (
-                                        <div key={idx} className="bg-blue-50 p-6 rounded-2xl border border-blue-100 flex items-start">
-                                            <div className="bg-white p-2 rounded-full text-blue-600 mr-4 shadow-sm mt-1 shrink-0">
-                                                <Icon name="check" className="w-5 h-5" />
-                                            </div>
-                                            <div>
-                                                <h3 className="font-bold text-blue-900 text-lg">{rec.title}</h3>
-                                                <p className="text-blue-700/80">{rec.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                     <button onClick={handleAddAndContact} className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all flex items-center justify-center">
-                                         Angebot anfordern <Icon name="arrow-right" className="ml-2 w-5 h-5" />
-                                     </button>
-                                     <button onClick={reset} className="px-8 py-4 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition-all">
-                                         Neu starten
-                                     </button>
-                                </div>
-                            </div>
-                        )}
-
-                     </div>
-                </div>
-            );
-        };
 
 
 
@@ -1459,7 +1243,6 @@ const {
                         {currentPage === 'home' && <HomePage navigateTo={navigateTo} />}
                         {currentPage === 'private' && <PrivatePage navigateTo={navigateTo} savedServices={savedServices} toggleService={toggleService} />}
                         {currentPage === 'commercial' && <CommercialPage navigateTo={navigateTo} savedServices={savedServices} toggleService={toggleService} />}
-                        {currentPage === 'wizard' && <CoverageWizard navigateTo={navigateTo} savedServices={savedServices} toggleService={toggleService} />}
                         {currentPage === 'contact' && <ContactPage
                             contactData={contactData}
                             handleInputChange={handleInputChange}
