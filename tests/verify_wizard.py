@@ -13,6 +13,13 @@ def verify_wizard():
             print("Navigating to home...")
             page.goto('http://localhost:3000/dirking.html')
 
+            # Dismiss Cookie Banner
+            try:
+                page.get_by_role("button", name="Einverstanden").click()
+                print("Cookie banner dismissed.")
+            except:
+                print("Cookie banner not found or already dismissed.")
+
             # Navigate to Bedarfs-Check
             print("Navigating to Bedarfs-Check...")
             page.get_by_text("Bedarfs-Check", exact=True).click()
@@ -56,7 +63,7 @@ def verify_wizard():
 
             # Verify Item in Merkliste
             print("Verifying Item in Merkliste...")
-            if not page.get_by_text("Ihre Merkliste").is_visible():
+            if not page.get_by_role("heading", name="Ihre Merkliste").is_visible():
                 print("FAILED: 'Ihre Merkliste' section not visible")
                 sys.exit(1)
 
