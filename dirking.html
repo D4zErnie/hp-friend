@@ -20,6 +20,41 @@
     <meta property="og:description" content="Unabhängig. Fair. Regional. Maßgeschneiderte Konzepte für Privat und Gewerbe.">
     <meta property="og:image" content="./logo.png">
 
+    <link rel="canonical" href="https://www.dirking.de/">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "InsuranceAgency",
+      "name": "Dirking Versicherungsmakler",
+      "image": "https://www.dirking.de/logo.png",
+      "@id": "https://www.dirking.de",
+      "url": "https://www.dirking.de",
+      "telephone": "+49123456789",
+      "email": "beratung@dirking.de",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Milchstraße 1-3",
+        "addressLocality": "Schüttorf",
+        "postalCode": "48465",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          "opens": "09:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Friday",
+          "opens": "09:00",
+          "closes": "14:00"
+        }
+      ]
+    }
+    </script>
+
     <!-- Favicon -->
     <link rel="icon" href="./favicon.png" type="image/png">
     <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
@@ -28,8 +63,8 @@
     <script src="https://unpkg.com/@babel/standalone@7.29.1/babel.min.js" integrity="sha384-Fo0OdKhdnE7y2WmzjOMW4PYjHkkANeu1501pWTqKrzAPeJMFQb4ZTdAA9dtrVUJV" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/lucide@0.563.0/dist/umd/lucide.min.js" integrity="sha384-aRB6X3zBuyu5EQF6GZFp0RCYdOwxYAOdFk4nViPfqSXYxc+MrZlqbM+nUYRwDQn1" crossorigin="anonymous"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        /* Font optimized for DSGVO compliance (System Fonts) */
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; scroll-behavior: smooth; }
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         /* Logo Blend Mode Fix */
@@ -37,7 +72,13 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
-    <div id="root"></div>
+    <div id="root">
+        <div style="position:fixed;inset:0;background:white;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+            <div style="width:50px;height:50px;border:4px solid #f3f3f3;border-top:4px solid #3498db;border-radius:50%;animation:spin 1s linear infinite;"></div>
+            <div style="font-family:sans-serif;font-weight:bold;color:#1e3a8a;">Lade Dirking...</div>
+            <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+        </div>
+    </div>
 
     <script type="text/babel">
 const {
@@ -278,7 +319,7 @@ const {
                         sizes="100vw"
                         fetchPriority="high"
                         className="absolute inset-0 w-full h-full object-cover opacity-50"
-                        alt="[Leuchtturm bei Nacht]"
+                        alt="Leuchtturm bei Nacht als Symbol für Sicherheit"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-900/80 to-transparent"></div>
                     <div className="max-w-7xl mx-auto px-4 relative z-10 w-full">
@@ -318,7 +359,7 @@ const {
                                 <img
                                     src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=1000&auto=format&fit=crop"
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                                    alt="[Deutsches Wohnhaus]"
+                                    alt="Modernes Wohnhaus"
                                     loading="lazy"
                                     decoding="async"
                                 />
@@ -336,7 +377,7 @@ const {
                                 <img
                                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop"
                                     className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"
-                                    alt="[Modernes Bürogebäude]"
+                                    alt="Bürogebäude Glasfassade"
                                     loading="lazy"
                                     decoding="async"
                                 />
@@ -358,7 +399,7 @@ const {
                             <img
                                 src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1000&auto=format&fit=crop"
                                 className="rounded-[3rem] shadow-2xl w-full h-[550px] object-cover"
-                                alt="[Makler bei der Arbeit]"
+                                alt="Versicherungsmakler im persönlichen Gespräch"
                                 loading="lazy"
                                 decoding="async"
                             />
@@ -399,7 +440,7 @@ const {
                         srcSet="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2000&auto=format&fit=crop 2000w"
                         sizes="100vw"
                         className="w-full h-full object-cover opacity-50"
-                        alt="[Familie vor deutschem Haus]"
+                        alt="Glückliche Familie vor ihrem Eigenheim"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
@@ -479,7 +520,7 @@ const {
                         srcSet="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2000&auto=format&fit=crop 2000w"
                         sizes="100vw"
                         className="w-full h-full object-cover opacity-40"
-                        alt="[Bürogebäude]"
+                        alt="Moderne Architektur eines Bürokomplexes"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
@@ -744,6 +785,14 @@ const {
                                     <h4 className="font-bold text-slate-900 text-xl mb-4">3. Ihre Rechte (Auskunft & Löschung)</h4>
                                     <p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Kontaktieren Sie uns hierzu einfach über die im Impressum angegebenen Wege.</p>
                                 </section>
+                                <section>
+                                    <h4 className="font-bold text-slate-900 text-xl mb-4">4. Rückruf-Service</h4>
+                                    <p>Wenn Sie unseren Rückruf-Service nutzen, speichern wir die von Ihnen angegebene Telefonnummer und den gewünschten Zeitrahmen temporär, um den Rückruf durchführen zu können. Nach Erledigung Ihrer Anfrage werden diese Daten gelöscht.</p>
+                                </section>
+                                <section>
+                                    <h4 className="font-bold text-slate-900 text-xl mb-4">5. Schadensmeldung</h4>
+                                    <p>Wenn Sie uns einen Schaden melden (via Online-Assistent), verarbeiten wir Ihre Angaben (Schadensart, Datum, Beschreibung) sowie etwaige hochgeladene Fotos. Diese Daten sind zur Prüfung und Abwicklung des Schadensfalls erforderlich und werden an das jeweilige Versicherungsunternehmen weitergeleitet. Die Übertragung erfolgt verschlüsselt.</p>
+                                </section>
                             </div>
                         </div>
                     )}
@@ -986,7 +1035,7 @@ const {
                         srcSet="https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=640&auto=format&fit=crop 640w, https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=1024&auto=format&fit=crop 1024w, https://images.unsplash.com/photo-1599256621730-d3df51f42000?q=80&w=2000&auto=format&fit=crop 2000w"
                         sizes="100vw"
                         className="w-full h-full object-cover opacity-40"
-                        alt="[Defektes Fenster]"
+                        alt="Zerbrochene Fensterscheibe"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent"></div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pb-20">
