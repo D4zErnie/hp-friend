@@ -453,6 +453,15 @@ const {
             </div>
         );
 
+        const COMMERCIAL_SERVICES = [
+            { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
+            { title: "Inhaltsversicherung", desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden." },
+            { title: "Personal & Vorsorge", desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen." },
+            { title: "D&O Versicherung", desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen." },
+            { title: "Gewerbegebäude", desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten." },
+            { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
+        ];
+
         const CommercialPage = ({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-slate-900 overflow-hidden">
@@ -474,14 +483,7 @@ const {
                         <div className="bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"><Icon name="arrow-left" className="w-5 h-5" /></div> Zurück zur Startseite
                     </button>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
-                            { title: "Inhaltsversicherung", desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden." },
-                            { title: "Personal & Vorsorge", desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen." },
-                            { title: "D&O Versicherung", desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen." },
-                            { title: "Gewerbegebäude", desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten." },
-                            { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
-                        ].map((item, i) => {
+                        {COMMERCIAL_SERVICES.map((item, i) => {
                             const isSaved = savedServices && savedServices.includes(item.title);
                             return (
                                 <div
