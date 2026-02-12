@@ -620,15 +620,17 @@ const {
             </div>
         );
 
+        const LEGAL_TABS = [
+            { id: 'impressum', label: 'Impressum', icon: 'info' },
+            { id: 'datenschutz', label: 'Datenschutz', icon: 'lock' },
+            { id: 'erstinfo', label: 'Erstinformation', icon: 'file-text' }
+        ];
+
         const LegalPage = ({ legalSubTab, setLegalSubTab, navigateToLegal }) => (
             <div className="animate-fade-in py-16 px-4 max-w-5xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-12 text-center text-slate-900">Rechtliches & Information</h1>
                 <div className="flex flex-col md:flex-row justify-center mb-16 gap-3">
-                    {[
-                        { id: 'impressum', label: 'Impressum', icon: 'info' },
-                        { id: 'datenschutz', label: 'Datenschutz', icon: 'lock' },
-                        { id: 'erstinfo', label: 'Erstinformation', icon: 'file-text' }
-                    ].map((tab) => (
+                    {LEGAL_TABS.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setLegalSubTab(tab.id)}
