@@ -521,6 +521,14 @@ const {
             </div>
         );
 
+        const CharacterCounter = ({ current, max, id }) => (
+            <div id={id} className="flex justify-end mt-1">
+                <span className="text-xs text-slate-500 font-medium">
+                    {current} / {max} Zeichen
+                </span>
+            </div>
+        );
+
         const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices }) => (
             <div className="animate-fade-in py-24 px-4 max-w-7xl mx-auto">
                 <div className="text-center mb-16">
@@ -575,7 +583,8 @@ const {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="message" className="text-sm font-bold text-slate-700 ml-2">Ihre Nachricht</label>
-                                    <textarea id="message" name="message" maxLength={3000} value={contactData.message} onChange={handleInputChange} placeholder={savedServices && savedServices.length > 0 ? "Ich interessiere mich für die ausgewählten Themen..." : "Wobei können wir Ihnen helfen?"} rows="5" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"></textarea>
+                                    <textarea id="message" name="message" aria-describedby="message-counter" maxLength={MAX_LENGTHS.message} value={contactData.message} onChange={handleInputChange} placeholder={savedServices && savedServices.length > 0 ? "Ich interessiere mich für die ausgewählten Themen..." : "Wobei können wir Ihnen helfen?"} rows="5" className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"></textarea>
+                                    <CharacterCounter id="message-counter" current={contactData.message.length} max={MAX_LENGTHS.message} />
                                 </div>
                                 <button type="submit" disabled={isSubmitting} className="w-full bg-slate-900 text-white py-6 rounded-2xl font-bold text-xl hover:bg-blue-600 disabled:bg-slate-700 disabled:cursor-not-allowed transition-all shadow-xl transform active:scale-[0.98] flex justify-center items-center">
                                     {isSubmitting ? <><Icon name="loader-2" className="animate-spin mr-3" /> Wird gesendet...</> : "Nachricht jetzt senden"}
@@ -877,11 +886,13 @@ const {
                                         setDescription(e.target.value);
                                     }
                                 }}
+                                aria-describedby="description-counter"
                                 maxLength={MAX_LENGTHS.claimDescription}
                                 rows="5"
                                 className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none transition-all"
                                 placeholder="Was ist passiert? Welche Gegenstände sind betroffen?"
                             ></textarea>
+                            <CharacterCounter id="description-counter" current={description.length} max={MAX_LENGTHS.claimDescription} />
                         </div>
 
                         <div className="space-y-2">
