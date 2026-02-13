@@ -228,10 +228,10 @@ const {
                                 </div>
                             </button>
                             <div className="hidden md:flex space-x-8 items-center font-medium text-slate-600">
-                                <button onClick={() => navigateTo('home')} className={currentPage === 'home' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
-                                <button onClick={() => navigateTo('private')} className={currentPage === 'private' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Privat</button>
-                                <button onClick={() => navigateTo('commercial')} className={currentPage === 'commercial' ? 'text-blue-600' : 'hover:text-blue-600 transition-colors'}>Gewerbe</button>
-                                <button onClick={() => navigateTo('contact')} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md relative group">
+                                <button onClick={() => navigateTo('home')} aria-current={currentPage === 'home' ? 'page' : undefined} className={currentPage === 'home' ? 'text-blue-600 font-bold' : 'hover:text-blue-600 transition-colors'}>Startseite</button>
+                                <button onClick={() => navigateTo('private')} aria-current={currentPage === 'private' ? 'page' : undefined} className={currentPage === 'private' ? 'text-blue-600 font-bold' : 'hover:text-blue-600 transition-colors'}>Privat</button>
+                                <button onClick={() => navigateTo('commercial')} aria-current={currentPage === 'commercial' ? 'page' : undefined} className={currentPage === 'commercial' ? 'text-blue-600 font-bold' : 'hover:text-blue-600 transition-colors'}>Gewerbe</button>
+                                <button onClick={() => navigateTo('contact')} aria-current={currentPage === 'contact' ? 'page' : undefined} className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-all shadow-md relative group">
                                     Kontakt
                                     {savedServices && savedServices.length > 0 && (
                                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
@@ -257,10 +257,10 @@ const {
                     </div>
                     {isMenuOpen && (
                     <div className="md:hidden bg-white border-t p-4 space-y-4 shadow-xl">
-                        <button onClick={() => navigateTo('home')} className="block w-full text-left text-slate-600 py-2">Startseite</button>
-                        <button onClick={() => navigateTo('private')} className="block w-full text-left text-slate-600 py-2">Privat</button>
-                        <button onClick={() => navigateTo('commercial')} className="block w-full text-left text-slate-600 py-2">Gewerbe</button>
-                        <button onClick={() => navigateTo('contact')} className="block w-full bg-blue-600 text-white p-3 rounded-lg text-center font-bold flex justify-center items-center gap-2">
+                        <button onClick={() => navigateTo('home')} aria-current={currentPage === 'home' ? 'page' : undefined} className={`block w-full text-left py-2 px-3 rounded-lg ${currentPage === 'home' ? 'text-blue-600 bg-blue-50 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>Startseite</button>
+                        <button onClick={() => navigateTo('private')} aria-current={currentPage === 'private' ? 'page' : undefined} className={`block w-full text-left py-2 px-3 rounded-lg ${currentPage === 'private' ? 'text-blue-600 bg-blue-50 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>Privat</button>
+                        <button onClick={() => navigateTo('commercial')} aria-current={currentPage === 'commercial' ? 'page' : undefined} className={`block w-full text-left py-2 px-3 rounded-lg ${currentPage === 'commercial' ? 'text-blue-600 bg-blue-50 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>Gewerbe</button>
+                        <button onClick={() => navigateTo('contact')} aria-current={currentPage === 'contact' ? 'page' : undefined} className="block w-full bg-blue-600 text-white p-3 rounded-lg text-center font-bold flex justify-center items-center gap-2">
                             Kontakt
                             {savedServices && savedServices.length > 0 && (
                                 <span className="bg-white text-blue-600 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
