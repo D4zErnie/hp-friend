@@ -31,3 +31,7 @@
 ## 2024-05-24 - File Input Accessibility
 **Learning:** Invisible file inputs (opacity 0) overlaying custom UI lack native focus indication, making them inaccessible to keyboard users who can't see where they are navigating.
 **Action:** Always add focus-within styles (e.g., ring, border change) to the parent container of the invisible file input to provide visual feedback when the input receives focus.
+
+## 2024-05-25 - Toggle Button States
+**Learning:** Interactive cards acting as toggle buttons (like "Merkliste") using `role="button"` are confusing to screen readers without explicit state information.
+**Action:** Always add `aria-pressed` to indicate the current state (true/false) of toggle buttons, and ensure `focus-visible` styles are distinct from the selected state to avoid confusion.
