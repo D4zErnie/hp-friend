@@ -264,7 +264,8 @@ const {
             </nav>
         ));
 
-        const Footer = ({ navigateTo, navigateToLegal }) => (
+        // Memoized to prevent re-renders when parent state changes (e.g. form input)
+        const Footer = memo(({ navigateTo, navigateToLegal }) => (
             <footer className="bg-slate-900 text-slate-400 py-16 mt-auto">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -308,7 +309,7 @@ const {
                     </div>
                 </div>
             </footer>
-        );
+        ));
 
         const HomePage = ({ navigateTo }) => (
             <div className="animate-fade-in">
@@ -1079,7 +1080,8 @@ const {
             return [storedValue, setValue];
         };
 
-        const StickyCallback = () => {
+        // Memoized to prevent re-renders on every keystroke in the contact form
+        const StickyCallback = memo(() => {
             const [isOpen, setIsOpen] = useState(false);
             const [phone, setPhone] = useState("");
             const [time, setTime] = useState("morning");
@@ -1208,7 +1210,7 @@ const {
                     )}
                 </>
             );
-        };
+        });
 
 
 
