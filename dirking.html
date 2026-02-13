@@ -200,6 +200,15 @@ const {
             phone: 50
         };
 
+        // Strict Allowlist for Claim Types to prevent injection of invalid values
+        const CLAIM_DAMAGE_TYPES = [
+            "Sturm",
+            "Diebstahl",
+            "Wasser",
+            "Unfall",
+            "Sonstiges"
+        ];
+
         const Navigation = memo(({ currentPage, navigateTo, isMenuOpen, setIsMenuOpen, savedServices }) => (
                 <nav className="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -931,15 +940,18 @@ const {
                                 <div className="relative">
                                     <select
                                         value={damageType}
-                                        onChange={(e) => setDamageType(e.target.value)}
+                                        onChange={(e) => {
+                                            // Security: Validate against allowlist
+                                            if (CLAIM_DAMAGE_TYPES.includes(e.target.value)) {
+                                                setDamageType(e.target.value);
+                                            }
+                                        }}
                                         className="w-full p-5 bg-slate-50 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 transition-all appearance-none cursor-pointer text-slate-700"
                                     >
                                         <option value="" disabled>Bitte wählen...</option>
-                                        <option value="Sturm">Sturm</option>
-                                        <option value="Diebstahl">Diebstahl</option>
-                                        <option value="Wasser">Wasser</option>
-                                        <option value="Unfall">Unfall</option>
-                                        <option value="Sonstiges">Sonstiges</option>
+                                        {CLAIM_DAMAGE_TYPES.map(type => (
+                                            <option key={type} value={type}>{type}</option>
+                                        ))}
                                     </select>
                                     <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                                         <Icon name="chevron-down" className="w-5 h-5" />
