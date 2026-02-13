@@ -469,7 +469,8 @@ const {
                                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(item.title); } }}
                                     role="button"
                                     tabIndex={0}
-                                    className={`cursor-pointer bg-white p-8 rounded-[2rem] border transition-all relative group h-full flex flex-col ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
+                                    aria-pressed={isSaved}
+                                    className={`cursor-pointer bg-white p-8 rounded-[2rem] border transition-all relative group h-full flex flex-col outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
                                 >
                                     <div className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 group-hover:text-blue-600 group-hover:bg-slate-50'}`}>
                                         <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
@@ -542,7 +543,8 @@ const {
                                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(item.title); } }}
                                     role="button"
                                     tabIndex={0}
-                                    className={`cursor-pointer bg-white p-10 rounded-[2rem] border transition-all relative group h-full flex flex-col ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
+                                    aria-pressed={isSaved}
+                                    className={`cursor-pointer bg-white p-10 rounded-[2rem] border transition-all relative group h-full flex flex-col outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
                                 >
                                     <div className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 group-hover:text-blue-600 group-hover:bg-slate-50'}`}>
                                         <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
