@@ -75,9 +75,6 @@
         .backface-hidden { backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
 
-        /* Custom Hover Flip Class because group-hover doesn't work with custom classes automatically */
-        .group:hover .flip-card-inner { transform: rotateY(180deg); }
-
         /* Custom Scrollbar for Card Backs */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 3px; }
@@ -457,16 +454,23 @@ const {
 
 
         const ServiceCard = memo(({ item, isSaved, toggleService, iconOverride }) => {
+            const [isFlipped, setIsFlipped] = useState(false);
+
             const handleBookmarkClick = useCallback((e) => {
                 e.stopPropagation();
                 toggleService(item.title);
             }, [item.title, toggleService]);
 
+            const handleFlip = useCallback((e) => {
+                e.stopPropagation();
+                setIsFlipped(prev => !prev);
+            }, []);
+
             return (
-                <div className="relative h-full min-h-[350px] perspective-1000 cursor-pointer">
+                <div className="relative h-full min-h-[350px] perspective-1000 cursor-default">
                     {/* Flipping Container */}
                     <div className="group w-full h-full">
-                        <div className="flip-card-inner w-full h-full transition-all duration-500 transform-style-3d relative">
+                        <div className={`flip-card-inner w-full h-full transition-all duration-500 transform-style-3d relative ${isFlipped ? 'rotate-y-180' : ''}`}>
                             {/* Front Side */}
                             <div className={`card-front absolute inset-0 backface-hidden bg-white p-8 rounded-[2rem] border transition-all flex flex-col h-full ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm group-hover:shadow-xl group-hover:border-blue-200'}`}>
 
@@ -487,18 +491,26 @@ const {
                                 <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
                                 <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{item.desc}</p>
 
-                                <div className={`flex items-center font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
+                                <div className={`flex items-center justify-between font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
                                     {isSaved ? (
-                                        <>
+                                        <div className="flex items-center">
                                             <Icon name="check" className="w-4 h-4 mr-2" />
-                                            Für Gespräch vorgemerkt
-                                        </>
+                                            <span>Vorgemerkt</span>
+                                        </div>
                                     ) : (
-                                        <span className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             <Icon name="plus" className="w-4 h-4 mr-2" />
-                                            Auf die Merkliste
-                                        </span>
+                                            <span>Merkliste</span>
+                                        </div>
                                     )}
+                                    <button
+                                        onClick={handleFlip}
+                                        className="flex items-center gap-1 text-blue-500 hover:text-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1 -mr-2"
+                                        aria-label={`Details zu ${item.title} anzeigen`}
+                                        aria-expanded={isFlipped}
+                                    >
+                                        Infos <Icon name="arrow-right" className="w-4 h-4" />
+                                    </button>
                                 </div>
                             </div>
 
@@ -515,7 +527,7 @@ const {
                                     </button>
                                  </div>
 
-                                 <div className="overflow-y-auto pr-2 h-full flex flex-col custom-scrollbar">
+                                 <div className="overflow-y-auto pr-2 h-full flex flex-col custom-scrollbar pb-12">
                                     <h3 className="text-xl font-bold mb-6 text-blue-400 border-b border-blue-800 pb-2 shrink-0 mr-12">{item.title}</h3>
 
                                     <div className="mb-6 shrink-0">
@@ -529,6 +541,16 @@ const {
                                             "{item.example}"
                                         </p>
                                     </div>
+                                 </div>
+
+                                 <div className="absolute bottom-6 right-6 z-30">
+                                     <button
+                                        onClick={handleFlip}
+                                        className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1 bg-slate-900/80 backdrop-blur"
+                                        aria-label="Zurück zur Übersicht"
+                                     >
+                                        <Icon name="arrow-left" className="w-4 h-4" /> Zurück
+                                     </button>
                                  </div>
                             </div>
                         </div>
