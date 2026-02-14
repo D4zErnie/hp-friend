@@ -35,3 +35,7 @@
 ## 2024-05-25 - Toggle Button States
 **Learning:** Interactive cards acting as toggle buttons (like "Merkliste") using `role="button"` are confusing to screen readers without explicit state information.
 **Action:** Always add `aria-pressed` to indicate the current state (true/false) of toggle buttons, and ensure `focus-visible` styles are distinct from the selected state to avoid confusion.
+
+## 2024-05-26 - Status Announcements & Dialogs
+**Learning:** Transient status messages (like toasts) are often missed by screen readers if they lack `role="status"` or `aria-live` attributes. Similarly, custom modals need `role="dialog"` and `aria-modal="true"` to be correctly identified.
+**Action:** Always add `role="status"` and `aria-live="polite"` to toast notifications, and ensure custom modals have `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to their title.

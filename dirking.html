@@ -1120,7 +1120,7 @@ const {
                 <>
                     {/* Toast Notification */}
                     {showToast && (
-                        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl z-[100] flex items-center gap-4 animate-fade-in w-[90%] max-w-md">
+                        <div role="status" aria-live="polite" className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl z-[100] flex items-center gap-4 animate-fade-in w-[90%] max-w-md">
                             <div className="bg-green-500 rounded-full p-1"><Icon name="check" className="w-4 h-4 text-white" /></div>
                             <div>
                                 <p className="font-bold text-sm">Rückruf angefordert!</p>
@@ -1148,7 +1148,7 @@ const {
                     {isOpen && (
                         <div className="fixed inset-0 z-50 flex items-end justify-end sm:p-6 pointer-events-none">
                             <div className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm pointer-events-auto transition-opacity" onClick={() => setIsOpen(false)}></div>
-                            <div className="bg-white rounded-t-[2rem] sm:rounded-3xl shadow-2xl border border-slate-100 p-6 w-full sm:w-96 pointer-events-auto animate-fade-in relative z-10 mr-0 sm:mr-0 mb-0 sm:mb-16">
+                            <div role="dialog" aria-modal="true" aria-labelledby="callback-title" className="bg-white rounded-t-[2rem] sm:rounded-3xl shadow-2xl border border-slate-100 p-6 w-full sm:w-96 pointer-events-auto animate-fade-in relative z-10 mr-0 sm:mr-0 mb-0 sm:mb-16">
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     className="absolute top-4 right-4 p-2 bg-slate-50 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
@@ -1161,7 +1161,7 @@ const {
                                     <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4">
                                         <Icon name="phone-call" className="w-6 h-6" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-slate-900">Rückruf anfordern</h3>
+                                    <h3 id="callback-title" className="text-xl font-bold text-slate-900">Rückruf anfordern</h3>
                                     <p className="text-slate-500 text-sm mt-1">Hinterlassen Sie Ihre Nummer, wir rufen schnellstmöglich zurück.</p>
                                 </div>
 
