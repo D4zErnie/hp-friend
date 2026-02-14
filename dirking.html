@@ -498,14 +498,11 @@ const {
                                             <span>Vorgemerkt</span>
                                         </div>
                                     ) : (
-                                        <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <Icon name="plus" className="w-4 h-4 mr-2" />
-                                            <span>Merkliste</span>
-                                        </div>
+                                        <div></div>
                                     )}
                                     <button
                                         onClick={handleFlip}
-                                        className="flex items-center gap-1 text-blue-500 hover:text-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1 -mr-2"
+                                        className="flex items-center gap-1 text-blue-500 hover:text-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1 -mr-2 ml-auto"
                                         aria-label={`Details zu ${item.title} anzeigen`}
                                         aria-expanded={isFlipped}
                                     >
@@ -517,25 +514,30 @@ const {
                             {/* Back Side */}
                             <div className="card-back absolute inset-0 backface-hidden rotate-y-180 bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl flex flex-col h-full overflow-hidden border border-slate-800">
 
-                                 <div className="absolute top-6 right-6 z-30">
+                                <div className="absolute top-6 right-6 z-30 flex items-center gap-2 group/bookmark">
+                                    {!isSaved && (
+                                        <span className="text-xs font-bold text-slate-400 opacity-0 -translate-x-2 group-hover/bookmark:opacity-100 group-hover/bookmark:translate-x-0 transition-all duration-300 pointer-events-none whitespace-nowrap hidden md:inline-block">
+                                            + Merkliste
+                                        </span>
+                                    )}
                                     <button
                                         onClick={handleBookmarkClick}
-                                        className={`p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-white hover:bg-slate-800'}`}
+                                        className={`p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-white hover:bg-slate-800 group-hover/bookmark:text-white group-hover/bookmark:bg-slate-800'}`}
                                         aria-label={`${item.title} ${isSaved ? 'von Merkliste entfernen' : 'auf Merkliste setzen'}`}
                                     >
                                         <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
                                     </button>
                                  </div>
 
-                                 <div className="overflow-y-auto pr-2 h-full flex flex-col custom-scrollbar pb-12">
-                                    <h3 className="text-xl font-bold mb-6 text-blue-400 border-b border-blue-800 pb-2 shrink-0 mr-12">{item.title}</h3>
+                                 <h3 className="text-xl font-bold mb-6 text-blue-400 border-b border-blue-800 pb-2 shrink-0 mr-12">{item.title}</h3>
 
-                                    <div className="mb-6 shrink-0">
+                                 <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar min-h-0">
+                                    <div className="mb-6">
                                         <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Was ist das?</p>
                                         <p className="text-sm leading-relaxed text-slate-300">{item.explanation}</p>
                                     </div>
 
-                                    <div className="shrink-0">
+                                    <div>
                                         <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Beispiel</p>
                                         <p className="text-sm leading-relaxed text-slate-300 italic bg-white/5 p-4 rounded-xl border border-white/10">
                                             "{item.example}"
@@ -543,10 +545,10 @@ const {
                                     </div>
                                  </div>
 
-                                 <div className="absolute bottom-6 right-6 z-30">
+                                 <div className="mt-4 flex justify-end shrink-0 pt-2 border-t border-slate-800/50">
                                      <button
                                         onClick={handleFlip}
-                                        className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1 bg-slate-900/80 backdrop-blur"
+                                        className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-2 py-1"
                                         aria-label="Zurück zur Übersicht"
                                      >
                                         <Icon name="arrow-left" className="w-4 h-4" /> Zurück
