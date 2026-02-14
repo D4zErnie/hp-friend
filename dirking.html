@@ -69,6 +69,14 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         /* Logo Blend Mode Fix */
         .logo-blend { mix-blend-mode: multiply; }
+        /* 3D Flip Card Utilities */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        /* Custom Hover Flip Class because group-hover doesn't work with custom classes automatically */
+        .group:hover .flip-card-inner { transform: rotateY(180deg); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -442,6 +450,77 @@ const {
 
 
 
+        const ServiceCard = memo(({ item, isSaved, toggleService, iconOverride }) => {
+            const handleBookmarkClick = useCallback((e) => {
+                e.stopPropagation();
+                toggleService(item.title);
+            }, [item.title, toggleService]);
+
+            return (
+                <div className="relative h-full min-h-[400px] perspective-1000 cursor-pointer">
+                    {/* Bookmark Button - Sibling on top to prevent hover flip */}
+                    <div className="absolute top-6 right-6 z-30">
+                        <button
+                            onClick={handleBookmarkClick}
+                            className={`p-2 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 hover:text-blue-600 hover:bg-slate-50'}`}
+                            aria-label={`${item.title} ${isSaved ? 'von Merkliste entfernen' : 'auf Merkliste setzen'}`}
+                        >
+                            <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
+                        </button>
+                    </div>
+
+                    {/* Flipping Container */}
+                    <div className="group w-full h-full">
+                        <div className="flip-card-inner w-full h-full transition-all duration-500 transform-style-3d relative">
+                            {/* Front Side */}
+                            <div className={`absolute inset-0 backface-hidden bg-white p-8 rounded-[2rem] border transition-all flex flex-col h-full ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm group-hover:shadow-xl group-hover:border-blue-200'}`}>
+
+                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 shadow-inner transition-colors ${isSaved ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600'}`}>
+                                    {iconOverride || (item.icon === 'income-shield' ? <IncomeShieldIcon className="w-7 h-7" /> : <Icon name={item.icon || 'briefcase'} className="w-7 h-7" />)}
+                                </div>
+
+                                <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
+                                <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{item.desc}</p>
+
+                                <div className={`flex items-center font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
+                                    {isSaved ? (
+                                        <>
+                                            <Icon name="check" className="w-4 h-4 mr-2" />
+                                            Für Gespräch vorgemerkt
+                                        </>
+                                    ) : (
+                                        <span className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <Icon name="plus" className="w-4 h-4 mr-2" />
+                                            Auf die Merkliste
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Back Side */}
+                            <div className="absolute inset-0 backface-hidden rotate-y-180 bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl flex flex-col h-full overflow-hidden border border-slate-800">
+                                 <div className="overflow-y-auto pr-2 h-full flex flex-col">
+                                    <h3 className="text-xl font-bold mb-6 text-blue-400 border-b border-blue-800 pb-2 shrink-0">{item.title}</h3>
+
+                                    <div className="mb-6 shrink-0">
+                                        <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Was ist das?</p>
+                                        <p className="text-sm leading-relaxed text-slate-300">{item.explanation}</p>
+                                    </div>
+
+                                    <div className="shrink-0">
+                                        <p className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2">Beispiel</p>
+                                        <p className="text-sm leading-relaxed text-slate-300 italic bg-white/5 p-4 rounded-xl border border-white/10">
+                                            "{item.example}"
+                                        </p>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+
         const PrivatePage = memo(({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-blue-900 overflow-hidden">
@@ -463,50 +542,15 @@ const {
                         <div className="bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"><Icon name="arrow-left" className="w-5 h-5" /></div> Zurück zur Startseite
                     </button>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                        {[
-                            { title: "Hausrat & Gebäude", icon: "home", desc: "Schutz für Ihr Eigentum gegen Elementarschäden, Leitungswasser und Einbruch." },
-                            { title: "Haftpflicht & Recht", icon: "shield", desc: "Wichtige Absicherung gegen Personen- und Sachschäden sowie Rechtshilfe." },
-                            { title: "Gesundheit & Pflege", icon: "heart-pulse", desc: "Ergänzen oder optimieren Sie Ihren Schutz bei Krankheit und im Pflegefall." },
-                            { title: "Altersvorsorge", icon: "clock", desc: "Sichern Sie Ihren Lebensstandard im Ruhestand mit individuellen Konzepten." },
-                            { title: "Einkommenssicherung", icon: "income-shield", desc: "Sichern Sie Ihre finanzielle Existenz und Ihren gewohnten Lebensstandard bei krankheits- oder unfallbedingtem Verdienstausfall." },
-                            { title: "Schwere Krankheiten Vorsorge", icon: "activity", desc: "Dread Disease: Finanzielle Soforthilfe bei Diagnosen wie Krebs oder Herzinfarkt." }
-                        ].map((item, i) => {
+                        {PRIVATE_SERVICES_DATA.map((item, i) => {
                             const isSaved = savedServices && savedServices.includes(item.title);
                             return (
-                                <div
+                                <ServiceCard
                                     key={i}
-                                    onClick={() => toggleService(item.title)}
-                                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(item.title); } }}
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-pressed={isSaved}
-                                    className={`cursor-pointer bg-white p-8 rounded-[2rem] border transition-all relative group h-full flex flex-col outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
-                                >
-                                    <div className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 group-hover:text-blue-600 group-hover:bg-slate-50'}`}>
-                                        <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
-                                    </div>
-                                    <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner transition-colors group-hover:bg-blue-600 group-hover:text-white">
-                                        {item.icon === 'income-shield' ?
-                                            <IncomeShieldIcon className="w-7 h-7" /> :
-                                            <Icon name={item.icon} className="w-7 h-7" />
-                                        }
-                                    </div>
-                                    <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{item.desc}</p>
-                                    <div className={`flex items-center font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
-                                        {isSaved ? (
-                                            <>
-                                                <Icon name="check" className="w-4 h-4 mr-2" />
-                                                Für Gespräch vorgemerkt
-                                            </>
-                                        ) : (
-                                            <span className="flex items-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300">
-                                                <Icon name="plus" className="w-4 h-4 mr-2" />
-                                                Auf die Merkliste
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
+                                    item={item}
+                                    isSaved={isSaved}
+                                    toggleService={toggleService}
+                                />
                             );
                         })}
                     </div>
@@ -514,13 +558,88 @@ const {
             </div>
         ));
 
-        const COMMERCIAL_SERVICES = [
-            { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
-            { title: "Inhaltsversicherung", desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden." },
-            { title: "Personal & Vorsorge", desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen." },
-            { title: "D&O Versicherung", desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen." },
-            { title: "Gewerbegebäude", desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten." },
-            { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
+        const PRIVATE_SERVICES_DATA = [
+            {
+                title: "Hausrat & Gebäude",
+                icon: "home",
+                desc: "Schutz für Ihr Eigentum gegen Elementarschäden, Leitungswasser und Einbruch.",
+                explanation: "Rundum-Schutz für Ihr Eigentum – von der Immobilie bis zum Inventar.",
+                example: "Ein Sturm deckt das Dach ab oder ein Rohrbruch beschädigt Ihre Möbel."
+            },
+            {
+                title: "Haftpflicht & Recht",
+                icon: "shield",
+                desc: "Wichtige Absicherung gegen Personen- und Sachschäden sowie Rechtshilfe.",
+                explanation: "Absicherung gegen Schadenersatzansprüche und Unterstützung bei Rechtsstreitigkeiten.",
+                example: "Sie beschädigen versehentlich Eigentum Dritter oder brauchen Anwaltshilfe im Verkehrsbereich."
+            },
+            {
+                title: "Gesundheit & Vorsorge",
+                icon: "heart-pulse",
+                desc: "Ergänzen oder optimieren Sie Ihren Schutz bei Krankheit und im Pflegefall.",
+                explanation: "Zugang zu bester medizinischer Versorgung und Vorsorge für den Ernstfall.",
+                example: "Chefarztbehandlung im Krankenhaus oder Kostenerstattung für Zahnersatz."
+            },
+            {
+                title: "Einkommenssicherung",
+                icon: "income-shield",
+                desc: "Sichern Sie Ihre finanzielle Existenz und Ihren gewohnten Lebensstandard bei krankheits- oder unfallbedingtem Verdienstausfall.",
+                explanation: "Finanzielle Sicherheit, wenn die Arbeitskraft durch Krankheit wegfällt.",
+                example: "Längere Krankheit oder Burnout führt dazu, dass Sie Ihren Beruf nicht mehr ausüben können."
+            },
+            {
+                title: "Altersvorsorge",
+                icon: "clock",
+                desc: "Sichern Sie Ihren Lebensstandard im Ruhestand mit individuellen Konzepten.",
+                explanation: "Strategischer Vermögensaufbau für einen sorgenfreien Ruhestand.",
+                example: "Schließen der Rentenlücke durch private Zusatzvorsorge oder fondsgebundene Lösungen."
+            },
+            {
+                title: "Unfall-Schutz",
+                icon: "activity",
+                desc: "Umfassender Schutz bei Invalidität durch Unfall – weltweit und rund um die Uhr.",
+                explanation: "Finanzielle Soforthilfe und Kapitalleistungen nach schweren Unfällen.",
+                example: "Ein Sportunfall führt zu dauerhaften körperlichen Beeinträchtigungen und Umbaukosten."
+            }
+        ];
+
+        const COMMERCIAL_SERVICES_DATA = [
+            {
+                title: "Betriebshaftpflicht",
+                desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten.",
+                explanation: "Schutz vor existenziellen Risiken durch Schäden an Dritten.",
+                example: "Ein Kunde verletzte sich in Ihren Geschäftsräumen."
+            },
+            {
+                title: "Inhaltsversicherung",
+                desc: "Schutz für Maschinen, Waren und Büroeinrichtung bei Elementarschäden.",
+                explanation: "Schutz für Ihre kaufmännische und technische Betriebseinrichtung.",
+                example: "Feuer oder Einbruch zerstört Ihr Warenlager oder Büroeinrichtung."
+            },
+            {
+                title: "Personal & Vorsorge",
+                desc: "Stärkt die Mitarbeiterbindung und soziale Absicherung durch betriebliche Vorsorgemodelle und Krankenzusatzleistungen.",
+                explanation: "Maßgeschneiderte Lösungen für Ihre individuellen Bedürfnisse.",
+                example: "Kontaktieren Sie uns für eine persönliche Beratung zu diesem Thema."
+            },
+            {
+                title: "D&O Versicherung",
+                desc: "Privat-Haftpflichtschutz für Geschäftsführer bei Fehlentscheidungen.",
+                explanation: "Maßgeschneiderte Lösungen für Ihre individuellen Bedürfnisse.",
+                example: "Kontaktieren Sie uns für eine persönliche Beratung zu diesem Thema."
+            },
+            {
+                title: "Gewerbegebäude",
+                desc: "Versicherung für Ihre Immobilien, Lagerhallen oder Werkstätten.",
+                explanation: "Maßgeschneiderte Lösungen für Ihre individuellen Bedürfnisse.",
+                example: "Kontaktieren Sie uns für eine persönliche Beratung zu diesem Thema."
+            },
+            {
+                title: "Fuhrpark-Management",
+                desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten.",
+                explanation: "Maßgeschneiderte Lösungen für Ihre individuellen Bedürfnisse.",
+                example: "Kontaktieren Sie uns für eine persönliche Beratung zu diesem Thema."
+            }
         ];
 
         const CommercialPage = memo(({ navigateTo, savedServices, toggleService }) => (
@@ -544,40 +663,15 @@ const {
                         <div className="bg-white p-2 rounded-lg shadow-sm mr-3 group-hover:bg-blue-50 transition-colors"><Icon name="arrow-left" className="w-5 h-5" /></div> Zurück zur Startseite
                     </button>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {COMMERCIAL_SERVICES.map((item, i) => {
+                        {COMMERCIAL_SERVICES_DATA.map((item, i) => {
                             const isSaved = savedServices && savedServices.includes(item.title);
                             return (
-                                <div
+                                <ServiceCard
                                     key={i}
-                                    onClick={() => toggleService(item.title)}
-                                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(item.title); } }}
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-pressed={isSaved}
-                                    className={`cursor-pointer bg-white p-10 rounded-[2rem] border transition-all relative group h-full flex flex-col outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 ${isSaved ? 'border-blue-500 shadow-blue-100 ring-4 ring-blue-50 shadow-xl' : 'border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200'}`}
-                                >
-                                    <div className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isSaved ? 'text-blue-600 bg-blue-50' : 'text-slate-300 group-hover:text-blue-600 group-hover:bg-slate-50'}`}>
-                                        <Icon name="bookmark" className={`w-6 h-6 ${isSaved ? 'fill-current' : ''}`} />
-                                    </div>
-                                    <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-inner transition-colors group-hover:bg-blue-600 group-hover:text-white">
-                                        <Icon name="briefcase" className="w-7 h-7" />
-                                    </div>
-                                    <h3 className="text-2xl font-bold mb-4 text-slate-800">{item.title}</h3>
-                                    <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">{item.desc}</p>
-                                    <div className={`flex items-center font-bold text-sm mt-auto ${isSaved ? 'text-green-600' : 'text-blue-600'}`}>
-                                        {isSaved ? (
-                                            <>
-                                                <Icon name="check" className="w-4 h-4 mr-2" />
-                                                Für Gespräch vorgemerkt
-                                            </>
-                                        ) : (
-                                            <span className="flex items-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300">
-                                                <Icon name="plus" className="w-4 h-4 mr-2" />
-                                                Auf die Merkliste
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
+                                    item={item}
+                                    isSaved={isSaved}
+                                    toggleService={toggleService}
+                                />
                             );
                         })}
                     </div>
