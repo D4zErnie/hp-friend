@@ -872,6 +872,14 @@ const {
             const handleFileChange = (e) => {
                 if (e.target.files) {
                     const selectedFiles = Array.from(e.target.files);
+
+                    if (selectedFiles.length > 5) {
+                        setFileError('Maximal 5 Dateien erlaubt.');
+                        e.target.value = '';
+                        setFiles([]);
+                        return;
+                    }
+
                     const invalidFile = selectedFiles.find(file => {
                          const validTypes = ['image/jpeg', 'image/png'];
                          // Check type and size (max 5MB)
@@ -880,6 +888,14 @@ const {
 
                     if (invalidFile) {
                         setFileError('Bitte nur Bilder (JPG, PNG) bis max. 5MB hochladen.');
+                        e.target.value = '';
+                        setFiles([]);
+                        return;
+                    }
+
+                    const totalSize = selectedFiles.reduce((acc, file) => acc + file.size, 0);
+                    if (totalSize > 10 * 1024 * 1024) {
+                        setFileError('Gesamtgröße darf 10MB nicht überschreiten.');
                         e.target.value = '';
                         setFiles([]);
                         return;
