@@ -156,7 +156,7 @@ const {
             </svg>
         );
 
-        const CookieBanner = ({ onInfoClick }) => {
+        const CookieBanner = memo(({ onInfoClick }) => {
             const [accepted, setAccepted] = useState(false);
 
             useEffect(() => {
@@ -183,7 +183,7 @@ const {
                     </div>
                 </div>
             );
-        };
+        });
 
         const FEATURES = [
             { label: "Unabhängig", sub: "Freie Tarifwahl" },
@@ -320,7 +320,7 @@ const {
             </footer>
         ));
 
-        const HomePage = ({ navigateTo }) => (
+        const HomePage = memo(({ navigateTo }) => (
             <div className="animate-fade-in">
                 <header className="relative min-h-[50vh] flex items-center text-white overflow-hidden bg-slate-900">
                     <img
@@ -438,11 +438,11 @@ const {
                     </div>
                 </section>
             </div>
-        );
+        ));
 
 
 
-        const PrivatePage = ({ navigateTo, savedServices, toggleService }) => (
+        const PrivatePage = memo(({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-blue-900 overflow-hidden">
                     <img
@@ -512,7 +512,7 @@ const {
                     </div>
                 </div>
             </div>
-        );
+        ));
 
         const COMMERCIAL_SERVICES = [
             { title: "Betriebshaftpflicht", desc: "Der Grundbaustein für jedes Gewerbe. Schützt bei Schäden an Dritten." },
@@ -523,7 +523,7 @@ const {
             { title: "Fuhrpark-Management", desc: "Clevere Flottenversicherung zur Senkung Ihrer Betriebskosten." }
         ];
 
-        const CommercialPage = ({ navigateTo, savedServices, toggleService }) => (
+        const CommercialPage = memo(({ navigateTo, savedServices, toggleService }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[450px] bg-slate-900 overflow-hidden">
                     <img
@@ -583,7 +583,7 @@ const {
                     </div>
                 </div>
             </div>
-        );
+        ));
 
         const CharacterCounter = ({ current, max, id }) => (
             <div id={id} className="flex justify-end mt-1">
@@ -593,7 +593,7 @@ const {
             </div>
         );
 
-        const ContactPage = ({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices }) => (
+        const ContactPage = memo(({ contactData, handleInputChange, handleFormSubmit, formSubmitted, setFormSubmitted, isSubmitting, savedServices, toggleService, clearServices }) => (
             <div className="animate-fade-in py-24 px-4 max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-slate-900">Lernen wir uns kennen</h1>
@@ -682,7 +682,7 @@ const {
                     </div>
                 </div>
             </div>
-        );
+        ));
 
         const LEGAL_TABS = [
             { id: 'impressum', label: 'Impressum', icon: 'info' },
@@ -690,7 +690,7 @@ const {
             { id: 'erstinfo', label: 'Erstinformation', icon: 'file-text' }
         ];
 
-        const LegalPage = ({ legalSubTab, setLegalSubTab, navigateToLegal }) => (
+        const LegalPage = memo(({ legalSubTab, setLegalSubTab, navigateToLegal }) => (
             <div className="animate-fade-in py-16 px-4 max-w-5xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-12 text-center text-slate-900">Rechtliches & Information</h1>
                 <div className="flex flex-col md:flex-row justify-center mb-16 gap-3">
@@ -853,7 +853,7 @@ const {
                     )}
                 </div>
             </div>
-        );
+        ));
 
         const ClaimWizard = () => {
             const [damageType, setDamageType] = useState('');
@@ -1058,7 +1058,7 @@ const {
             );
         };
 
-        const ClaimPage = ({ navigateTo }) => (
+        const ClaimPage = memo(({ navigateTo }) => (
             <div className="animate-fade-in">
                 <div className="relative h-[400px] bg-slate-900 overflow-hidden">
                     <img
@@ -1081,7 +1081,7 @@ const {
                     <ClaimWizard />
                 </div>
             </div>
-        );
+        ));
 
         const useLocalStorage = (key, initialValue) => {
             const [storedValue, setStoredValue] = useState(() => {
@@ -1096,7 +1096,7 @@ const {
                     return initialValue;
                 }
             });
-            const setValue = (value) => {
+            const setValue = useCallback((value) => {
                 try {
                     const valueToStore = value instanceof Function ? value(storedValue) : value;
                     setStoredValue(valueToStore);
@@ -1106,7 +1106,7 @@ const {
                 } catch (error) {
                     console.log(error);
                 }
-            };
+            }, [key, storedValue]);
             return [storedValue, setValue];
         };
 
@@ -1277,7 +1277,7 @@ const {
                 setIsMenuOpen(false);
             }, []);
 
-            const toggleService = (service) => {
+            const toggleService = useCallback((service) => {
                 setSavedServices(prev => {
                     if (prev.includes(service)) {
                         return prev.filter(s => s !== service);
@@ -1285,13 +1285,13 @@ const {
                         return [...prev, service];
                     }
                 });
-            };
+            }, [setSavedServices]);
 
-            const clearServices = () => {
+            const clearServices = useCallback(() => {
                 setSavedServices([]);
-            };
+            }, [setSavedServices]);
 
-            const handleInputChange = (e) => {
+            const handleInputChange = useCallback((e) => {
                 const { name, value } = e.target;
                 // Security: strict input validation & Allowlisting
                 if (!MAX_LENGTHS[name] || value.length > MAX_LENGTHS[name]) {
@@ -1301,9 +1301,9 @@ const {
                     ...prev,
                     [name]: value
                 }));
-            };
+            }, []);
 
-            const handleFormSubmit = (e) => {
+            const handleFormSubmit = useCallback((e) => {
                 e.preventDefault();
                 setIsSubmitting(true);
                 // Simulierte Netzwerkverzögerung für besseres UX-Feedback
@@ -1314,7 +1314,11 @@ const {
                     setIsSubmitting(false);
                     setFormSubmitted(true);
                 }, 1500);
-            };
+            }, [contactData, savedServices]);
+
+            const handleCookieInfoClick = useCallback(() => {
+                navigateToLegal('datenschutz');
+            }, [navigateToLegal]);
 
             return (
                 <div className="min-h-screen flex flex-col font-sans">
@@ -1344,7 +1348,7 @@ const {
                     </main>
                     <Footer navigateTo={navigateTo} navigateToLegal={navigateToLegal} />
                     <StickyCallback />
-                    <CookieBanner onInfoClick={() => navigateToLegal('datenschutz')} />
+                    <CookieBanner onInfoClick={handleCookieInfoClick} />
                 </div>
             );
         };
