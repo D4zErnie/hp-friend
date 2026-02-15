@@ -1002,11 +1002,9 @@ const {
             const [fileError, setFileError] = useState('');
             const [isSubmitting, setIsSubmitting] = useState(false);
             const [isSubmitted, setIsSubmitted] = useState(false);
-            const [isValid, setIsValid] = useState(false);
 
-            useEffect(() => {
-                setIsValid(damageType !== '' && date !== '' && description !== '');
-            }, [damageType, date, description]);
+            // Optimized: Derived state to prevent unnecessary re-renders on every keystroke
+            const isValid = damageType !== '' && date !== '' && description !== '';
 
             const handleFileChange = (e) => {
                 if (e.target.files) {
