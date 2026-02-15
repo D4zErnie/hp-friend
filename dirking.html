@@ -1291,7 +1291,7 @@ const {
                                 <p className="font-bold text-sm">Rückruf angefordert!</p>
                                 <p className="text-xs text-slate-300">Wir melden uns {time === 'morning' ? 'morgens' : time === 'lunch' ? 'mittags' : 'abends'} bei Ihnen.</p>
                             </div>
-                            <button onClick={() => setShowToast(false)} className="ml-auto text-slate-400 hover:text-white"><Icon name="x" className="w-4 h-4" /></button>
+                            <button onClick={() => setShowToast(false)} className="ml-auto text-slate-400 hover:text-white" aria-label="Benachrichtigung schließen"><Icon name="x" className="w-4 h-4" /></button>
                         </div>
                     )}
 
